@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Game implements ApplicationListener {
-	//Testa svn!!!
 	//Testar svn igen!!!
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
