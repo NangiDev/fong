@@ -1,10 +1,13 @@
 package com.me.fong;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class GameScreen implements Screen{
 	private World world;
 	private MyGame game;
+	private TextButton pauseButton;
 
 	public GameScreen(MyGame myGame) {
 		this.game = myGame;
@@ -25,6 +28,7 @@ public class GameScreen implements Screen{
 
 		game.drawBackground();
 		game.fontLarge.draw(game.batch, "GAME!", game.screenWidth*0.2f, game.screenHeight*0.8f);
+		game.table.draw(game.batch, 1);
 
 		game.batch.end();
 	}
@@ -51,5 +55,10 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void dispose() {
+	}
+	
+	private void setupMenuLayout(){
+		pauseButton = new MenuButton("Pause", game.smallButtonStyle, GameState.Pause, game);
+		game.table.add(pauseButton).top().align(Align.right);
 	}
 }
