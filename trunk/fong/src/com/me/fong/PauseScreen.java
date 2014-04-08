@@ -3,10 +3,17 @@ package com.me.fong;
 import com.badlogic.gdx.Screen;
 
 public class PauseScreen implements Screen{
+	private MyGame game;
+
+	public PauseScreen(MyGame myGame) {
+		this.game = myGame;
+	}
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		game.batch.begin();
+		game.fontSmall.draw(game.batch, "Pause", 100, 100);
+		game.batch.end();
 		
 	}
 
