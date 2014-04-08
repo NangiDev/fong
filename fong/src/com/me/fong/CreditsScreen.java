@@ -19,8 +19,8 @@ public class CreditsScreen implements Screen{
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/credits.png"));
 		System.out.println("new CreditsScreen created");
-		this.creditsText = "Ray Larabie at www.1001fonts.com for the font\n"
-				+ "Kenney at www.kenney.nl for the graphics\n";
+		this.creditsText = "Ray Larabie at www.1001fonts.com for fonts\n\n"
+				+ "Kenney at www.kenney.nl for graphics\n";
 	}
 
 	@Override
@@ -74,21 +74,20 @@ public class CreditsScreen implements Screen{
 	public void dispose() {		
 	}
 
-	public void setupMenuLayout() {
+	private void setupMenuLayout() {
 		thanksLabel = new Label("Thanks to!", game.mediumlabelStyle);
-		
+
 		textLabel = new Label(creditsText, game.smalllabelStyle);
-		textLabel.setWidth(game.table.getWidth());
 		textLabel.setAlignment(Align.center);
 		textLabel.setWrap(true);
 		
 		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
 		
-		game.table.add().row().padBottom(25.0f * game.scaleY);
-		game.table.add(thanksLabel).row().expandX().padBottom(25.0f * game.scaleY);
+		game.table.add().row().padBottom(25.0f * game.scaleY).expandX();
+		game.table.add(thanksLabel).row().padBottom(25.0f * game.scaleY).fill(true, false);
 		game.table.add(textLabel).row().padBottom(25.0f * game.scaleY);
 		game.table.add(backButton).row().padBottom(25.0f * game.scaleY);
-				
-		game.table.padTop(header.getHeight() * 1.5f);
+
+		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
 	}
 }

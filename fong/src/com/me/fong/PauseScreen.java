@@ -13,7 +13,7 @@ public class PauseScreen implements Screen{
 
 	public PauseScreen(MyGame myGame) {
 		this.game = myGame;
-		this.header = new Texture(Gdx.files.internal("menu/Pause.png"));
+		this.header = new Texture(Gdx.files.internal("menu/pause.png"));
 		System.out.println("new PauseScreen created");
 	}
 
@@ -76,8 +76,8 @@ public class PauseScreen implements Screen{
 		game.table.add().row().padBottom(25.0f * game.scaleY);
 		game.table.add(resumeButton).row().padBottom(25.0f * game.scaleY);
 		game.table.add(exitButton);
-		
-		game.table.padTop(header.getHeight() * 1.5f);
+
+		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
 	}
 
 }

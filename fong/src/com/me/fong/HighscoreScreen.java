@@ -95,6 +95,7 @@ public class HighscoreScreen implements Screen {
 		game.table.add(name4).row().align(Align.left).padBottom(25.0f * game.scaleY);
 		game.table.add(name5).row().align(Align.left).padBottom(25.0f * game.scaleY);
 		game.table.add(backButton).row().align(Align.center);
-		game.table.padTop(header.getHeight() * 1.5f);
+
+		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
 	}
 }
