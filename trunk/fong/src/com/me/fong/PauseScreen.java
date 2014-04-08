@@ -71,7 +71,7 @@ public class PauseScreen implements Screen{
 	
 	private void setupMenuLayout(){
 		resumeButton = new MenuButton("Resume", game.mediumButtonStyle, GameState.Game, game);
-		exitButton = new MenuButton("Resume", game.mediumButtonStyle, GameState.MainMenu, game);
+		exitButton = new MenuButton("Exit", game.mediumButtonStyle, GameState.MainMenu, game);
 		
 		game.table.add().row().padBottom(25.0f * game.scaleY);
 		game.table.add(resumeButton).row().padBottom(25.0f * game.scaleY);

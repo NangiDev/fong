@@ -39,10 +39,12 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void show() {
+		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
+		game.table.clearChildren();
 	}
 
 	@Override
@@ -59,6 +61,8 @@ public class GameScreen implements Screen{
 	
 	private void setupMenuLayout(){
 		pauseButton = new MenuButton("Pause", game.smallButtonStyle, GameState.Pause, game);
-		game.table.add(pauseButton).top().align(Align.right);
+		
+		game.table.add().row().padBottom(25.0f * game.scaleY);
+		game.table.add(pauseButton);
 	}
 }
