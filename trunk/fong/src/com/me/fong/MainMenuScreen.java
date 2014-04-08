@@ -72,7 +72,7 @@ public class MainMenuScreen implements Screen {
 	public void dispose() {
 	}
 
-	public void setupMenuLayout() {
+	private void setupMenuLayout() {
 		startButton = new MenuButton("Start", game.mediumButtonStyle,
 				GameState.Game, game);
 		highscoreButton = new MenuButton("Highscore", game.mediumButtonStyle,
@@ -91,6 +91,6 @@ public class MainMenuScreen implements Screen {
 		game.table.add(howToPlayButton).row().padBottom(25.0f * game.scaleY);
 		game.table.add(creditsButton);
 		
-		game.table.padTop(header.getHeight() * 1.5f);
+		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
 	}
 }

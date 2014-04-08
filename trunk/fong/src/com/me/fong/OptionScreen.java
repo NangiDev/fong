@@ -78,7 +78,7 @@ public class OptionScreen implements Screen{
 	public void dispose() {
 	}
 	
-	public void setupMenuLayout() {
+	private void setupMenuLayout() {
 		Table innerTable = new Table(game.skin);
 		
 		music = new Label("Music", game.mediumlabelStyle);
@@ -104,7 +104,7 @@ public class OptionScreen implements Screen{
 
 		game.table.add(innerTable).row();
 		game.table.add(backButton);
-		
-		game.table.padTop(header.getHeight() * 1.5f);
+
+		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
 	}
 }

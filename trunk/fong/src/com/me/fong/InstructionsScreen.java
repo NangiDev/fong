@@ -72,7 +72,7 @@ public class InstructionsScreen implements Screen{
 
 		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
 		game.table.add(backButton);
-		
-		game.table.padTop(header.getHeight() * 1.5f);
+
+		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
 	}
 }
