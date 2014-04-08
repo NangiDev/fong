@@ -5,10 +5,12 @@ import com.badlogic.gdx.Screen;
 public class GameScreen implements Screen{
 	private World world;
 
+	public GameScreen(MyGame myGame) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
+	public void render(float delta) {		
 	}
 
 	@Override
@@ -26,7 +28,6 @@ public class GameScreen implements Screen{
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
