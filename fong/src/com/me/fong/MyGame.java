@@ -123,8 +123,8 @@ public class MyGame extends Game {
 		skin.add("mediumButton", mediumButtonStyle);
 		skin.add("smallButton", smallButtonStyle);
 		
-		table.setFillParent(true);
 		table.top();
+		table.setFillParent(true);
 		stage.addActor(table);
 	}
 
