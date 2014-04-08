@@ -14,12 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class HighscoreScreen implements Screen {
 	private MyGame game;
-	private Stage stage;
-	private Skin skin;
-	private Table table;
-	private Texture logotypeTexture;
+	private Texture header;
 	private TextButton backButton;
-	private Label HighscoreLabel;
 	private Label name1;
 	private Label name2;
 	private Label name3;
@@ -28,6 +24,8 @@ public class HighscoreScreen implements Screen {
 
 	public HighscoreScreen(MyGame myGame) {
 		this.game = myGame;
+		System.out.println("new HighscoreScreen created");
+		header = new Texture(Gdx.files.internal("menu/highscore.png"));
 	}
 
 	@Override
@@ -44,14 +42,15 @@ public class HighscoreScreen implements Screen {
 		game.batch.begin();
 
 		game.drawBackground();
-		table.draw(game.batch, 1);
-		game.batch.draw(logotypeTexture, (game.screenWidth * 0.5f)
-				- (logotypeTexture.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.75f, logotypeTexture.getWidth()
-						* game.scaleX, logotypeTexture.getHeight()
+		
+		game.batch.draw(header, (game.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * game.scaleX),
+				game.screenHeight * 0.7f, header.getWidth()
+						* game.scaleX, header.getHeight()
 						* game.scaleY);
-
-		//table.drawDebug(stage);
+		
+		game.table.draw(game.batch, 1);
+		
 		game.batch.end();
 	}
 
@@ -61,11 +60,12 @@ public class HighscoreScreen implements Screen {
 
 	@Override
 	public void show() {
-		setupManuLayout();
+		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
+		game.table.clearChildren();
 	}
 
 	@Override
@@ -78,51 +78,23 @@ public class HighscoreScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		logotypeTexture.dispose();
-		stage.dispose();
-		skin.dispose();
 	}
 
-	public void setupManuLayout() {
-		this.stage = new Stage();
-		this.skin = new Skin();
-		this.table = new Table(skin);
-
-		Gdx.input.setInputProcessor(stage);
+	public void setupMenuLayout() {
+		name1 = new Label("1, ", game.mediumlabelStyle);
+		name2 = new Label("2, ", game.mediumlabelStyle);
+		name3 = new Label("3, ", game.mediumlabelStyle);
+		name4 = new Label("4, ", game.mediumlabelStyle);
+		name5 = new Label("5, ", game.mediumlabelStyle);
+		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
 		
-		logotypeTexture = new Texture(Gdx.files.internal("menu/highscore.png"));
-
-		skin.add("fontMedium", game.fontMedium);
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
-		textButtonStyle.font = skin.getFont("fontMedium");
-		skin.add("default", textButtonStyle);
-
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = skin.getFont("fontMedium");
-		skin.add("default", labelStyle);
-
-		table.setFillParent(true);
-		table.top();
-		table.padTop(game.screenHeight*0.3f);
-		stage.addActor(table);
-
-		HighscoreLabel = new Label("Highscore", skin);
-		name1 = new Label("1, ", skin);
-		name2 = new Label("2, ", skin);
-		name3 = new Label("3, ", skin);
-		name4 = new Label("4, ", skin);
-		name5 = new Label("5, ", skin);
-		backButton = game.setupButton("Back", skin, GameState.MainMenu);
-		
-		table.add().row().align(Align.left);
-		table.add(name1).row().align(Align.left);
-		table.add(name2).row().align(Align.left);
-		table.add(name3).row().align(Align.left);
-		table.add(name4).row().align(Align.left);
-		table.add(name5).row().align(Align.center).expandY();
-		table.add(backButton);
-		
-		table.debug();
+		game.table.add().row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(name1).row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(name2).row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(name3).row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(name4).row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(name5).row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(backButton).row().align(Align.center);
+		game.table.padTop(header.getHeight() * 1.5f);
 	}
-
 }
