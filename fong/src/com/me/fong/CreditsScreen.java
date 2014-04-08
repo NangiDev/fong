@@ -13,6 +13,7 @@ public class CreditsScreen implements Screen{
 	private Texture header;
 	private TextButton backButton;
 	private Label thanksLabel;
+	private Label textLabel;
 
 	public CreditsScreen(MyGame myGame) {
 		this.game = myGame;
@@ -44,6 +45,7 @@ public class CreditsScreen implements Screen{
 		
 		game.table.draw(game.batch, 1);
 		
+		game.table.drawDebug(game.stage);
 		game.batch.end();
 	}
 
@@ -74,22 +76,23 @@ public class CreditsScreen implements Screen{
 	}
 
 	public void setupMenuLayout() {
-		String temp = "";
-		thanksLabel = new Label(creditsText, game.mediumlabelStyle);
-		thanksLabel.setFillParent(true);
-		thanksLabel.setAlignment(Align.center);
-		thanksLabel.setWrap(true);
+		thanksLabel = new Label("Thanks to!", game.mediumlabelStyle);
+		textLabel = new Label(creditsText, game.smalllabelStyle);
 		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
 		
-		game.table.add(thanksLabel);
+		game.table.add(thanksLabel).row().expandX();
+		game.table.add(textLabel).row();
 		
+		/*
+		String temp = "";
 		while(creditsText.length() != 0){
 			temp = creditsText.substring(0, creditsText.indexOf("\n")+1);
 			creditsText = creditsText.replace(temp.toString(), "");
 			game.table.add(new Label(temp.trim(), game.smalllabelStyle)).row();
-		}
-		
+		}*/
+	
 		game.table.add(backButton).row();
 		game.table.padTop(header.getHeight() * 1.5f);
+		game.table.debug();
 	}
 }
