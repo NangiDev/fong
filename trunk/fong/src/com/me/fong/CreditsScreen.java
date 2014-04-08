@@ -45,7 +45,6 @@ public class CreditsScreen implements Screen{
 		
 		game.table.draw(game.batch, 1);
 		
-		game.table.drawDebug(game.stage);
 		game.batch.end();
 	}
 
@@ -77,22 +76,19 @@ public class CreditsScreen implements Screen{
 
 	public void setupMenuLayout() {
 		thanksLabel = new Label("Thanks to!", game.mediumlabelStyle);
+		
 		textLabel = new Label(creditsText, game.smalllabelStyle);
+		textLabel.setWidth(game.table.getWidth());
+		textLabel.setAlignment(Align.center);
+		textLabel.setWrap(true);
+		
 		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
 		
-		game.table.add(thanksLabel).row().expandX();
-		game.table.add(textLabel).row();
-		
-		/*
-		String temp = "";
-		while(creditsText.length() != 0){
-			temp = creditsText.substring(0, creditsText.indexOf("\n")+1);
-			creditsText = creditsText.replace(temp.toString(), "");
-			game.table.add(new Label(temp.trim(), game.smalllabelStyle)).row();
-		}*/
-	
-		game.table.add(backButton).row();
+		game.table.add().row().padBottom(25.0f * game.scaleY);
+		game.table.add(thanksLabel).row().expandX().padBottom(25.0f * game.scaleY);
+		game.table.add(textLabel).row().padBottom(25.0f * game.scaleY);
+		game.table.add(backButton).row().padBottom(25.0f * game.scaleY);
+				
 		game.table.padTop(header.getHeight() * 1.5f);
-		game.table.debug();
 	}
 }
