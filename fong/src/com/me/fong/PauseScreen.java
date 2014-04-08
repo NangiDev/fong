@@ -7,50 +7,50 @@ public class PauseScreen implements Screen{
 
 	public PauseScreen(MyGame myGame) {
 		this.game = myGame;
+		System.out.println("new PauseScreen created");
 	}
 
 	@Override
 	public void render(float delta) {
+		update(delta);
+		draw(delta);
+	}
+
+	public void update(float delta) {
+
+	}
+
+	public void draw(float delta) {
 		game.batch.begin();
-		game.fontSmall.draw(game.batch, "Pause", 100, 100);
-		game.batch.end();
+
+		game.drawBackground();
+		game.table.draw(game.batch, 1);
 		
+		game.batch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

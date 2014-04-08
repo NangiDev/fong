@@ -10,6 +10,7 @@ public class Main {
 		cfg.title = "Fong";
 		cfg.width = 600;
 		cfg.height = 960;
+		cfg.resizable = false;
 		
 		new LwjglApplication(new MyGame(), cfg);
 	}

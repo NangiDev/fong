@@ -4,47 +4,52 @@ import com.badlogic.gdx.Screen;
 
 public class GameScreen implements Screen{
 	private World world;
+	private MyGame game;
 
 	public GameScreen(MyGame myGame) {
-		// TODO Auto-generated constructor stub
+		this.game = myGame;
+		System.out.println("new GameScreen created");
 	}
 
 	@Override
-	public void render(float delta) {		
+	public void render(float delta) {
+		update(delta);
+		draw(delta);
+	}
+
+	public void update(float delta) {
+	}
+
+	public void draw(float delta) {
+		game.batch.begin();
+
+		game.drawBackground();
+		game.fontLarge.draw(game.batch, "GAME!", game.screenWidth*0.2f, game.screenHeight*0.8f);
+
+		game.batch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
 	}
 }
