@@ -40,7 +40,7 @@ public class MyGame extends Game {
 	public LabelStyle smalllabelStyle;
 
 	private OrthographicCamera camera;
-	private HighscoreData HighscoreData;
+	public HighscoreManager HighscoreManager;
 
 	private int tilesW, tilesH;
 	private Texture backgoundTexture;
@@ -64,7 +64,7 @@ public class MyGame extends Game {
 		screenHeight = Gdx.graphics.getHeight();
 		scaleX = screenWidth / 600;
 		scaleY = screenHeight / 960;
-		this.camera = new OrthographicCamera(1, screenHeight / screenWidth);
+		camera = new OrthographicCamera(1, screenHeight / screenWidth);
 		this.backgoundTexture = new Texture(Gdx.files.internal("purple.png"));
 		backgoundTexture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
@@ -72,6 +72,7 @@ public class MyGame extends Game {
 		myGreen = new Color(125.0f/255.0f,149.0f/255.0f,85.0f/255.0f,1.0f);
 		myYellow = new Color(208.0f/255.0f,200.0f/255.0f,159.0f/255.0f,1.0f);
 		
+		HighscoreManager = new HighscoreManager();
 		
 		createFont();
 		setupLayout();
@@ -104,17 +105,14 @@ public class MyGame extends Game {
 		largeButtonStyle = new TextButtonStyle();
 		largeButtonStyle.font = skin.getFont("fontLarge");
 		largeButtonStyle.fontColor = myYellow;
-		largeButtonStyle.overFontColor = myGreen;
 		
 		mediumButtonStyle = new TextButtonStyle();
 		mediumButtonStyle.font = skin.getFont("fontMedium");
 		mediumButtonStyle.fontColor = myYellow;
-		mediumButtonStyle.overFontColor = myGreen;
 		
 		smallButtonStyle = new TextButtonStyle();
 		smallButtonStyle.font = skin.getFont("fontSmall");
 		smallButtonStyle.fontColor = myYellow;
-		smallButtonStyle.overFontColor = myGreen;
 		
 		skin.add("default", largelabelStyle);
 		skin.add("default", mediumlabelStyle);
