@@ -1,6 +1,8 @@
 package com.me.fong;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 
 public class GameOverScreen implements Screen {
 	private MyGame game;
@@ -17,14 +19,16 @@ public class GameOverScreen implements Screen {
 	}
 
 	public void update(float delta) {
-
+		if (Gdx.input.isKeyPressed(Keys.BACK)) {
+			game.switchToScreen(GameState.MainMenu);
+		}
 	}
 
 	public void draw(float delta) {
 		game.batch.begin();
-		
+
 		game.drawBackground();
-		
+
 		game.batch.end();
 	}
 

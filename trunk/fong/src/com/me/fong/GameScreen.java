@@ -1,6 +1,8 @@
 package com.me.fong;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -33,6 +35,9 @@ public class GameScreen implements Screen {
 	}
 
 	public void update(float delta) {
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			game.switchToScreen(GameState.Pause);
+		}
 	}
 
 	public void draw(float delta) {

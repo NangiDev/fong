@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -37,6 +38,9 @@ public class MainMenuScreen implements Screen {
 	}
 
 	public void update(float delta) {
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			Gdx.app.exit();
+		}
 	}
 
 	public void draw(float delta) {

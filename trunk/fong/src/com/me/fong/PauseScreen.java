@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -24,7 +25,9 @@ public class PauseScreen implements Screen{
 	}
 
 	public void update(float delta) {
-
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			game.switchToScreen(GameState.Game);
+		}
 	}
 
 	public void draw(float delta) {
