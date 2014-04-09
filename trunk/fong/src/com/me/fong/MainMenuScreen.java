@@ -2,13 +2,17 @@ package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class MainMenuScreen implements Screen {
 
 	private MyGame game;
 	private Texture header;
+	private Label signature;
 	private TextButton startButton;
 	private TextButton highscoreButton;
 	private TextButton howToPlayButton;
@@ -18,6 +22,11 @@ public class MainMenuScreen implements Screen {
 	public MainMenuScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/logotype.png"));
+		signature = new Label("A game made by\nJoel Setterberg &\nJonatan Elsgard", game.smalllabelStyle);
+		signature.setAlignment(Align.center);
+		signature.setWidth(game.screenWidth);
+		signature.setWrap(true);
+		signature.setPosition(0, signature.getHeight() * 0.5f * game.scaleY);
 		System.out.println("new MainMenuScreen created");
 	}
 
@@ -40,6 +49,8 @@ public class MainMenuScreen implements Screen {
 				game.screenHeight * 0.7f, header.getWidth()
 						* game.scaleX, header.getHeight()
 						* game.scaleY);
+		
+		signature.draw(game.batch, 1);
 
 		game.table.draw(game.batch, 1);
 
