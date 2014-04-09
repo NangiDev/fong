@@ -2,8 +2,8 @@ import Image
 import sys
 im = Image.open("ufoBlue.png")
 pix = im.load()
-print im.size
-print pix[0,0]
+#print im.size
+#print pix[0,0]
 res = [[0 for x in xrange(im.size[0])] for x in xrange(im.size[1])]
 for i in range(im.size[0]):
     for j in range(im.size[1]):
@@ -11,8 +11,10 @@ for i in range(im.size[0]):
             res[i][j] = 0
         else:
             res[i][j] = 1000000000
-        sys.stdout.write(str(res[i][j]))
-    print '\n'
+        #sys.stdout.write(str(res[i][j]))
+    #print '\n'
+
+#print "finnished"
 
 def adjacent_passages(mat, pos):
     possible = []
