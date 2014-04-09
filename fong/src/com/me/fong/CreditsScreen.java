@@ -19,9 +19,15 @@ public class CreditsScreen implements Screen {
 	public CreditsScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/credits.png"));
+
 		this.creditsText = "Our tutor Mathias Broxwall at Örebro University\n\n"
 				+ "Ray Larabie at www.1001fonts.com for fonts\n\n"
 				+ "Kenney at www.kenney.nl for graphics";
+		
+		thanksLabel = new Label("Thanks!", game.largelabelStyle);
+		textLabel = new Label(creditsText, game.smalllabelStyle);
+		backButton = new MenuButton("Back", game.mediumButtonStyle,
+				GameState.MainMenu, game);
 		
 		System.out.println("new CreditsScreen created");
 	}
@@ -80,17 +86,12 @@ public class CreditsScreen implements Screen {
 	}
 
 	private void setupMenuLayout() {
-		thanksLabel = new Label("Thanks!", game.largelabelStyle);
-
-		textLabel = new Label(creditsText, game.smalllabelStyle);
 		textLabel.setAlignment(Align.center);
 		textLabel.setWrap(true);
 
-		backButton = new MenuButton("Back", game.mediumButtonStyle,
-				GameState.MainMenu, game);
 
 		game.table.add().row().padBottom(50.0f * game.scaleY).expandX();
-		game.table.add(thanksLabel).row().padBottom(75.0f * game.scaleY)
+		game.table.add(thanksLabel).row().padBottom(50.0f * game.scaleY)
 				.fill(true, false);
 		game.table.add(textLabel).row();
 		game.table.add(backButton).row();

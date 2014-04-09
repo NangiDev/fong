@@ -8,9 +8,11 @@ public class MenuButton extends TextButton {
 
 	public Boolean enable;
 
-	public MenuButton(final String text, TextButtonStyle skin) {
+	public MenuButton(final String text, TextButtonStyle skin, boolean state) {
 		super(text, skin);
 
+		this.enable = state;
+		
 		addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {

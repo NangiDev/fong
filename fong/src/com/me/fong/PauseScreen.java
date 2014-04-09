@@ -15,6 +15,9 @@ public class PauseScreen implements Screen{
 	public PauseScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/pause.png"));
+		resumeButton = new MenuButton("Resume :)", game.mediumButtonStyle, GameState.Game, game);
+		exitButton = new MenuButton("Exit :(", game.mediumButtonStyle, GameState.MainMenu, game);
+		
 		System.out.println("new PauseScreen created");
 	}
 
@@ -73,10 +76,8 @@ public class PauseScreen implements Screen{
 	}
 	
 	private void setupMenuLayout(){
-		resumeButton = new MenuButton("Resume", game.mediumButtonStyle, GameState.Game, game);
-		exitButton = new MenuButton("Exit", game.mediumButtonStyle, GameState.MainMenu, game);
 		
-		game.table.add().row().padBottom(25.0f * game.scaleY);
+		game.table.add().row().padBottom(100.0f * game.scaleY);
 		game.table.add(resumeButton).row().padBottom(25.0f * game.scaleY);
 		game.table.add(exitButton);
 

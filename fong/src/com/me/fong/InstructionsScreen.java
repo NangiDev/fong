@@ -30,6 +30,11 @@ public class InstructionsScreen implements Screen {
 				+ "It is easier if you pick up power-ups\n\n"
 				+ "Gain points by surviving and kill as many foes as possible!";
 		this.controlText = "Touch the Screen to control the ship!";
+		
+		textLabel = new Label(instructionsText, game.smalllabelStyle);
+		controlLabel = new Label(controlText, game.smalllabelStyle);
+		backButton = new MenuButton("Back", game.mediumButtonStyle,
+				GameState.MainMenu, game);
 
 		System.out.println("new InstructionsScreen created");
 	}
@@ -42,10 +47,10 @@ public class InstructionsScreen implements Screen {
 
 	public void update(float delta) {
 		if (Gdx.input.isTouched()) {
-			if (Gdx.input.getX() > game.screenWidth * 0.5f)
-				shipXpos += 15;
-			else
-				shipXpos -= 15;
+			if (Gdx.input.getX() >  shipXpos + tutorialShip.getWidth() * 0.5f * game.scaleX + 5)
+				shipXpos += 500 * delta;
+			else if(Gdx.input.getX() <  shipXpos + tutorialShip.getWidth() * 0.5f * game.scaleX - 5)
+				shipXpos -= 500 * delta;
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
@@ -105,16 +110,11 @@ public class InstructionsScreen implements Screen {
 
 	public void setupMenuLayout() {
 
-		textLabel = new Label(instructionsText, game.smalllabelStyle);
 		textLabel.setAlignment(Align.center);
 		textLabel.setWrap(true);
 		
-		controlLabel = new Label(controlText, game.smalllabelStyle);
 		controlLabel.setAlignment(Align.center);
 		controlLabel.setWrap(true);
-
-		backButton = new MenuButton("Back", game.mediumButtonStyle,
-				GameState.MainMenu, game);
 
 		game.table.add().row().fill(true, false).expandX()
 				.padBottom(50.0f * game.scaleY).padBottom(200.0f * game.scaleY);

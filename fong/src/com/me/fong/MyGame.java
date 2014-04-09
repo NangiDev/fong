@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,9 +40,10 @@ public class MyGame extends Game {
 	public LabelStyle mediumlabelStyle;
 	public LabelStyle smalllabelStyle;
 
-	private OrthographicCamera camera;
 	public HighscoreManager HighscoreManager;
+	public Screen currentScreen;
 
+	private OrthographicCamera camera;
 	private int tilesW, tilesH;
 	private Texture backgoundTexture;
 	
@@ -240,5 +242,6 @@ public class MyGame extends Game {
 		default:
 			break;
 		}
+		currentScreen = getScreen();
 	}
 }
