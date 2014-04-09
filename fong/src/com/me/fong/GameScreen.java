@@ -1,16 +1,28 @@
 package com.me.fong;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
-public class GameScreen implements Screen{
+public class GameScreen implements Screen {
 	private World world;
 	private MyGame game;
 	private TextButton pauseButton;
+	private Label scoreLabel;
 
 	public GameScreen(MyGame myGame) {
 		this.game = myGame;
+		pauseButton = new MenuButton("Pause", game.mediumButtonStyle,
+				GameState.Pause, game);
+
+		pauseButton.setPosition((game.screenWidth) - pauseButton.getWidth(),
+				game.screenHeight - pauseButton.getHeight());
+
+		scoreLabel = new Label("000000", game.mediumlabelStyle);
+		scoreLabel.setPosition(0,
+				game.screenHeight - scoreLabel.getHeight());
+
+		game.stage.addActor(pauseButton);
 		System.out.println("new GameScreen created");
 	}
 
@@ -27,8 +39,9 @@ public class GameScreen implements Screen{
 		game.batch.begin();
 
 		game.drawBackground();
-		game.fontLarge.draw(game.batch, "GAME!", game.screenWidth*0.2f, game.screenHeight*0.8f);
-		game.table.draw(game.batch, 1);
+
+		pauseButton.draw(game.batch, 1);
+		scoreLabel.draw(game.batch, 1);
 
 		game.batch.end();
 	}
@@ -39,12 +52,10 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void show() {
-		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
-		game.table.clearChildren();
 	}
 
 	@Override
@@ -57,12 +68,5 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void dispose() {
-	}
-	
-	private void setupMenuLayout(){
-		pauseButton = new MenuButton("Pause", game.smallButtonStyle, GameState.Pause, game);
-		
-		game.table.add().row().padBottom(25.0f * game.scaleY);
-		game.table.add(pauseButton);
 	}
 }
