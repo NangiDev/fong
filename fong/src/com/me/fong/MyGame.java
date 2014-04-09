@@ -45,7 +45,7 @@ public class MyGame extends Game {
 	private int tilesW, tilesH;
 	private Texture backgoundTexture;
 	
-	private Color myPurple, myGreen, myYellow;
+	public Color myDarkGreen, myGreen, myYellow;
 
 	private GameScreen gameScreen;
 	private PauseScreen pauseScreen;
@@ -68,9 +68,9 @@ public class MyGame extends Game {
 		this.backgoundTexture = new Texture(Gdx.files.internal("purple.png"));
 		backgoundTexture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
-		myPurple = new Color(94.0f/255.0f,63.0f/255.0f,107.0f/255.0f,1.0f);
+		myDarkGreen = new Color(71.0f/255.0f,97.0f/255.0f,28.0f/255.0f,1.0f);
 		myGreen = new Color(125.0f/255.0f,149.0f/255.0f,85.0f/255.0f,1.0f);
-		myYellow = new Color(208.0f/255.0f,200.0f/255.0f,159.0f/255.0f,1.0f);
+		myYellow = new Color(208.0f/255.0f,197.0f/255.0f,141.0f/255.0f,1.0f);
 		
 		HighscoreManager = new HighscoreManager();
 		
@@ -163,7 +163,7 @@ public class MyGame extends Game {
 
 	// Creates fontbitmaps from .ttf font
 	private void createFont() {
-		int largeSize = (int) (this.screenWidth / 6);
+		int largeSize = (int) (this.screenWidth / 8);
 		int mediumSize = (int) (this.screenWidth / 12);
 		int smallSize = (int) (this.screenWidth / 24);
 
