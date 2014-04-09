@@ -20,8 +20,12 @@ public class HighscoreScreen implements Screen {
 
 	public HighscoreScreen(MyGame myGame) {
 		this.game = myGame;
-		System.out.println("new HighscoreScreen created");
 		header = new Texture(Gdx.files.internal("menu/highscore.png"));
+
+		backButton = new MenuButton("Back", game.mediumButtonStyle,
+				GameState.MainMenu, game);
+
+		System.out.println("new HighscoreScreen created");
 	}
 
 	@Override
@@ -92,8 +96,6 @@ public class HighscoreScreen implements Screen {
 	}
 
 	private void setupMenuLayout() {
-		backButton = new MenuButton("Back", game.mediumButtonStyle,
-				GameState.MainMenu, game);
 
 		game.table.add().row().align(Align.left).padBottom(25.0f * game.scaleY);
 		game.table.add(name1).row().align(Align.left)

@@ -17,6 +17,7 @@ public class OptionScreen implements Screen{
 	private TextButton toggleMusicButton;
 	private TextButton toggleSoundFxButton;
 	private TextButton toggleLightFxButton;
+	private Table innerTable;
 	private Label music;
 	private Label soundFx;
 	private Label lightFx;
@@ -24,6 +25,15 @@ public class OptionScreen implements Screen{
 	public OptionScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/options.png"));
+		this.toggleMusicButton = new MenuButton(" ON", game.mediumButtonStyle, true);
+		this.toggleSoundFxButton = new MenuButton(" ON", game.mediumButtonStyle, true);
+		this.toggleLightFxButton = new MenuButton(" ON", game.mediumButtonStyle, true);
+		this.innerTable = new Table(game.skin);
+		music = new Label("Music", game.mediumlabelStyle);
+		soundFx = new Label("Sound", game.mediumlabelStyle);
+		lightFx = new Label("Light", game.mediumlabelStyle);
+		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
+		
 		System.out.println("new OptionScreen created");
 	}
 
@@ -67,6 +77,7 @@ public class OptionScreen implements Screen{
 	@Override
 	public void hide() {
 		game.table.clearChildren();
+		innerTable.clearChildren();
 	}
 
 	@Override
@@ -82,18 +93,6 @@ public class OptionScreen implements Screen{
 	}
 	
 	private void setupMenuLayout() {
-		Table innerTable = new Table(game.skin);
-		
-		music = new Label("Music", game.mediumlabelStyle);
-		toggleMusicButton = new MenuButton(" ON", game.mediumButtonStyle);
-				
-		soundFx = new Label("Sound", game.mediumlabelStyle);
-		toggleSoundFxButton = new MenuButton(" ON", game.mediumButtonStyle);
-		
-		lightFx = new Label("Light", game.mediumlabelStyle);
-		toggleLightFxButton = new MenuButton(" ON", game.mediumButtonStyle);
-		
-		backButton = new MenuButton("Back", game.mediumButtonStyle, GameState.MainMenu, game);
 				
 		innerTable.add().row().padBottom(25.0f * game.scaleY);
 		innerTable.add(music).align(Align.left).padRight(100.0f * game.scaleX);
