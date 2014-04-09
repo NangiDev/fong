@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -18,10 +19,11 @@ public class CreditsScreen implements Screen {
 	public CreditsScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/credits.png"));
-		System.out.println("new CreditsScreen created");
 		this.creditsText = "Our tutor Mathias Broxwall at Örebro University\n\n"
 				+ "Ray Larabie at www.1001fonts.com for fonts\n\n"
 				+ "Kenney at www.kenney.nl for graphics";
+		
+		System.out.println("new CreditsScreen created");
 	}
 
 	@Override
@@ -31,6 +33,9 @@ public class CreditsScreen implements Screen {
 	}
 
 	public void update(float delta) {
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			game.switchToScreen(GameState.MainMenu);
+		}
 	}
 
 	public void draw(float delta) {

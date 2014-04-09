@@ -68,6 +68,8 @@ public class MyGame extends Game {
 		this.backgoundTexture = new Texture(Gdx.files.internal("purple.png"));
 		backgoundTexture.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
+		Gdx.input.setCatchBackKey(true);
+		
 		myDarkGreen = new Color(71.0f/255.0f,97.0f/255.0f,28.0f/255.0f,1.0f);
 		myGreen = new Color(125.0f/255.0f,149.0f/255.0f,85.0f/255.0f,1.0f);
 		myYellow = new Color(208.0f/255.0f,197.0f/255.0f,141.0f/255.0f,1.0f);
