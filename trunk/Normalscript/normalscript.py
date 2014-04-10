@@ -10,9 +10,9 @@ for i in range(im.size[0]):
         if pix[i, j][3] == 0:
             res[i][j] = 0
         else:
-            res[i][j] = 1000000000
-        #sys.stdout.write(str(res[i][j]))
-    #print '\n'
+            res[i][j] = 1
+        sys.stdout.write(str(res[i][j]))
+    print ''
 
 #print "finnished"
 
