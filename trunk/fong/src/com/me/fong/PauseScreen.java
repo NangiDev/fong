@@ -15,8 +15,8 @@ public class PauseScreen implements Screen{
 	public PauseScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/pause.png"));
-		resumeButton = new MenuButton("Resume :)", game.mediumButtonStyle, GameState.Game, game);
-		exitButton = new MenuButton("Exit :(", game.mediumButtonStyle, GameState.MainMenu, game);
+		resumeButton = new MenuButton("Resume", game.mediumButtonStyle, GameState.Game, game);
+		exitButton = new MenuButton("Exit", game.mediumButtonStyle, GameState.MainMenu, game);
 		
 		System.out.println("new PauseScreen created");
 	}
@@ -29,7 +29,7 @@ public class PauseScreen implements Screen{
 
 	public void update(float delta) {
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			game.switchToScreen(GameState.Game);
+			//game.switchToScreen(GameState.Game);
 		}
 	}
 

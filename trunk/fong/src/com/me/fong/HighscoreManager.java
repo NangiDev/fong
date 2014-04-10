@@ -7,15 +7,15 @@ public class HighscoreManager {
 	private Score score;
 
 	public HighscoreManager() {
-		score = new Score("Joe", 999999);
+		score = new Score("Joel", 999999);
 		scoreList.add(score);
-		score = new Score("Ada", 999999);
+		score = new Score("Adam", 999999);
 		scoreList.add(score);
-		score = new Score("Pet", 999999);
+		score = new Score("Pett", 999999);
 		scoreList.add(score);
-		score = new Score("Bos", 999999);
+		score = new Score("Boss", 999999);
 		scoreList.add(score);
-		score = new Score("Mar", 999999);
+		score = new Score("Mari", 999999);
 		scoreList.add(score);
 	}
 	
