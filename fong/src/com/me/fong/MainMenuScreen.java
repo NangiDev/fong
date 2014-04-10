@@ -51,9 +51,6 @@ public class MainMenuScreen implements Screen {
 	}
 
 	public void update(float delta) {
-		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			Gdx.app.exit();
-		}
 	}
 
 	public void draw(float delta) {

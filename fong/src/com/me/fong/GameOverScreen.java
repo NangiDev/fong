@@ -3,22 +3,41 @@ package com.me.fong;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.Input.Keys;
-
 
 public class GameOverScreen implements Screen {
 	private MyGame game;
 	private Texture header;
+	private Texture texture;
 	private TextField nameField;
-	private TextFieldStyle tFStyle;
-	
+	private Label textLabel;
+	private Label scoreLabel;
+	private Label pointLabel;
+	private TextButton resumeButton;
+	private TextButton backButton;
+
 	public GameOverScreen(MyGame myGame) {
 		this.game = myGame;
-		this.header = new Texture(Gdx.files.internal("menu/GameOver.png"));
+		this.header = new Texture(Gdx.files.internal("menu/gameOver.png"));
+		texture = new Texture(Gdx.files.internal("menu/buttonYellow.png"));
+		nameField = new TextField("Föng", game.textFieldStyle);
+		nameField.setMaxLength(4);
+		nameField.setCursorPosition(4);
+		textLabel = new Label("Enter name:", game.smalllabelStyle);
+		scoreLabel = new Label("Score:", game.smalllabelStyle);
+		pointLabel = new Label("999999", game.mediumlabelStyle);
+
+		resumeButton = new MenuButton("Restart", game.mediumButtonStyle,
+				GameState.Game, game);
+		backButton = new MenuButton("Main Menu", game.mediumButtonStyle,
+				GameState.MainMenu, game);
+
+		game.stage.setKeyboardFocus(nameField);
+		
 		System.out.println("new GameOverScreen created");
 	}
 
@@ -41,12 +60,12 @@ public class GameOverScreen implements Screen {
 
 		game.batch.draw(header, (game.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth()
-						* game.scaleX, header.getHeight()
-						* game.scaleY);
-		
+				game.screenHeight * 0.7f, header.getWidth() * game.scaleX,
+				header.getHeight() * game.scaleY);
+
+		game.batch.draw(texture, nameField.getX() - (texture.getHeight() * 0.48f * game.scaleX), nameField.getY() - (texture.getWidth() * 0.02f * game.scaleY), texture.getWidth() * game.scaleX, texture.getHeight() * game.scaleY);
+
 		game.table.draw(game.batch, 1);
-		
 		game.batch.end();
 	}
 
@@ -75,19 +94,19 @@ public class GameOverScreen implements Screen {
 	@Override
 	public void dispose() {
 	}
-	
-	private void setupMenuLayout(){
-		TextFieldStyle tFStyle = new TextFieldStyle();
-		tFStyle.fontColor = game.myDarkGreen;
-		tFStyle.font = game.fontMedium;
-		
-		
-		nameField = new TextField("Name", tFStyle); 
-	
-		nameField.setColor(game.myYellow);
-		game.table.add().row().padBottom(25.0f * game.scaleY);
-		game.table.add(nameField);
-		
-		game.table.padTop(header.getHeight() * 1.5f);
+
+	private void setupMenuLayout() {
+		game.table.add().row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add(textLabel).row().align(Align.center)
+				.padBottom(50.0f * game.scaleY)
+				.minWidth(nameField.getWidth() * 1.1f * game.scaleX);
+		game.table.add(nameField).row().align(Align.left);
+		game.table.add(scoreLabel).row().align(Align.center)
+				.padBottom(50.0f * game.scaleY);
+		game.table.add(pointLabel).row().padBottom(25.0f * game.scaleY);
+		game.table.add(resumeButton).row();
+		game.table.add(backButton).row();
+
+		game.table.padTop(header.getHeight() * 1.2f);
 	}
 }
