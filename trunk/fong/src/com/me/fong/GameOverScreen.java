@@ -107,6 +107,6 @@ public class GameOverScreen implements Screen {
 		game.table.add(resumeButton).row();
 		game.table.add(backButton).row();
 
-		game.table.padTop(header.getHeight() * 1.2f);
+		game.table.padTop(header.getHeight() * 1.2f * game.scaleY);
 	}
 }
