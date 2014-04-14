@@ -71,12 +71,12 @@ def getBiggest(matrix, img):
 def findEdges(matrix, pix ,img):
 	for y in xrange(img.size[1]):
 		for x in xrange(img.size[0]):
-			pixel = getPixel(pix, x, y)
-			if pixel == (0,0,0):
+			pixel = pix[x, y][3]
+			if pixel == 0:
 				matrix[x][y] = 0
 			else:
 				matrix[x][y] = sys.maxint
-			if (x == 0 or x == img.size[0]-1 or y == 0 or y == img.size[1]-1) and not pixel == (0,0,0):
+			if (x == 0 or x == img.size[0]-1 or y == 0 or y == img.size[1]-1) and not pixel == 0:
 				matrix[x][y] = 1
 
 def getPixel(pix, x, y):
