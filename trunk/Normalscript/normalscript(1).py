@@ -15,6 +15,10 @@ def main():
 	generateZ(Zmatrix, img)
 	getXandY(Zmatrix, XYmatrix, img)
 
+	#for y in range(1,img.size[1]-1):
+		#for x in range(1,img.size[0]-1):
+			#a = smoothXY(XYmatrix, x, y)
+
 	d = 255/getBiggest(Zmatrix, img)
 
 	#for x in xrange(img.size[0]):
@@ -30,8 +34,16 @@ def main():
 
 	norm.save("normals/" + picture + "Normal.png")
 
-def percOfBiggest(num, biggest):
-	return num/biggest
+
+def smoothXY(XYmatrix, x, y):
+	coord = (0,0)
+	for u in range(-1,2):
+			for v in range(-1,2):
+				direction = XYmatrix[x+v][y+u]
+				direction = normalize(direction[0], direction[1])
+				coord = (coord[0] + direction[0], coord[1] + direction[1])
+	XYmatrix[x][y] = normalize(coord[0],coord[1])
+
 
 def fillXYwithCoords(img):
 	matrix = [[0 for y in xrange(img.size[1])] for x in xrange(img.size[0])]
@@ -50,9 +62,12 @@ def getCoord(matrix, x, y):
 	coord = (0,0)
 	for u in range(-1,2):
 		for v in range(-1,2):
-			if (matrix[x+v][y+u] <= matrix[x][y]):
+			if (matrix[x+v][y+u] < matrix[x][y]):
 				direction = normalize(v,u)
 				coord = (coord[0] + direction[0], coord[1] + direction[1])
+			elif (matrix[x+v][y+u] > matrix[x][y]):
+				direction = normalize(v,u)
+				coord = (coord[0] - direction[0], coord[1] - direction[1])
 	return normalize(coord[0],coord[1])
 
 def normalize(x,y):
@@ -88,14 +103,14 @@ def generateZ(matrix, img):
 			u = img.size[0]-1 - x
 			v = img.size[1]-1 - y
 			lowest = getSmallestNeighbour(matrix, u, v)
-			if lowest < matrix[u][v]:
+			if lowest < matrix[u][v]:# and not lowest > 9:
 				matrix[u][v] = lowest + 1
 			else:
 				continue
 	for y in range(1, img.size[1]-1):
 		for x in range(1, img.size[0]-1):
 			lowest = getSmallestNeighbour(matrix, x, y)
-			if lowest < matrix[x][y]:
+			if lowest < matrix[x][y]:# and not lowest > 9:
 				matrix[x][y] = lowest + 1
 			else:
 				continue
