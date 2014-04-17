@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
@@ -19,9 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
@@ -101,10 +97,10 @@ public class MyGame extends Game {
 		textFieldStyle = new TextFieldStyle();
 		textFieldStyle.font = skin.getFont("fontMedium");
 		textFieldStyle.fontColor = myGreen;
-		Texture texture = new Texture(Gdx.files.internal("menu/cursor.png"));
-		NinePatch np = new NinePatch(texture);
-		NinePatchDrawable npd = new NinePatchDrawable(np);
-		textFieldStyle.cursor = npd;
+		skin.add("textfieldback", new Texture("menu/buttonYellow.png"));
+		skin.add("textfieldcursor", new Texture("menu/cursor.png"));
+		textFieldStyle.cursor = skin.getDrawable("textfieldcursor");
+		textFieldStyle.background = skin.getDrawable("textfieldback");
 
 		largelabelStyle = new LabelStyle();
 		largelabelStyle.font = skin.getFont("fontLarge");
