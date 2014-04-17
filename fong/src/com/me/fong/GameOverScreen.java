@@ -12,7 +12,7 @@ import com.badlogic.gdx.Input.Keys;
 public class GameOverScreen implements Screen {
 	private MyGame game;
 	private Texture header;
-	private Texture texture;
+	//private Texture texture;
 	private TextField nameField;
 	private Label textLabel;
 	private Label scoreLabel;
@@ -23,7 +23,7 @@ public class GameOverScreen implements Screen {
 	public GameOverScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/gameOver.png"));
-		texture = new Texture(Gdx.files.internal("menu/buttonYellow.png"));
+		//texture = new Texture(Gdx.files.internal("menu/buttonYellow.png"));
 		nameField = new TextField("Föng", game.textFieldStyle);
 		nameField.setMaxLength(4);
 		nameField.setCursorPosition(4);
@@ -63,8 +63,9 @@ public class GameOverScreen implements Screen {
 				game.screenHeight * 0.7f, header.getWidth() * game.scaleX,
 				header.getHeight() * game.scaleY);
 
-		game.batch.draw(texture, nameField.getX() - (texture.getHeight() * 0.48f * game.scaleX), nameField.getY() - (texture.getWidth() * 0.02f * game.scaleY), texture.getWidth() * game.scaleX, texture.getHeight() * game.scaleY);
+		//game.batch.draw(texture, nameField.getX() - (texture.getHeight() * 0.48f * game.scaleX), nameField.getY() - (texture.getWidth() * 0.02f * game.scaleY), texture.getWidth() * game.scaleX, texture.getHeight() * game.scaleY);
 
+		//game.table.drawDebug(game.stage);
 		game.table.draw(game.batch, 1);
 		game.batch.end();
 	}
@@ -81,6 +82,7 @@ public class GameOverScreen implements Screen {
 	@Override
 	public void hide() {
 		game.table.clearChildren();
+		nameField.invalidate();
 	}
 
 	@Override
@@ -97,15 +99,14 @@ public class GameOverScreen implements Screen {
 
 	private void setupMenuLayout() {
 		game.table.add().row().align(Align.left).padBottom(25.0f * game.scaleY);
-		game.table.add(textLabel).row().align(Align.center)
-				.padBottom(50.0f * game.scaleY)
-				.minWidth(nameField.getWidth() * 1.1f * game.scaleX);
+		game.table.add(textLabel).row().align(Align.center).padBottom(50.0f * game.scaleY);
 		game.table.add(nameField).row().align(Align.left);
 		game.table.add(scoreLabel).row().align(Align.center)
 				.padBottom(50.0f * game.scaleY);
 		game.table.add(pointLabel).row().padBottom(25.0f * game.scaleY);
 		game.table.add(resumeButton).row();
 		game.table.add(backButton).row();
+		game.table.debug();
 
 		game.table.padTop(header.getHeight() * 1.2f * game.scaleY);
 	}
