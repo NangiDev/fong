@@ -11,7 +11,7 @@ public class GameScreen implements Screen {
 	private MyGame game;
 	private TextButton pauseButton;
 
-	private TextButton gameOverButton;
+	//private TextButton gameOverButton;
 
 	private Label scoreLabel;
 
@@ -24,17 +24,15 @@ public class GameScreen implements Screen {
 		pauseButton.setPosition((game.screenWidth) - pauseButton.getWidth(),
 				game.screenHeight - pauseButton.getHeight());
 		
-		gameOverButton = new MenuButton("Game Over", game.smallButtonStyle,
+		/*gameOverButton = new MenuButton("Game Over", game.smallButtonStyle,
 				GameState.GameOver, game);
 		
-		gameOverButton.setPosition(100, 100);
+		gameOverButton.setPosition(100, 100);*/
 
 		scoreLabel = new Label("000000", game.mediumlabelStyle);
 		scoreLabel.setPosition(0,
 				game.screenHeight - scoreLabel.getHeight());
 
-		game.stage.addActor(pauseButton);
-		game.stage.addActor(gameOverButton);
 		System.out.println("new GameScreen created");
 	}
 
@@ -57,7 +55,7 @@ public class GameScreen implements Screen {
 
 		pauseButton.draw(game.batch, 1);
 		scoreLabel.draw(game.batch, 1);
-		gameOverButton.draw(game.batch, 1);
+		//gameOverButton.draw(game.batch, 1);
 
 		game.batch.end();
 	}
@@ -68,10 +66,14 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		game.stage.addActor(pauseButton);
+		//game.stage.addActor(gameOverButton);
 	}
 
 	@Override
 	public void hide() {
+		game.stage.getRoot().removeActor(pauseButton);
+		//game.stage.getRoot().removeActor(gameOverButton);
 	}
 
 	@Override

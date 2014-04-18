@@ -97,10 +97,8 @@ public class MyGame extends Game {
 		textFieldStyle = new TextFieldStyle();
 		textFieldStyle.font = skin.getFont("fontMedium");
 		textFieldStyle.fontColor = myGreen;
-		skin.add("textfieldback", new Texture("menu/buttonYellow.png"));
 		skin.add("textfieldcursor", new Texture("menu/cursor.png"));
 		textFieldStyle.cursor = skin.getDrawable("textfieldcursor");
-		textFieldStyle.background = skin.getDrawable("textfieldback");
 
 		largelabelStyle = new LabelStyle();
 		largelabelStyle.font = skin.getFont("fontLarge");
@@ -135,6 +133,7 @@ public class MyGame extends Game {
 		
 		table.top();
 		table.setFillParent(true);
+		table.debug();
 		stage.addActor(table);
 	}
 

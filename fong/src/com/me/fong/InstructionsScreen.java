@@ -47,10 +47,12 @@ public class InstructionsScreen implements Screen {
 
 	public void update(float delta) {
 		if (Gdx.input.isTouched()) {
-			if (Gdx.input.getX() >  shipXpos + tutorialShip.getWidth() * 0.5f * game.scaleX + 5)
+			if (Gdx.input.getX() >  shipXpos + tutorialShip.getWidth() * 0.5f * game.scaleX + 10)
 				shipXpos += 500 * delta * game.scaleX;
-			else if(Gdx.input.getX() <  shipXpos + tutorialShip.getWidth() * 0.5f * game.scaleX - 5)
+			else if(Gdx.input.getX() <  shipXpos + tutorialShip.getWidth() * 0.5f * game.scaleX - 10)
 				shipXpos -= 500 * delta * game.scaleX;
+			else
+				shipXpos += 500 * delta * game.scaleX;;
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
