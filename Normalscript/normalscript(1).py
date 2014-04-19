@@ -3,7 +3,7 @@ import sys
 import math
 
 def main():
-	picture = "playerShip2_blue"
+	picture = "ufoBlue"
 	img = Image.open(picture + ".png")
 	norm = Image.new("RGBA", img.size)
 	pix = img.load()
