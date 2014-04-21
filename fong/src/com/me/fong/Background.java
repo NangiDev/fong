@@ -1,5 +1,5 @@
 package com.me.fong;
 
-public class Background extends Drawable{
+public class Background extends MyDrawable{
 
 }

@@ -2,8 +2,6 @@ package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,26 +20,6 @@ public class MainMenuScreen implements Screen {
 
 	public MainMenuScreen(MyGame myGame) {
 		this.game = myGame;
-		this.header = new Texture(Gdx.files.internal("menu/logotype.png"));
-		signature = new Label("A game made by\nJoel Setterberg &\nJonatan Elsgard", game.smalllabelStyle);
-		signature.setAlignment(Align.center);
-		signature.setWidth(game.screenWidth);
-		signature.setWrap(true);
-		signature.setPosition(0, signature.getHeight() * 0.5f * game.scaleY);
-		
-
-		startButton = new MenuButton("Start", game.mediumButtonStyle,
-				GameState.Game, game);
-		highscoreButton = new MenuButton("Highscore", game.mediumButtonStyle,
-				GameState.Highscore, game);
-		howToPlayButton = new MenuButton("How To Play", game.mediumButtonStyle,
-				GameState.Instructions, game);
-		optionsButton = new MenuButton("Options", game.mediumButtonStyle,
-				GameState.Options, game);
-		creditsButton = new MenuButton("Credits", game.mediumButtonStyle,
-				GameState.Credits, game);
-		
-		System.out.println("new MainMenuScreen created");
 	}
 
 	@Override
@@ -58,11 +36,11 @@ public class MainMenuScreen implements Screen {
 
 		game.drawBackground();
 
-		game.batch.draw(header, (game.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth()
-						* game.scaleX, header.getHeight()
-						* game.scaleY);
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth()
+						* MyGame.scaleX, header.getHeight()
+						* MyGame.scaleY);
 		
 		signature.draw(game.batch, 1);
 
@@ -77,6 +55,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
+		createScreen();
 		setupMenuLayout();
 	}
 
@@ -95,16 +74,40 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		
+	}
+	
+	private void createScreen(){
+		this.header = new Texture(Gdx.files.internal("menu/logotype.png"));
+		signature = new Label("A game made by\nJoel Setterberg &\nJonatan Elsgard", game.smalllabelStyle);
+		signature.setAlignment(Align.center);
+		signature.setWidth(MyGame.screenWidth);
+		signature.setWrap(true);
+		signature.setPosition(0, signature.getHeight() * 0.5f * MyGame.scaleY);
+		
+
+		startButton = new MenuButton("Start", game.mediumButtonStyle,
+				GameState.Game, game);
+		highscoreButton = new MenuButton("Highscore", game.mediumButtonStyle,
+				GameState.Highscore, game);
+		howToPlayButton = new MenuButton("How To Play", game.mediumButtonStyle,
+				GameState.Instructions, game);
+		optionsButton = new MenuButton("Options", game.mediumButtonStyle,
+				GameState.Options, game);
+		creditsButton = new MenuButton("Credits", game.mediumButtonStyle,
+				GameState.Credits, game);
+		
+		System.out.println("new MainMenuScreen created");
 	}
 
 	private void setupMenuLayout() {
-		game.table.add().row().padBottom(25.0f * game.scaleY);
-		game.table.add(startButton).row().padBottom(25.0f * game.scaleY);
-		game.table.add(highscoreButton).row().padBottom(25.0f * game.scaleY);
-		game.table.add(optionsButton).row().padBottom(25.0f * game.scaleY);
-		game.table.add(howToPlayButton).row().padBottom(25.0f * game.scaleY);
+		game.table.add().row().padBottom(25.0f * MyGame.scaleY);
+		game.table.add(startButton).row().padBottom(25.0f * MyGame.scaleY);
+		game.table.add(highscoreButton).row().padBottom(25.0f * MyGame.scaleY);
+		game.table.add(optionsButton).row().padBottom(25.0f * MyGame.scaleY);
+		game.table.add(howToPlayButton).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(creditsButton);
 		
-		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
+		game.table.padTop(header.getHeight() * 1.5f * MyGame.scaleY);
 	}
 }
