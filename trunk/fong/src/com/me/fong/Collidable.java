@@ -1,5 +1,5 @@
 package com.me.fong;
 
-public class Collidable extends Drawable{
+public class Collidable extends MyDrawable{
 
 }

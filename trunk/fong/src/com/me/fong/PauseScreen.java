@@ -28,9 +28,6 @@ public class PauseScreen implements Screen{
 	}
 
 	public void update(float delta) {
-		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			//game.switchToScreen(GameState.Game);
-		}
 	}
 
 	public void draw(float delta) {
