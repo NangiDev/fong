@@ -3,7 +3,7 @@ import sys
 import math
 
 def main():
-	picture = "ufoBlue"
+	picture = "logotype"
 	img = Image.open(picture + ".png")
 	norm = Image.new("RGBA", img.size)
 	pix = img.load()

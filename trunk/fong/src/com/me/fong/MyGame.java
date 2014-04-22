@@ -48,7 +48,7 @@ public class MyGame extends Game {
 	
 	public Color myDarkGreen, myGreen, myYellow;
 
-	private OrthographicCamera camera;
+	public OrthographicCamera camera;
 	private Texture backgoundTexture;
 
 	private GameScreen gameScreen;
