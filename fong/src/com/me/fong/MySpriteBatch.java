@@ -1,13 +1,14 @@
 package com.me.fong;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public class MySpriteBatch extends SpriteBatch{
 
 	
-	public MySpriteBatch(){
-		String vertexShader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" //
+	public MySpriteBatch(ShaderProgram shader){
+		/*String vertexShader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" //
 			+ "attribute vec4 " + ShaderProgram.COLOR_ATTRIBUTE + ";\n" //
 			+ "attribute vec2 " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n" //
 			+ "uniform mat4 u_projTrans;\n" //
@@ -34,8 +35,12 @@ public class MySpriteBatch extends SpriteBatch{
 			+ "  gl_FragColor = v_color * texture2D(u_texture, v_texCoords);\n" //
 			+ "}";
 
-		ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
+		ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);*/
 		super(1000, shader);
+	}
+	
+	public void draw(Texture texture, Texture normals, float x, float y){
+		
 	}
 	
 	public void begin(){
