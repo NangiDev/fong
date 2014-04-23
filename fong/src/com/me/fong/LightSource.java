@@ -65,8 +65,8 @@ public class LightSource {
 		return intensity;
 	}
 	
-	public void setPos(Vector3 pos){
-		this.pos = pos;
+	public void setPos(float x, float y){
+		this.pos = new Vector3(x, y, defaultLightZ);
 	}
 	
 	public void setColor(Vector3 color){

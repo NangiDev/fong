@@ -20,11 +20,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
-	public ShaderProgram defaultShader = ShaderHandler.defaultShader;
-	public ShaderProgram normalShader = ShaderHandler.normalShader;
+	public ShaderProgram defaultShader;
+	public ShaderProgram normalShader;
 	public BitmapFont fontLarge, fontMedium, fontSmall;
 	public static float screenWidth, screenHeight;
 	public static float scaleX, scaleY;
@@ -67,6 +68,12 @@ public class MyGame extends Game {
 	@Override
 	public void create() {
 		this.batch = new SpriteBatch();
+		ShaderProgram.pedantic = false;
+		defaultShader = ShaderHandler.defaultShader;
+		normalShader  = ShaderHandler.normalShader;
+		//Check that shader is compiled
+		ShaderHandler.shaderCompiled(normalShader);
+		
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		scaleX = screenWidth / 600;

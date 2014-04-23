@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -23,6 +24,7 @@ public class MainMenuScreen implements Screen {
 	private TextButton optionsButton;
 	private TextButton creditsButton;
 	private ShaderProgram shader;
+	private LightSource light;
 	
 	private String vertexShader;
 	private String fragmentShader;
@@ -46,109 +48,26 @@ public class MainMenuScreen implements Screen {
 	public MainMenuScreen(MyGame myGame) {
 		this.game = myGame;
 		
-		vertexShader = 
-					"attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n" +
-					"attribute vec4 "+ShaderProgram.COLOR_ATTRIBUTE+";\n" +
-					"attribute vec2 "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n" +
-				
-					"uniform mat4 u_projTrans;\n" + 
-					" \n" + 
-					"varying vec4 vColor;\n" +
-					"varying vec2 vTexCoord;\n" +
-				
-					"void main() {\n" +  
-					"	vColor = "+ShaderProgram.COLOR_ATTRIBUTE+";\n" +
-					"	vTexCoord = "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n" +
-					"	gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" +
-					"}";
 		
-		fragmentShader = 
-					//GL ES specific stuff
-				  	"#ifdef GL_ES\n" //
-					+ "#define LOWP lowp\n" //
-					+ "precision mediump float;\n" //
-					+ "#else\n" //
-					+ "#define LOWP \n" //
-					+ "#endif\n" + //
-					"//attributes from vertex shader\n" + 
-					"varying LOWP vec4 vColor;\n" + 
-					"varying vec2 vTexCoord;\n" + 
-					"\n" + 
-					"//our texture samplers\n" + 
-					"uniform sampler2D u_texture;   //diffuse map\n" + 
-					"uniform sampler2D u_normals;   //normal map\n" + 
-					"\n" + 
-					"//values used for shading algorithm...\n" + 
-					"uniform vec2 Resolution;         //resolution of screen\n" + 
-					"uniform vec3 LightPos;           //light position, normalized\n" + 
-					"uniform LOWP vec4 LightColor;    //light RGBA -- alpha is intensity\n" + 
-					"uniform LOWP vec4 AmbientColor;  //ambient RGBA -- alpha is intensity \n" + 
-					"uniform vec3 Falloff;            //attenuation coefficients\n" + 
-					"\n" + 
-					"void main() {\n" + 
-					"	//RGBA of our diffuse color\n" + 
-					"	vec4 DiffuseColor = texture2D(u_texture, vTexCoord);\n" + 
-					"	\n" + 
-					"	//RGB of our normal map\n" + 
-					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb;\n" + 
-					"	\n" + 
-					"	//The delta position of light\n" + 
-					"	vec3 LightDir = vec3(LightPos.xy - (gl_FragCoord.xy / Resolution.xy), LightPos.z);\n" + 
-					"	\n" + 
-					"	//Correct for aspect ratio\n" + 
-					"	LightDir.x *= Resolution.x / Resolution.y;\n" + 
-					"	\n" + 
-					"	//Determine distance (used for attenuation) BEFORE we normalize our LightDir\n" + 
-					"	float D = length(LightDir);\n" + 
-					"	\n" + 
-					"	//normalize our vectors\n" + 
-					"	vec3 N = normalize(NormalMap * 2.0 - 1.0);\n" + 
-					"	vec3 L = normalize(LightDir);\n" + 
-					"	\n" + 
-					"	//Pre-multiply light color with intensity\n" + 
-					"	//Then perform \"N dot L\" to determine our diffuse term\n" + 
-					"	vec3 Diffuse = (LightColor.rgb * LightColor.a) * max(dot(N, L), 0.0);\n" + 
-					"\n" + 
-					"	//pre-multiply ambient color with intensity\n" + 
-					"	vec3 Ambient = AmbientColor.rgb * AmbientColor.a;\n" + 
-					"	\n" + 
-					"	//calculate attenuation\n" + 
-					"	float Attenuation = 1.0 / ( Falloff.x + (Falloff.y*D) + (Falloff.z*D*D) );\n" + 
-					"	\n" + 
-					"	//the calculation which brings it all together\n" + 
-					"	vec3 Intensity = Ambient + Diffuse * Attenuation;\n" + 
-					"	vec3 FinalColor = DiffuseColor.rgb * Intensity;\n" + 
-					"	gl_FragColor = vColor * vec4(FinalColor, DiffuseColor.a);\n" + 
-					"}";
 		
 		header = new Texture(Gdx.files.internal("menu/logotype.png"));
 		headerNormals = new Texture(Gdx.files.internal("menu/logotypeNormal.png"));
 		
-		ShaderProgram.pedantic = false;
-		shader = new ShaderProgram(vertexShader, fragmentShader);
-		
-		//Kolla så att shadern kompilerar
-		if (!shader.isCompiled())
-			throw new GdxRuntimeException("Could not compile shader: "+shader.getLog());
-		else
-			System.out.println("Shader copiled!");
-		
-		if (shader.getLog().length()!=0)
-			System.out.println(shader.getLog());
-		
-		
+		light = new LightSource();
+		light.setDefaultLight();
 		
 		//Sätt upp uniformer
-		shader.begin();
-		shader.setUniformi("u_normals", 1);
+		game.normalShader.begin();
+		game.normalShader.setUniformi("u_normals", 1);
 		
-		shader.setUniformf("LightColor", LIGHT_COLOR.x, LIGHT_COLOR.y, LIGHT_COLOR.z, LIGHT_INTENSITY);
-		shader.setUniformf("AmbientColor", AMBIENT_COLOR.x, AMBIENT_COLOR.y, AMBIENT_COLOR.z, AMBIENT_INTENSITY);
-		shader.setUniformf("Falloff", FALLOFF);
-		shader.end();
+		game.normalShader.setUniformf("LightColor", light.getColor().x, light.getColor().y, light.getColor().z, light.getIntensity());
+		game.normalShader.setUniformf("AmbientColor", AMBIENT_COLOR.x, AMBIENT_COLOR.y, AMBIENT_COLOR.z, AMBIENT_INTENSITY);
+		game.normalShader.setUniformf("Falloff", light.getFallOff());
+		game.normalShader.end();
 		
-		game.batch = new SpriteBatch(1000, shader);
-		game.batch.setShader(shader);
+		game.batch = new SpriteBatch(1000, game.normalShader);
+		game.batch.setShader(game.normalShader);
+		
 		
 		
 	}
@@ -162,31 +81,39 @@ public class MainMenuScreen implements Screen {
 	public void update(float delta) {
 		if(Gdx.input.isTouched()){
 			System.out.println("LIGHT_POS updated");
-			LIGHT_POS.x = (Gdx.input.getX() / game.screenWidth);
-			LIGHT_POS.y = 1-(Gdx.input.getY() / game.screenHeight);
+			float x = (Gdx.input.getX() / game.screenWidth);
+			float y = 1-(Gdx.input.getY() / game.screenHeight);
+			light.setPos(x, y);
 		}
+		
+		float x = ((MyGame.screenWidth * 0.5f) - (header.getWidth() * 0.5f * MyGame.scaleX) + header.getWidth() / 2) / game.screenWidth;
+		float y = (MyGame.screenHeight * 0.7f + header.getHeight() / 2) / game.screenHeight;
+		
+		
+
+		light.setPos(x, y);
+		
 	}
 
 	public void draw(float delta) {
 		game.batch.begin();
-		game.batch.setShader(game.batch.createDefaultShader());
+		game.batch.setShader(game.defaultShader);
 		game.drawBackground();
 		
-		game.batch.setShader(shader);
+		game.batch.setShader(game.normalShader);
 		
-		shader.setUniformf("LightPos", LIGHT_POS);
+		game.normalShader.setUniformf("LightPos", light.getPos());
 		
 		headerNormals.bind(1);
-		
 		header.bind(0);
-	
+		
 		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, header.getWidth()
 						* MyGame.scaleX, header.getHeight()
 						* MyGame.scaleY);
 		
-		game.batch.setShader(game.batch.createDefaultShader());
+		game.batch.setShader(game.defaultShader);
 		
 		signature.draw(game.batch, 1);
 
@@ -200,10 +127,10 @@ public class MainMenuScreen implements Screen {
 		game.camera.setToOrtho(false, width, height);
 		game.batch.setProjectionMatrix(game.camera.combined);
 		
-		shader.begin();
-		game.batch.setShader(shader);
-		shader.setUniformf("Resolution", width, height);
-		shader.end();
+		game.normalShader.begin();
+		game.batch.setShader(game.normalShader);
+		game.normalShader.setUniformf("Resolution", width, height);
+		game.normalShader.end();
 	}
 
 	@Override
