@@ -86,12 +86,12 @@ public class MainMenuScreen implements Screen {
 			light.setPos(x, y);
 		}
 		
-		float x = ((MyGame.screenWidth * 0.5f) - (header.getWidth() * 0.5f * MyGame.scaleX) + header.getWidth() / 2) / game.screenWidth;
+		/*float x = ((MyGame.screenWidth * 0.5f) - (header.getWidth() * 0.5f * MyGame.scaleX) + header.getWidth() / 2) / game.screenWidth;
 		float y = (MyGame.screenHeight * 0.7f + header.getHeight() / 2) / game.screenHeight;
 		
 		
 
-		light.setPos(x, y);
+		light.setPos(x, y);*/
 		
 	}
 
