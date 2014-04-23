@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -22,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
+	public ShaderProgram defaultShader = ShaderHandler.defaultShader;
+	public ShaderProgram normalShader = ShaderHandler.normalShader;
 	public BitmapFont fontLarge, fontMedium, fontSmall;
 	public static float screenWidth, screenHeight;
 	public static float scaleX, scaleY;
