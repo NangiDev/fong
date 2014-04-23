@@ -1,6 +1,7 @@
 package com.me.fong;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 
 public final class ShaderHandler {
@@ -79,6 +80,16 @@ public final class ShaderHandler {
 					"}");
 	
 	public final static ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
+	
+	public final static void shaderCompiled(ShaderProgram shader){
+		if (!shader.isCompiled())
+			throw new GdxRuntimeException("Could not compile shader: "+shader.getLog());
+		else
+			System.out.println("Shader copiled!");
+		
+		if (shader.getLog().length()!=0)
+			System.out.println(shader.getLog());
+	}
 	
 	
 
