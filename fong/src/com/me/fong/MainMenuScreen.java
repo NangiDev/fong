@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 public class MainMenuScreen implements Screen {
 
 	private MyGame game;
+	private TextureCombiner newHeader;
 	private Texture header;
 	private Texture headerNormals;
 	private Label signature;
@@ -52,11 +53,12 @@ public class MainMenuScreen implements Screen {
 		
 		header = new Texture(Gdx.files.internal("menu/logotype.png"));
 		headerNormals = new Texture(Gdx.files.internal("menu/logotypeNormal.png"));
+		newHeader = new TextureCombiner("menu/logotype.png");
 		
 		light = new LightSource();
 		light.setDefaultLight();
 		
-		//Sätt upp uniformer
+		//Sï¿½tt upp uniformer
 		game.normalShader.begin();
 		game.normalShader.setUniformi("u_normals", 1);
 		
@@ -104,13 +106,15 @@ public class MainMenuScreen implements Screen {
 		
 		game.normalShader.setUniformf("LightPos", light.getPos());
 		
-		headerNormals.bind(1);
-		header.bind(0);
+		//headerNormals.bind(1);
+		//header.bind(0);
 		
-		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * MyGame.scaleX),
-				MyGame.screenHeight * 0.7f, header.getWidth()
-						* MyGame.scaleX, header.getHeight()
+		newHeader.bind();
+		
+		game.batch.draw(newHeader.texture, (MyGame.screenWidth * 0.5f)
+				- (newHeader.texture.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, newHeader.texture.getWidth()
+						* MyGame.scaleX, newHeader.texture.getHeight()
 						* MyGame.scaleY);
 		
 		game.batch.setShader(game.defaultShader);
