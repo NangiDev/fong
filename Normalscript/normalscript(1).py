@@ -3,8 +3,7 @@ import sys
 import math
 
 def main():
-<<<<<<< .mine
-	picture = "ufoBlue"						#name of the picture without file extension
+	picture = "logotype"						#name of the picture without file extension
 	img = Image.open(picture + ".png")		#open requested image with file extension. Change ".png" for other file type
 	norm = Image.new("RGBA", img.size)		#Creates a new image that will be loaded with RGBA from normals
 	pix = img.load()						#Loads the requested image into an list for faster access to pixels
@@ -30,7 +29,7 @@ def main():
 			(q,w) = XYmatrix[x][y]
 			a = ((q*0.5+0.5)*255)
 			b = (255 - ((w*0.5+0.5)*255))
-			c = 255 - (d*Zmatrix[x][y])
+			c = 255 - (Zmatrix[x][y])
 			#c = 255 - Zmatrix[x][y]
 			norm.putpixel((x,y), (int(a), int(b), int(c), 255))	
 
@@ -56,15 +55,15 @@ def fillXYwithCoords(img):
 	return matrix
 
 def getXandY(Zmatrix, XYmatrix, img):
-	for y in range(10,img.size[1]-10):
-		for x in range(10,img.size[0]-10):
+	for y in range(3,img.size[1]-3):
+		for x in range(3,img.size[0]-3):
 			a = getCoord(Zmatrix, x, y)
 			XYmatrix[x][y] = a
 
 def getCoord(Zmatrix, x, y):
 	coord = (0,0)
-	for u in range(-10,11):
-		for v in range(-10,11):
+	for u in range(-3,4):
+		for v in range(-3,4):
 			if (Zmatrix[x+v][y+u] < Zmatrix[x][y]):
 				direction = normalize(v,u)
 				coord = (coord[0] + direction[0], coord[1] + direction[1])

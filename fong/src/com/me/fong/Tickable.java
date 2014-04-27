@@ -1,6 +1,6 @@
 package com.me.fong;
 
-public class Tickable extends MyDisposible{
+public class Tickable{
 	
 	private boolean ignore;
 	
@@ -26,7 +26,4 @@ public class Tickable extends MyDisposible{
 		return ignore;
 	}
 
-	public void dispose() {
-		super.dispose();
-	}
 }
