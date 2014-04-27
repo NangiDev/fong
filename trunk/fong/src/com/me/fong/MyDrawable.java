@@ -123,8 +123,4 @@ public class MyDrawable extends Tickable implements Drawable {
 		this.minHeight = minHeight;
 	}
 	
-	public void dispose(){
-		super.dispose();
-		texture.dispose();
-	}
 }

@@ -1,5 +1,5 @@
 package com.me.fong;
 
-public class PowerUpPickup extends Collidable{
+public class PowerUpPickup extends CollidableComponent{
 
 }

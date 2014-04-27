@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
@@ -30,7 +29,7 @@ public class MyGame extends Game {
 	public static float screenWidth, screenHeight;
 	public static float scaleX, scaleY;
 	public boolean musicOn, soundOn, lightOn;
-
+	
 	public Skin skin;
 	public Stage stage;
 	public Table table;
