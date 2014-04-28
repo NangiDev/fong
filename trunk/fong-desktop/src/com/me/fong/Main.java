@@ -7,9 +7,11 @@ public class Main {
 		
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+
 		cfg.title = "Föng";
-		cfg.width = 600 / 2;
-		cfg.height = 960 / 2;
+		cfg.width = 600;
+		cfg.height = 960;
+
 		cfg.resizable = false;
 		
 		new LwjglApplication(new MyGame(), cfg);
