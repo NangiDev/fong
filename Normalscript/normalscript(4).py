@@ -3,14 +3,18 @@ import sys
 import math
 
 def main():
-	picture = "ufoBlue"						#name of the picture without file extension
+	picture = "logotype"						#name of the picture without file extension
 	img = Image.open(picture + ".png")		#open requested image with file extension. Change ".png" for other file type
 	norm = Image.new("RGBA", img.size)		#Creates a new image that will be loaded with RGBA from normals
 	pix = img.load()						#Loads the requested image into an list for faster access to pixels
 
+	print ("image loaded")
+
 	Zmatrix = [[0 for y in xrange(img.size[1])] for x in xrange(img.size[0])]		#Creates an matrix by the same dimensions as the requseted image. Will be loaded with the Z-coordinates
 	findEdges(img, pix, Zmatrix)
+	print ("edges found")
 	generateZ(Zmatrix, img)
+	print ("Z generated")
 
 	XYmatrix = fillXYwithCoords(img)
 	getXandY(Zmatrix, XYmatrix, img)

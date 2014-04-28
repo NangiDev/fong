@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 public final class ShaderHandler {
 	
 	public final static ShaderProgram normalShader = new ShaderProgram(
+					//VertexShader
 					"attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n" +
 					"attribute vec4 "+ShaderProgram.COLOR_ATTRIBUTE+";\n" +
 					"attribute vec2 "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n" +
@@ -21,6 +22,7 @@ public final class ShaderHandler {
 					"	vTexCoord = "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n" +
 					"	gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" +
 					"}",
+					//FragmentShader
 					//GL ES specific stuff
 				  	"#ifdef GL_ES\n" //
 					+ "#define LOWP lowp\n" //

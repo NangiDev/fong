@@ -55,7 +55,7 @@ public class MainMenuScreen implements Screen {
 		headerNormals = new Texture(Gdx.files.internal("menu/logotypeNormal.png"));
 		newHeader = new TextureCombiner("menu/logotype.png");
 		
-		light = new LightSource();
+		light = new LightSource(game.batch);
 		light.setDefaultLight();
 		
 		//S�tt upp uniformer

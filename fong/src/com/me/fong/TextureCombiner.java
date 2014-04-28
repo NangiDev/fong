@@ -16,7 +16,11 @@ public class TextureCombiner {
 
 	public void bind(){
 		normalTexture.bind(1);
-		normalTexture.bind(0);
+		texture.bind(0);
+	}
+	
+	public void draw(){
+		
 	}
 	
 }
