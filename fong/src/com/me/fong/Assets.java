@@ -41,84 +41,33 @@ public class Assets {
 	public static final Texture meteorGray2 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big2.png"));
 	public static final Texture meteorGray3 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big3.png"));
 	public static final Texture meteorGray4 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big4.png"));
+		
+	//Enemies
+	public static final Texture enemyBlack1 = new Texture(Gdx.files.internal("Enemies/enemyBlack1.png"));
+	public static final Texture enemyBlack2 = new Texture(Gdx.files.internal("Enemies/enemyBlack2.png"));
+	public static final Texture enemyBlack3 = new Texture(Gdx.files.internal("Enemies/enemyBlack3.png"));
+	public static final Texture enemyBlack4 = new Texture(Gdx.files.internal("Enemies/enemyBlack4.png"));
+	public static final Texture enemyBlack5 = new Texture(Gdx.files.internal("Enemies/enemyBlack5.png"));
 	
-	//Guncanon
-	public static final Texture gunCanon = new Texture(Gdx.files.internal("Parts/gun08.png"));
+	public static final Texture enemyBlue1 = new Texture(Gdx.files.internal("Enemies/enemyBlue1.png"));
+	public static final Texture enemyBlue1Normal = new Texture(Gdx.files.internal("enemyBlue1Normal.png"));
+	public static final Texture enemyBlue2 = new Texture(Gdx.files.internal("Enemies/enemyBlue2.png"));
+	public static final Texture enemyBlue3 = new Texture(Gdx.files.internal("Enemies/enemyBlue3.png"));
+	public static final Texture enemyBlue4 = new Texture(Gdx.files.internal("Enemies/enemyBlue4.png"));
+	public static final Texture enemyBlue5 = new Texture(Gdx.files.internal("Enemies/enemyBlue5.png"));
 	
-	//Cockpit
-	public static final Texture cockpitBlue_0 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_0.png"));
-	public static final Texture cockpitBlue_1 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_1.png"));
-	public static final Texture cockpitBlue_2 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_2.png"));
-	public static final Texture cockpitBlue_3 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_3.png"));
-	public static final Texture cockpitBlue_4 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_4.png"));
-	public static final Texture cockpitBlue_5 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_5.png"));
-	public static final Texture cockpitBlue_6 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_6.png"));
-	public static final Texture cockpitBlue_7 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitBlue_7.png"));
+	public static final Texture enemyGreen1 = new Texture(Gdx.files.internal("Enemies/enemyGreen1.png"));
+	public static final Texture enemyGreen2 = new Texture(Gdx.files.internal("Enemies/enemyGreen2.png"));
+	public static final Texture enemyGreen3 = new Texture(Gdx.files.internal("Enemies/enemyGreen3.png"));
+	public static final Texture enemyGreen4 = new Texture(Gdx.files.internal("Enemies/enemyGreen4.png"));
+	public static final Texture enemyGreen5 = new Texture(Gdx.files.internal("Enemies/enemyGreen5.png"));
 	
-	public static final Texture cockpitGreen_0 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_0.png"));
-	public static final Texture cockpitGreen_1 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_1.png"));
-	public static final Texture cockpitGreen_2 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_2.png"));
-	public static final Texture cockpitGreen_3 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_3.png"));
-	public static final Texture cockpitGreen_4 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_4.png"));
-	public static final Texture cockpitGreen_5 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_5.png"));
-	public static final Texture cockpitGreen_6 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_6.png"));
-	public static final Texture cockpitGreen_7 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitGreen_7.png"));
+	public static final Texture enemyRed1 = new Texture(Gdx.files.internal("Enemies/enemyRed1.png"));
+	public static final Texture enemyRed2 = new Texture(Gdx.files.internal("Enemies/enemyRed2.png"));
+	public static final Texture enemyRed3 = new Texture(Gdx.files.internal("Enemies/enemyRed3.png"));
+	public static final Texture enemyRed4 = new Texture(Gdx.files.internal("Enemies/enemyRed4.png"));
+	public static final Texture enemyRed5 = new Texture(Gdx.files.internal("Enemies/enemyRed5.png"));
 	
-	public static final Texture cockpitRed_0 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_0.png"));
-	public static final Texture cockpitRed_1 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_1.png"));
-	public static final Texture cockpitRed_2 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_2.png"));
-	public static final Texture cockpitRed_3 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_3.png"));
-	public static final Texture cockpitRed_4 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_4.png"));
-	public static final Texture cockpitRed_5 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_5.png"));
-	public static final Texture cockpitRed_6 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_6.png"));
-	public static final Texture cockpitRed_7 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitRed_7.png"));
-	
-	public static final Texture cockpitYellow_0 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_0.png"));
-	public static final Texture cockpitYellow_1 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_1.png"));
-	public static final Texture cockpitYellow_2 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_2.png"));
-	public static final Texture cockpitYellow_3 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_3.png"));
-	public static final Texture cockpitYellow_4 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_4.png"));
-	public static final Texture cockpitYellow_5 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_5.png"));
-	public static final Texture cockpitYellow_6 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_6.png"));
-	public static final Texture cockpitYellow_7 = new Texture(Gdx.files.internal("Parts/Cockpit/cockpitYellow_7.png"));
-	
-	//Wings
-	public static final Texture wingBlue_0 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_0.png"));
-	public static final Texture wingBlue_1 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_1.png"));
-	public static final Texture wingBlue_2 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_2.png"));
-	public static final Texture wingBlue_3 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_3.png"));
-	public static final Texture wingBlue_4 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_4.png"));
-	public static final Texture wingBlue_5 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_5.png"));
-	public static final Texture wingBlue_6 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_6.png"));
-	public static final Texture wingBlue_7 = new Texture(Gdx.files.internal("Parts/Wing/wingBlue_7.png"));
-	
-	public static final Texture wingGreen_0 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_0.png"));
-	public static final Texture wingGreen_1 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_1.png"));
-	public static final Texture wingGreen_2 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_2.png"));
-	public static final Texture wingGreen_3 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_3.png"));
-	public static final Texture wingGreen_4 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_4.png"));
-	public static final Texture wingGreen_5 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_5.png"));
-	public static final Texture wingGreen_6 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_6.png"));
-	public static final Texture wingGreen_7 = new Texture(Gdx.files.internal("Parts/Wing/wingGreen_7.png"));
-	
-	public static final Texture wingRed_0 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_0.png"));
-	public static final Texture wingRed_1 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_1.png"));
-	public static final Texture wingRed_2 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_2.png"));
-	public static final Texture wingRed_3 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_3.png"));
-	public static final Texture wingRed_4 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_4.png"));
-	public static final Texture wingRed_5 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_5.png"));
-	public static final Texture wingRed_6 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_6.png"));
-	public static final Texture wingRed_7 = new Texture(Gdx.files.internal("Parts/Wing/wingRed_7.png"));
-	
-	public static final Texture wingYellow_0 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_0.png"));
-	public static final Texture wingYellow_1 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_1.png"));
-	public static final Texture wingYellow_2 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_2.png"));
-	public static final Texture wingYellow_3 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_3.png"));
-	public static final Texture wingYellow_4 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_4.png"));
-	public static final Texture wingYellow_5 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_5.png"));
-	public static final Texture wingYellow_6 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_6.png"));
-	public static final Texture wingYellow_7 = new Texture(Gdx.files.internal("Parts/Wing/wingYellow_7.png"));
-
 	//Bolts
 	public static final Texture bolt_Bronze = new Texture(Gdx.files.internal("Power-ups/Bolt/bolt_bronze.png"));
 	public static final Texture bolt_Silver= new Texture(Gdx.files.internal("Power-ups/Bolt/bolt_silver.png"));

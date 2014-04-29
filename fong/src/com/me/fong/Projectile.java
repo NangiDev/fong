@@ -9,7 +9,7 @@ public class Projectile extends CollidableComponent{
 	private boolean orientation;
 	
 	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation){
-		super(batch, texture, x, y);
+		super(batch, texture, x, y, entityManager, true);
 		this.entityManager = entityManager;
 		this.orientation = orientation;
 	}

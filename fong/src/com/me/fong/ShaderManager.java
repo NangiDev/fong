@@ -6,8 +6,8 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 
 public class ShaderManager {
-	
-	public final static ShaderProgram normalShader = new ShaderProgram(
+		
+	private ShaderProgram normalShader = new ShaderProgram(
 					//VertexShader
 					"attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n" +
 					"attribute vec4 "+ShaderProgram.COLOR_ATTRIBUTE+";\n" +
@@ -82,24 +82,31 @@ public class ShaderManager {
 					"	gl_FragColor = vColor * vec4(FinalColor, DiffuseColor.a);\n" + 
 					"}");
 	
-	public final static ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
-	
-	private SpriteBatch batch;
+	private ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
 	
 	private Array<LightSource> lights = new Array<LightSource>();
+	private LightSource sun;
 	
-	public ShaderManager(SpriteBatch batch){
-		this.batch = batch;
-		switchToNormalShader();
+	public ShaderManager(){
+
+		sun = new LightSource(0.8f, 0.2f, this);
+		sun.setSunLight();
+		
+		ShaderProgram.pedantic = false;
+		shaderCompiled(normalShader);
 		normalShader.begin();
 		normalShader.setUniformi("u_normals", 1);
-		normalShader.setUniformf("AmbientColor", 0.6f, 0.6f, 1.0f);	
+		normalShader.setUniformf("AmbientColor", 0.6f, 0.6f, 1.0f);
+		normalShader.setUniformf("Resolution", MyGame.screenWidth, MyGame.screenHeight);
 		normalShader.end();
-		
 	}
 	
 	public void addLight(LightSource light){
 		lights.add(light);
+	}
+	
+	public Array<LightSource> getLightList(){
+		return lights;
 	}
 	
 	public void passLights(){
@@ -108,10 +115,9 @@ public class ShaderManager {
 			normalShader.setUniformf("Falloff", light.getFallOff());
 			normalShader.setUniformf("LightPos", light.getPos());
 		}
-		lights.clear();
 	}
 	
-	public final static void shaderCompiled(ShaderProgram shader){
+	public void shaderCompiled(ShaderProgram shader){
 		if (!shader.isCompiled())
 			throw new GdxRuntimeException("Could not compile shader: "+shader.getLog());
 		else
@@ -121,12 +127,16 @@ public class ShaderManager {
 			System.out.println(shader.getLog());
 	}
 	
-	public void switchToNormalShader(){
+	public void switchToNormalShader(SpriteBatch batch){
 		batch.setShader(normalShader);
 	}
 	
-	public void switchToDefaultShader(){
+	public void switchToDefaultShader(SpriteBatch batch){
 		batch.setShader(defaultShader);
+	}
+	
+	public String getlog(){
+		return defaultShader.getLog();
 	}
 
 }

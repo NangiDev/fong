@@ -10,8 +10,8 @@ public class DrawComponent extends Entity {
 	public boolean orientation = false;
 	private float origoX, origoY;
 	
-	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y){
-		super(x, y);
+	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager){
+		super(x, y, entityManager);
 		this.texture = texture;
 		this.batch = batch;
 	}

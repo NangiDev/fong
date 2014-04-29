@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
-public class CollidableComponent extends DrawComponent{
+public class CollidableComponent extends Shadable{
 	
 	private BoundingBox boundingBox;
 	private Vector3 minVec, maxVec;
 	
-	public CollidableComponent(SpriteBatch batch, Texture texture, float x, float y){
-		super(batch, texture, x, y);
+	public CollidableComponent(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting){
+		super(batch, texture, x, y, entityManager, ignoreLighting);
 		boundingBox = new BoundingBox();
 	}
 	

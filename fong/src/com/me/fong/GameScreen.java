@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		game.batch.begin();
-		game.drawBackground(delta);
+		//game.drawBackground(delta);
 		update(delta);
 		draw(delta);
 		game.batch.end();
@@ -41,10 +41,8 @@ public class GameScreen implements Screen {
 	}
 
 	public void draw(float delta) {
-
-		
-		pauseButton.draw(game.batch, 1);
-		scoreLabel.draw(game.batch, 1);
+		//pauseButton.draw(game.batch, 1);
+		//scoreLabel.draw(game.batch, 1);
 	}
 	
 	@Override

@@ -3,7 +3,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 
-public class LightSource extends Entity{
+public class LightSource{
 	
 	public static final float defaultLightZ = 0.1f;
 	private Vector3 pos;
@@ -11,16 +11,11 @@ public class LightSource extends Entity{
 	private Vector3 fallOff;
 	private float intensity;
 	private SpriteBatch batch;
-	
-	public LightSource(SpriteBatch batch){
-		this(0.0f, 0.0f, batch);	
-	}
-	
-	public LightSource(float x, float y, SpriteBatch batch){
-		super(x, y);
-		this.batch = batch;
+		
+	public LightSource(float x, float y, ShaderManager shaderManager){
 		pos = new Vector3(x, y, defaultLightZ);
-		setDefaultLight();		
+		setDefaultLight();
+		shaderManager.addLight(this);
 	}
 	
 	public void passToGPU(){
@@ -53,7 +48,7 @@ public class LightSource extends Entity{
 	public void setSunLight(){
 		color = new Vector3(0.96f, 0.9f, 0.14f);
 		fallOff = new Vector3(.4f, 3f, 20f);
-		intensity = 5.0f;
+		intensity = 10.0f;
 	}
 	
 	public Vector3 getPos(){

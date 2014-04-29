@@ -7,11 +7,13 @@ public class Entity implements Disposable {
 	private boolean ignoreTick;
 	private float x, y;
 	private int ID;
+	private EntityManager entityManager;
 
-	public Entity(float x, float y) {
+	public Entity(float x, float y, EntityManager entityManager) {
 		this.ignoreTick = false;
 		this.x = x;
 		this.y = y;
+		this.entityManager = entityManager;
 	}
 
 	public void onTick(float delta) {
@@ -53,6 +55,14 @@ public class Entity implements Disposable {
 
 	public int getID(){
 		return ID;
+	}
+	
+	public void setEntityManager(EntityManager entityManager){
+		this.entityManager = entityManager;
+	}
+	
+	public EntityManager getEntityManager(){
+		return this.entityManager;
 	}
 	
 	@Override
