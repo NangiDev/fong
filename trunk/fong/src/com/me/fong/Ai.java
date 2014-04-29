@@ -14,8 +14,8 @@ public class Ai extends BaseShip {
 	private EntityManager entityManager;
 
 	public Ai(SpriteBatch batch, Texture texture, float x, float y,
-			EntityManager entityManager) {
-		super(batch, texture, x, y, entityManager);
+			EntityManager entityManager, boolean ignoreLighting) {
+		super(batch, texture, x, y, entityManager, ignoreLighting);
 		this.entityManager = entityManager;
 		setOrientation(true);
 		setHealth(3);

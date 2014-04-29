@@ -3,7 +3,7 @@ import sys
 import math
 
 def main():
-	picture = "logotype"						#name of the picture without file extension
+	picture = "enemyBlue1"						#name of the picture without file extension
 	img = Image.open(picture + ".png")		#open requested image with file extension. Change ".png" for other file type
 	norm = Image.new("RGBA", img.size)		#Creates a new image that will be loaded with RGBA from normals
 	pix = img.load()						#Loads the requested image into an list for faster access to pixels
@@ -21,8 +21,8 @@ def main():
 
 	d = 255/getBiggest(Zmatrix, img)
 
-	for x in xrange(img.size[0]):
-		print(XYmatrix[x])
+	#for x in xrange(img.size[0]):
+		#print(XYmatrix[x])
 
 	for y in xrange(img.size[1]):
 		for x in xrange(img.size[0]):

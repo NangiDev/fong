@@ -7,14 +7,19 @@ public class EntityManager {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private Player player;
 	private int ID = 0;
+	public ShaderManager shaderManager;
 	public MyGame game;
 
 	public EntityManager(MyGame game) {
 		this.game = game;
+		this.shaderManager = new ShaderManager();
 	}
 
 	public void tick(float delta) {
 		ArrayList<Entity> ticks = new ArrayList<Entity>(entities);
+		
+		//ShaderManager.tick(delta);
+		shaderManager.passLights();
 
 		for (int i = 0; i < ticks.size(); i++) {
 			for (int j = i + 1; j < ticks.size(); j++) {
@@ -31,12 +36,17 @@ public class EntityManager {
 					}
 				}
 			}
+			if(ticks.get(i) instanceof Shadable){
+				((Shadable) ticks.get(i)).bind();
+			}
+			
 			if (ticks.get(i) instanceof DrawComponent) {
 				((DrawComponent) ticks.get(i)).draw();
 			}
 
 			ticks.get(i).tick(delta);
 		}
+		//System.out.println(shaderManager.getlog());
 	}
 
 	public void addEntity(Entity e) {

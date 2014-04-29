@@ -70,17 +70,19 @@ public class MyGame extends Game {
 	@Override
 	public void create() {
 		this.batch = new SpriteBatch();
-		ShaderProgram.pedantic = false;
-		defaultShader = ShaderHandler.defaultShader;
-		normalShader = ShaderHandler.normalShader;
+		//ShaderProgram.pedantic = false;
+		//defaultShader = ShaderManager.defaultShader;
+		//normalShader = ShaderManager.normalShader;
 		// Check that shader is compiled
-		ShaderHandler.shaderCompiled(normalShader);
+		//ShaderManager.shaderCompiled(normalShader);
 
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		scaleX = screenWidth / 600;
 		scaleY = screenHeight / 960;
 		camera = new OrthographicCamera(1, screenHeight / screenWidth);
+		camera.setToOrtho(false, screenWidth, screenHeight);
+		batch.setProjectionMatrix(camera.combined);
 		this.backgroundTexture = Assets.backgroundPurple;
 
 		myDarkGreen = new Color(71.0f / 255.0f, 97.0f / 255.0f, 28.0f / 255.0f,
@@ -179,6 +181,8 @@ public class MyGame extends Game {
 
 	@Override
 	public void render() {
+		Gdx.graphics.getGL20().glClearColor( 1, 0, 0, 1 );
+		Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		super.render();
 	}
 

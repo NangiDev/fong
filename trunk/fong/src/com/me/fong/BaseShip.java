@@ -14,11 +14,11 @@ public class BaseShip extends CollidableComponent{
 	private float fireRate;
 	private float fireRateModifier;
 	private ArrayList<PowerUps> powerUps;
-	private EntityManager entityManager;
+	//private EntityManager entityManager;
 	
-	public BaseShip(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager){
-		super(batch, texture, x, y);
-		this.entityManager = entityManager;
+	public BaseShip(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting){
+		super(batch, texture, x, y, entityManager, ignoreLighting);
+		//this.entityManager = entityManager;
 		this.alive = true;
 		this.powerUps = new ArrayList<PowerUps>();
 		this.healthModifier = 1;

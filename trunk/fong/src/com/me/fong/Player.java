@@ -11,11 +11,11 @@ public class Player extends BaseShip {
 	private float
 	projectileInterval = 0;
 	private ArrayList<Entity> projectiles = new ArrayList<Entity>();
-	private EntityManager entityManager;
+	//private EntityManager entityManager;
 
-	public Player(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager) {
-		super(batch, texture, y, y, entityManager);
-		this.entityManager = entityManager;
+	public Player(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting) {
+		super(batch, texture, y, y, entityManager, ignoreLighting);
+		//this.entityManager = entityManager;
 		setSpeed(800);
 	}
 
@@ -39,9 +39,9 @@ public class Player extends BaseShip {
 
 		projectileInterval -= delta * 100;
 
-		if (projectileInterval < 0)
-			fireProjectile();
-		}
+		//if (projectileInterval < 0)
+			//fireProjectile();
+	}
 
 	@Override
 	public void onCollision(Object o) {
@@ -61,8 +61,8 @@ public class Player extends BaseShip {
 	public void dispose(){
 		super.dispose();
 		projectiles.clear();
-		entityManager.removeEntity(this);
-		entityManager.game.switchToScreen(GameState.GameOver);
+		getEntityManager().removeEntity(this);
+		getEntityManager().game.switchToScreen(GameState.GameOver);
 	}
 
 	public void fireProjectile() {
@@ -70,9 +70,9 @@ public class Player extends BaseShip {
 				Assets.laserRed, getOrigiX()
 						- Assets.laserRed.getWidth() * 0.5f
 						* MyGame.scaleX, getY()
-						+ getTexture().getHeight()*0.5f * MyGame.scaleY + Assets.laserRed.getHeight()*0.5f * MyGame.scaleY, this.entityManager, orientation);
+						+ getTexture().getHeight()*0.5f * MyGame.scaleY + Assets.laserRed.getHeight()*0.5f * MyGame.scaleY, this.getEntityManager(), orientation);
 		projectiles.add(projectile);
-		entityManager.addEntity(projectile);
+		getEntityManager().addEntity(projectile);
 		projectileInterval = getFireRate();
 	}
 }

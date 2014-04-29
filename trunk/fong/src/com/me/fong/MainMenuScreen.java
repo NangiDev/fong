@@ -17,18 +17,18 @@ public class MainMenuScreen implements Screen {
 	private MyGame game;
 	private TextureCombiner newHeader;
 	private Texture header;
-	private Texture headerNormals;
+	//private Texture headerNormals;
 	private Label signature;
 	private TextButton startButton;
 	private TextButton highscoreButton;
 	private TextButton howToPlayButton;
 	private TextButton optionsButton;
 	private TextButton creditsButton;
-	private ShaderProgram shader;
-	private LightSource light;
+	//private ShaderProgram shader;
+	//private LightSource light;
 	
-	private String vertexShader;
-	private String fragmentShader;
+	//private String vertexShader;
+	//private String fragmentShader;
 	
 	//Constants
 	public static final float DEFAULT_LIGHT_Z = 0.1f;
@@ -50,26 +50,23 @@ public class MainMenuScreen implements Screen {
 		this.game = myGame;
 		
 		header = new Texture(Gdx.files.internal("menu/logotype.png"));
-		headerNormals = new Texture(Gdx.files.internal("menu/logotypeNormal.png"));
-		newHeader = new TextureCombiner("menu/logotype.png");
+		//headerNormals = new Texture(Gdx.files.internal("menu/logotypeNormal.png"));
+		//newHeader = new TextureCombiner("menu/logotype.png");
 		
-		light = new LightSource(game.batch);
-		light.setDefaultLight();
+		//light = new LightSource(game.batch);
+		//light.setDefaultLight();
 		
 		//S�tt upp uniformer
-		game.normalShader.begin();
-		game.normalShader.setUniformi("u_normals", 1);
+		//game.normalShader.begin();
+		//game.normalShader.setUniformi("u_normals", 1);
 		
-		game.normalShader.setUniformf("LightColor", light.getColor().x, light.getColor().y, light.getColor().z, light.getIntensity());
-		game.normalShader.setUniformf("AmbientColor", AMBIENT_COLOR.x, AMBIENT_COLOR.y, AMBIENT_COLOR.z, AMBIENT_INTENSITY);
-		game.normalShader.setUniformf("Falloff", light.getFallOff());
-		game.normalShader.end();
+		//game.normalShader.setUniformf("LightColor", light.getColor().x, light.getColor().y, light.getColor().z, light.getIntensity());
+		//game.normalShader.setUniformf("AmbientColor", AMBIENT_COLOR.x, AMBIENT_COLOR.y, AMBIENT_COLOR.z, AMBIENT_INTENSITY);
+		//game.normalShader.setUniformf("Falloff", light.getFallOff());
+		//game.normalShader.end();
 		
-		game.batch = new SpriteBatch(1000, game.normalShader);
-		game.batch.setShader(game.normalShader);
-		
-		
-		
+		//game.batch = new SpriteBatch(1000, game.normalShader);
+		//game.batch.setShader(game.normalShader);
 	}
 
 	@Override
@@ -83,7 +80,7 @@ public class MainMenuScreen implements Screen {
 			System.out.println("LIGHT_POS updated");
 			float x = (Gdx.input.getX() / game.screenWidth);
 			float y = 1-(Gdx.input.getY() / game.screenHeight);
-			light.setPos(x, y);
+			//light.setPos(x, y);
 		}
 		
 		/*float x = ((MyGame.screenWidth * 0.5f) - (header.getWidth() * 0.5f * MyGame.scaleX) + header.getWidth() / 2) / game.screenWidth;
@@ -97,25 +94,25 @@ public class MainMenuScreen implements Screen {
 
 	public void draw(float delta) {
 		game.batch.begin();
-		game.batch.setShader(game.defaultShader);
+		//game.batch.setShader(game.defaultShader);
 		game.drawBackground(delta);
 		
-		game.batch.setShader(game.normalShader);
+		//game.batch.setShader(game.normalShader);
 		
-		game.normalShader.setUniformf("LightPos", light.getPos());
+		//game.normalShader.setUniformf("LightPos", light.getPos());
 		
 		//headerNormals.bind(1);
 		//header.bind(0);
 		
-		newHeader.bind();
+		//newHeader.bind();
 		
-		game.batch.draw(newHeader.texture, (MyGame.screenWidth * 0.5f)
-				- (newHeader.texture.getWidth() * 0.5f * MyGame.scaleX),
-				MyGame.screenHeight * 0.7f, newHeader.texture.getWidth()
-						* MyGame.scaleX, newHeader.texture.getHeight()
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth()
+						* MyGame.scaleX, header.getHeight()
 						* MyGame.scaleY);
 		
-		game.batch.setShader(game.defaultShader);
+		//game.batch.setShader(game.defaultShader);
 		
 		signature.draw(game.batch, 1);
 
@@ -126,13 +123,13 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		game.camera.setToOrtho(false, width, height);
-		game.batch.setProjectionMatrix(game.camera.combined);
+		//game.camera.setToOrtho(false, width, height);
+		//game.batch.setProjectionMatrix(game.camera.combined);
 		
-		game.normalShader.begin();
-		game.batch.setShader(game.normalShader);
-		game.normalShader.setUniformf("Resolution", width, height);
-		game.normalShader.end();
+		//game.normalShader.begin();
+		//game.batch.setShader(game.normalShader);
+		//game.normalShader.setUniformf("Resolution", width, height);
+		//game.normalShader.end();
 	}
 
 	@Override

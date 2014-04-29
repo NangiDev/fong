@@ -23,7 +23,7 @@ public class InstructionsScreen implements Screen {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/instructions.png"));
 		
-		tutorialPlayer = Assets.cockpitBlue_0;
+		tutorialPlayer = Assets.enemyBlack1;
 		playerX = (MyGame.screenWidth * 0.5f) - (tutorialPlayer.getWidth() * 0.5f * MyGame.scaleX);
 				
 		this.instructionsText = "Your goal is to stay alive!\n\n"
