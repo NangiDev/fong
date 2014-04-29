@@ -11,10 +11,10 @@ public class World {
 		this.game = myGame;
 		this.entityManager = new EntityManager(game);
 				
-		player = new Player(game.batch,Assets.playerShipTexture, MyGame.screenWidth*0.5f - Assets.playerShipTexture.getWidth()*0.5f*MyGame.scaleX, 100, entityManager);
+		player = new Player(game.batch,Assets.cockpitBlue_2, MyGame.screenWidth*0.5f, MyGame.screenHeight*0.2f, entityManager);
 		entityManager.addEntity(player);
 		
-		ai = new Ai(game.batch,Assets.playerShipTexture, MyGame.screenWidth*0.5f, MyGame.screenHeight, entityManager);
+		ai = new Ai(game.batch,Assets.cockpitBlue_0, MyGame.screenWidth*0.5f, MyGame.screenHeight, entityManager);
 		entityManager.addEntity(ai);
 		
 		sun = new LightSource(MyGame.screenWidth + 500 , MyGame.screenHeight / 2, game.batch);

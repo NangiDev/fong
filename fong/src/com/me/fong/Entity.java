@@ -8,8 +8,10 @@ public class Entity implements Disposable {
 	private float x, y;
 	private int ID;
 
-	public Entity() {
+	public Entity(float x, float y) {
 		this.ignoreTick = false;
+		this.x = x;
+		this.y = y;
 	}
 
 	public void onTick(float delta) {

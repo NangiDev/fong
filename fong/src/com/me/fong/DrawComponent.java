@@ -1,7 +1,5 @@
 package com.me.fong;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,8 +7,14 @@ public class DrawComponent extends Entity {
 
 	private Texture texture;
 	private SpriteBatch batch;
-	public boolean orientation = true;
+	public boolean orientation = false;
 	private float origoX, origoY;
+	
+	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y){
+		super(x, y);
+		this.texture = texture;
+		this.batch = batch;
+	}
 
 	public void draw() {
 		if (orientation)

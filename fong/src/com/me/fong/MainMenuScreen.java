@@ -49,8 +49,6 @@ public class MainMenuScreen implements Screen {
 	public MainMenuScreen(MyGame myGame) {
 		this.game = myGame;
 		
-		
-		
 		header = new Texture(Gdx.files.internal("menu/logotype.png"));
 		headerNormals = new Texture(Gdx.files.internal("menu/logotypeNormal.png"));
 		newHeader = new TextureCombiner("menu/logotype.png");
@@ -100,7 +98,7 @@ public class MainMenuScreen implements Screen {
 	public void draw(float delta) {
 		game.batch.begin();
 		game.batch.setShader(game.defaultShader);
-		game.drawBackground();
+		game.drawBackground(delta);
 		
 		game.batch.setShader(game.normalShader);
 		
@@ -139,6 +137,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
+		game.gameScreen = null;
 		createScreen();
 		setupMenuLayout();
 	}

@@ -47,7 +47,7 @@ public class CreditsScreen implements Screen {
 	public void draw(float delta) {
 		game.batch.begin();
 
-		game.drawBackground();
+		game.drawBackground(delta);
 
 		game.batch.draw(header, (game.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * game.scaleX),

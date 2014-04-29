@@ -12,20 +12,22 @@ public class GameScreen implements Screen {
 	private MyGame game;
 	private TextButton pauseButton;
 	private Label scoreLabel;
+	private boolean ignoreTicks = false;
 
 	public GameScreen(MyGame myGame) {
 		this.game = myGame;
 				
 		setupGUI();
-		
+		world = new World(game);
 		System.out.println("new GameScreen created");
 	}
 
 	@Override
 	public void render(float delta) {
 		game.batch.begin();
-		draw(delta);
+		game.drawBackground(delta);
 		update(delta);
+		draw(delta);
 		game.batch.end();
 	}
 
@@ -33,12 +35,12 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			game.switchToScreen(GameState.Pause);
 		}
-		world.tick(delta);
+		if(!ignoreTicks)
+			world.tick(delta);
 	}
 
 	public void draw(float delta) {
 
-		game.drawBackground();
 		
 		pauseButton.draw(game.batch, 1);
 		scoreLabel.draw(game.batch, 1);
@@ -50,18 +52,18 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		this.world = new World(game);
+		this.ignoreTicks = false;
 		game.stage.addActor(pauseButton);
 	}
 
 	@Override
 	public void hide() {
-		this.world = null;
 		game.stage.getRoot().removeActor(pauseButton);
 	}
 
 	@Override
 	public void pause() {
+		this.ignoreTicks = true;
 	}
 
 	@Override
@@ -70,6 +72,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		world = null;
 	}
 
 	private void setupGUI(){

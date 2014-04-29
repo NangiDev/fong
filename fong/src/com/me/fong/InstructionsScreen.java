@@ -23,7 +23,7 @@ public class InstructionsScreen implements Screen {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/instructions.png"));
 		
-		tutorialPlayer = new Texture(Gdx.files.internal("playerShip2_blue.png"));
+		tutorialPlayer = Assets.cockpitBlue_0;
 		playerX = (MyGame.screenWidth * 0.5f) - (tutorialPlayer.getWidth() * 0.5f * MyGame.scaleX);
 				
 		this.instructionsText = "Your goal is to stay alive!\n\n"
@@ -71,17 +71,15 @@ public class InstructionsScreen implements Screen {
 	public void draw(float delta) {
 		game.batch.begin();
 
-		game.drawBackground();
+		game.drawBackground(delta);
 
 		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
 				header.getHeight() * MyGame.scaleY);
 		
-		game.batch.draw(tutorialPlayer, playerX, MyGame.screenHeight * 0.5f,tutorialPlayer.getWidth() * MyGame.scaleX, tutorialPlayer.getHeight() * MyGame.scaleY);
+		game.batch.draw(tutorialPlayer, playerX, MyGame.screenHeight * 0.5f + tutorialPlayer.getHeight()* MyGame.scaleY,tutorialPlayer.getWidth() * MyGame.scaleX, -tutorialPlayer.getHeight() * MyGame.scaleY);
 		
-		//tutorialPlayer.draw(game.batch, tutorialPlayer.getX(), tutorialPlayer.getY(), tutorialPlayer.getWidth(), tutorialPlayer.getHeight());
-
 		game.table.draw(game.batch, 1);
 
 		game.batch.end();
@@ -93,17 +91,12 @@ public class InstructionsScreen implements Screen {
 
 	@Override
 	public void show() {
-		//tutorialPlayer = new Player();
-		//tutorialPlayer.setPosition((MyGame.screenWidth * 0.5f) - (tutorialPlayer.getTexture().getWidth() * 0.5f * MyGame.scaleX), MyGame.screenHeight * 0.5f);
-		//tutorialPlayer.setWidth(tutorialPlayer.getTexture().getWidth() * MyGame.scaleX);
-		//tutorialPlayer.setHeight(tutorialPlayer.getTexture().getHeight() * MyGame.scaleY);
 		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
 		game.table.clearChildren();
-		//tutorialPlayer.dispose();
 	}
 
 	@Override
