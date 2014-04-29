@@ -1,5 +1,4 @@
 package com.me.fong;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
@@ -18,6 +17,7 @@ public class LightSource extends Entity{
 	}
 	
 	public LightSource(float x, float y, SpriteBatch batch){
+		super(x, y);
 		this.batch = batch;
 		pos = new Vector3(x, y, defaultLightZ);
 		setDefaultLight();		

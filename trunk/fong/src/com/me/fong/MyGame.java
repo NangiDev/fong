@@ -22,20 +22,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class MyGame extends Game {
+	public static float screenWidth, screenHeight;
+	public static float scaleX, scaleY;
+
 	public SpriteBatch batch;
 	public ShaderProgram defaultShader;
 	public ShaderProgram normalShader;
+
 	public BitmapFont fontLarge, fontMedium, fontSmall;
-	public static float screenWidth, screenHeight;
-	public static float scaleX, scaleY;
 	public boolean musicOn, soundOn, lightOn;
-	
+
 	public Skin skin;
 	public Stage stage;
 	public Table table;
-	
+
 	public TextFieldStyle textFieldStyle;
-	
+
 	public TextButtonStyle largeButtonStyle;
 	public TextButtonStyle mediumButtonStyle;
 	public TextButtonStyle smallButtonStyle;
@@ -43,18 +45,19 @@ public class MyGame extends Game {
 	public LabelStyle largelabelStyle;
 	public LabelStyle mediumlabelStyle;
 	public LabelStyle smalllabelStyle;
-	
+
 	public ListStyle listStyle;
 
 	public HighscoreManager HighscoreManager;
 	public Screen currentScreen;
-	
+
 	public Color myDarkGreen, myGreen, myYellow;
 
 	public OrthographicCamera camera;
-	private Texture backgoundTexture;
+	private Texture backgroundTexture;
+	public int backgroundSpeed = 0;
 
-	private GameScreen gameScreen;
+	public GameScreen gameScreen;
 	private PauseScreen pauseScreen;
 	private OptionScreen optionScreen;
 	private LoadingScreen loadingScreen;
@@ -63,31 +66,34 @@ public class MyGame extends Game {
 	private GameOverScreen gameOverScreen;
 	private HighscoreScreen highscoreScreen;
 	private InstructionsScreen instructionsScreen;
-	
+
 	@Override
 	public void create() {
 		this.batch = new SpriteBatch();
 		ShaderProgram.pedantic = false;
 		defaultShader = ShaderHandler.defaultShader;
-		normalShader  = ShaderHandler.normalShader;
-		//Check that shader is compiled
+		normalShader = ShaderHandler.normalShader;
+		// Check that shader is compiled
 		ShaderHandler.shaderCompiled(normalShader);
-		
+
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		scaleX = screenWidth / 600;
 		scaleY = screenHeight / 960;
 		camera = new OrthographicCamera(1, screenHeight / screenWidth);
-		this.backgoundTexture = new Texture(Gdx.files.internal("purple.png"));
-				
-		myDarkGreen = new Color(71.0f/255.0f,97.0f/255.0f,28.0f/255.0f,1.0f);
-		myGreen = new Color(125.0f/255.0f,149.0f/255.0f,85.0f/255.0f,1.0f);
-		myYellow = new Color(208.0f/255.0f,197.0f/255.0f,141.0f/255.0f,1.0f);
-		
+		this.backgroundTexture = Assets.backgroundPurple;
+
+		myDarkGreen = new Color(71.0f / 255.0f, 97.0f / 255.0f, 28.0f / 255.0f,
+				1.0f);
+		myGreen = new Color(125.0f / 255.0f, 149.0f / 255.0f, 85.0f / 255.0f,
+				1.0f);
+		myYellow = new Color(208.0f / 255.0f, 197.0f / 255.0f, 141.0f / 255.0f,
+				1.0f);
+
 		HighscoreManager = new HighscoreManager();
-		
+
 		Gdx.input.setCatchBackKey(true);
-		
+
 		createFont();
 		setupLayout();
 		switchToScreen(GameState.MainMenu);
@@ -97,13 +103,13 @@ public class MyGame extends Game {
 		this.stage = new Stage();
 		this.skin = new Skin();
 		this.table = new Table(skin);
-		
+
 		Gdx.input.setInputProcessor(stage);
-		
+
 		skin.add("fontLarge", fontLarge);
 		skin.add("fontMedium", fontMedium);
 		skin.add("fontSmall", fontSmall);
-		
+
 		textFieldStyle = new TextFieldStyle();
 		textFieldStyle.font = skin.getFont("fontMedium");
 		textFieldStyle.fontColor = myGreen;
@@ -113,29 +119,29 @@ public class MyGame extends Game {
 		largelabelStyle = new LabelStyle();
 		largelabelStyle.font = skin.getFont("fontLarge");
 		largelabelStyle.fontColor = myYellow;
-		
+
 		listStyle = new ListStyle();
-		
+
 		mediumlabelStyle = new LabelStyle();
 		mediumlabelStyle.font = skin.getFont("fontMedium");
 		mediumlabelStyle.fontColor = myYellow;
-		
+
 		smalllabelStyle = new LabelStyle();
 		smalllabelStyle.font = skin.getFont("fontSmall");
 		smalllabelStyle.fontColor = myYellow;
-		
+
 		largeButtonStyle = new TextButtonStyle();
 		largeButtonStyle.font = skin.getFont("fontLarge");
 		largeButtonStyle.fontColor = myYellow;
-		
+
 		mediumButtonStyle = new TextButtonStyle();
 		mediumButtonStyle.font = skin.getFont("fontMedium");
 		mediumButtonStyle.fontColor = myYellow;
-		
+
 		smallButtonStyle = new TextButtonStyle();
 		smallButtonStyle.font = skin.getFont("fontSmall");
 		smallButtonStyle.fontColor = myYellow;
-		
+
 		skin.add("default", largelabelStyle);
 		skin.add("default", mediumlabelStyle);
 		skin.add("default", smalllabelStyle);
@@ -143,7 +149,7 @@ public class MyGame extends Game {
 		skin.add("mediumButton", mediumButtonStyle);
 		skin.add("smallButton", smallButtonStyle);
 		skin.add("listStyle", listStyle);
-		
+
 		table.top();
 		table.setFillParent(true);
 		table.debug();
@@ -153,30 +159,32 @@ public class MyGame extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		backgoundTexture.dispose();
+		backgroundTexture.dispose();
 		stage.dispose();
 		skin.dispose();
 	}
 
 	// Call this in each screen class that wants same background as main.
-	public void drawBackground() {
-		for (int y = 0; y < MyGame.screenHeight/backgoundTexture.getHeight(); y++) {
-			for (int x = 0; x < MyGame.screenWidth/backgoundTexture.getWidth(); x++) {
-				batch.draw(backgoundTexture, x * backgoundTexture.getWidth(), y * backgoundTexture.getHeight());
+	public void drawBackground(float delta) {
+		for (int x = 0; x < (screenWidth / (backgroundTexture.getWidth()*scaleX)); x++) {
+			for (int y = 0; y < (screenHeight/(backgroundTexture.getHeight()*scaleY)+1); y++) {
+				batch.draw(backgroundTexture, x * backgroundTexture.getWidth() * scaleX , y * backgroundTexture.getHeight() * scaleY - backgroundSpeed, backgroundTexture.getWidth() * scaleX, backgroundTexture.getHeight() * scaleY);
 			}
 		}
+		if(backgroundSpeed > backgroundTexture.getHeight() * scaleY)
+			backgroundSpeed = 0;
+		
+		backgroundSpeed += 250 * delta * scaleY;
 	}
 
 	@Override
 	public void render() {
-		Gdx.graphics.getGL20().glClearColor( 1, 0, 0, 1 );
-		Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		super.render();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		
+
 	}
 
 	@Override

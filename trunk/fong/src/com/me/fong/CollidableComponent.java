@@ -1,5 +1,7 @@
 package com.me.fong;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
@@ -8,7 +10,8 @@ public class CollidableComponent extends DrawComponent{
 	private BoundingBox boundingBox;
 	private Vector3 minVec, maxVec;
 	
-	public CollidableComponent(){
+	public CollidableComponent(SpriteBatch batch, Texture texture, float x, float y){
+		super(batch, texture, x, y);
 		boundingBox = new BoundingBox();
 	}
 	

@@ -6,18 +6,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Projectile extends CollidableComponent{
 	
 	private EntityManager entityManager;
+	private boolean orientation;
 	
-	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager){
-		setTexture(texture);
-		setSpriteBatch(batch);
-		setX(x);
-		setY(y);
+	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation){
+		super(batch, texture, x, y);
 		this.entityManager = entityManager;
+		this.orientation = orientation;
 	}
 	
 	@Override
 	public void onTick(float delta){
-		setY(getY() + 500 * delta * MyGame.scaleY);
+		if(orientation)
+			setY(getY() - 1000 * delta * MyGame.scaleY);
+		else
+			setY(getY() + 1000 * delta * MyGame.scaleY);
 		
 		if(getY() > MyGame.screenHeight || getY() < 0 || getX() > MyGame.screenWidth || getX() < 0){
 			this.dispose();
@@ -33,10 +35,8 @@ public class Projectile extends CollidableComponent{
 	@Override
 	public void onCollision(Object o){
 		super.onCollision(o);
-		
-		if(o instanceof Projectile || o instanceof Player)
+		if(o instanceof Projectile)
 			return;
-		
 		dispose();
 	}
 }

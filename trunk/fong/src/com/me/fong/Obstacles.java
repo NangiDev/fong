@@ -1,5 +1,5 @@
 package com.me.fong;
 
-public class Obstacles extends CollidableComponent{
+public class Obstacles{
 
 }

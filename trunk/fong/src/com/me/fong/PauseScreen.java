@@ -2,7 +2,6 @@ package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -33,13 +32,13 @@ public class PauseScreen implements Screen{
 	public void draw(float delta) {
 		game.batch.begin();
 
-		game.drawBackground();
+		game.drawBackground(delta);
 		
-		game.batch.draw(header, (game.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth()
-						* game.scaleX, header.getHeight()
-						* game.scaleY);
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth()
+						* MyGame.scaleX, header.getHeight()
+						* MyGame.scaleY);
 		
 		game.table.draw(game.batch, 1);
 		
@@ -74,11 +73,11 @@ public class PauseScreen implements Screen{
 	
 	private void setupMenuLayout(){
 		
-		game.table.add().row().padBottom(100.0f * game.scaleY);
-		game.table.add(resumeButton).row().padBottom(25.0f * game.scaleY);
+		game.table.add().row().padBottom(100.0f * MyGame.scaleY);
+		game.table.add(resumeButton).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(exitButton);
 
-		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
+		game.table.padTop(header.getHeight() * 1.5f * MyGame.scaleY);
 	}
 
 }
