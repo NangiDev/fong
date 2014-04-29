@@ -21,7 +21,7 @@ public class LightSource{
 	}
 	public void setDefaultLight(){
 		color = new Vector3(1.0f, 1.0f, 1.0f);
-		fallOff = new Vector3(.4f, 3f, 20f);
+		fallOff = new Vector3(0f, 0f, 0f);
 		intensity = 5.0f;
 	}
 	

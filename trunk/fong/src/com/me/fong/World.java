@@ -10,10 +10,10 @@ public class World {
 		this.game = myGame;
 		this.entityManager = new EntityManager(game);
 				
-		player = new Player(game.batch,Assets.enemyBlue1, MyGame.screenWidth*0.5f, MyGame.screenHeight*0.2f, entityManager, false);
+		player = new Player(game.batch,Assets.playerShip2_red, MyGame.screenWidth*0.5f, MyGame.screenHeight*0.2f, entityManager, false);
 		entityManager.addEntity(player);
 		
-		ai = new Ai(game.batch,Assets.enemyBlue1, MyGame.screenWidth*0.5f, MyGame.screenHeight, entityManager, false);
+		ai = new Ai(game.batch,Assets.meteorGray1, MyGame.screenWidth*0.5f, MyGame.screenHeight, entityManager, false);
 		entityManager.addEntity(ai);
 	}
 	

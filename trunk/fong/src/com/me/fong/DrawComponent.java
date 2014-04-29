@@ -7,23 +7,19 @@ public class DrawComponent extends Entity {
 
 	private Texture texture;
 	private SpriteBatch batch;
-	public boolean orientation = false;
 	private float origoX, origoY;
-	
-	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager){
+
+	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y,
+			EntityManager entityManager) {
 		super(x, y, entityManager);
 		this.texture = texture;
 		this.batch = batch;
 	}
 
 	public void draw() {
-		if (orientation)
-			batch.draw(texture, getX(), getY(), texture.getWidth()
-					* MyGame.scaleX, texture.getHeight() * MyGame.scaleY);
-		else
-			batch.draw(texture, getX(), getY(), texture.getWidth()
-					* MyGame.scaleX, -texture.getHeight() * MyGame.scaleY);
-		
+		batch.draw(texture, getX(), getY(), texture.getWidth() * MyGame.scaleX,
+				texture.getHeight() * MyGame.scaleY);
+
 		this.origoX = getX() + getTexture().getWidth() * 0.5f * MyGame.scaleX;
 		this.origoY = getY() + getTexture().getHeight() * 0.5f * MyGame.scaleY;
 	}
@@ -50,9 +46,5 @@ public class DrawComponent extends Entity {
 
 	public Texture getTexture() {
 		return this.texture;
-	}
-
-	public void setOrientation(boolean orientation) {
-		this.orientation = orientation;
 	}
 }

@@ -70,7 +70,6 @@ public class Assets {
 	public static final Texture enemyBlack4 = new Texture(Gdx.files.internal("Enemies/enemyBlack4.png"));
 	
 	public static final Texture enemyBlue1 = new Texture(Gdx.files.internal("Enemies/enemyBlue1.png"));
-	public static final Texture enemyBlue1Normal = new Texture(Gdx.files.internal("enemyBlue1Normal.png"));
 	public static final Texture enemyBlue2 = new Texture(Gdx.files.internal("Enemies/enemyBlue2.png"));
 	public static final Texture enemyBlue3 = new Texture(Gdx.files.internal("Enemies/enemyBlue3.png"));
 	public static final Texture enemyBlue4 = new Texture(Gdx.files.internal("Enemies/enemyBlue4.png"));
@@ -106,21 +105,21 @@ public class Assets {
 	public static final Texture things_Silver= new Texture(Gdx.files.internal("Power-ups/Things/things_silver.png"));
 	public static final Texture things_Gold = new Texture(Gdx.files.internal("Power-ups/Things/things_gold.png"));
 
-	public static final Texture defaulNormal = new Texture(Gdx.files.internal("enemyBlue1Normal.png"));
+	public static final Texture defaulNormal = new Texture(Gdx.files.internal("Normals/defaultNormal.png"));
 	
 	static {
 	    final Map<String, Texture> NormasByName = new HashMap<String, Texture>();
-	    NormasByName.put("playerNormal1", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
-	    NormasByName.put("playerNormal2", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
-	    NormasByName.put("playerNormal3", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
-	    NormasByName.put("playerNormal4", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("playerNormal1", new Texture(Gdx.files.internal("Normals/playerShip1Normal.png")));
+	    NormasByName.put("playerNormal2", new Texture(Gdx.files.internal("Normals/playerShip2Normal.png")));
+	    NormasByName.put("playerNormal3", new Texture(Gdx.files.internal("Normals/playerShip3Normal.png")));
+	    NormasByName.put("ufoNormal", new Texture(Gdx.files.internal("Normals/ufoNormal.png")));
 	    
-	    NormasByName.put("enemyNormal1", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
-	    NormasByName.put("enemyNormal2", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
-	    NormasByName.put("enemyNormal3", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
-	    NormasByName.put("enemyNormal4", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("enemyNormal1", new Texture(Gdx.files.internal("Normals/enemy1Normal.png")));
+	    NormasByName.put("enemyNormal2", new Texture(Gdx.files.internal("Normals/enemy2Normal.png")));
+	    NormasByName.put("enemyNormal3", new Texture(Gdx.files.internal("Normals/enemy3Normal.png")));
+	    NormasByName.put("enemyNormal4", new Texture(Gdx.files.internal("Normals/enemy4Normal.png")));
 
-	    NormasByName.put("meteorNormal", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("meteorNormal", new Texture(Gdx.files.internal("Normals/meteorNormal.png")));
 	    
 	    NORMALS_BY_NAME = Collections.unmodifiableMap(NormasByName);
 	}
