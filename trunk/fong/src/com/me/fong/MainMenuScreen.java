@@ -67,6 +67,9 @@ public class MainMenuScreen implements Screen {
 		
 		//game.batch = new SpriteBatch(1000, game.normalShader);
 		//game.batch.setShader(game.normalShader);
+		
+		
+		
 	}
 
 	@Override

@@ -39,8 +39,8 @@ public class Player extends BaseShip {
 
 		projectileInterval -= delta * 100;
 
-		//if (projectileInterval < 0)
-			//fireProjectile();
+		if (projectileInterval < 0)
+			fireProjectile();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class Player extends BaseShip {
 				Assets.laserRed, getOrigiX()
 						- Assets.laserRed.getWidth() * 0.5f
 						* MyGame.scaleX, getY()
-						+ getTexture().getHeight()*0.5f * MyGame.scaleY + Assets.laserRed.getHeight()*0.5f * MyGame.scaleY, this.getEntityManager(), orientation);
+						+ getTexture().getHeight()*0.5f * MyGame.scaleY, this.getEntityManager(), orientation);
 		projectiles.add(projectile);
 		getEntityManager().addEntity(projectile);
 		projectileInterval = getFireRate();

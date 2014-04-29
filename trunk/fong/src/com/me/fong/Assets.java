@@ -1,9 +1,15 @@
 package com.me.fong;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Assets {
+
+	static final Map<String, Texture> NORMALS_BY_NAME;
 	
 	//Backgrounds
 	public static final Texture backgroundBlack = new Texture(Gdx.files.internal("Backgrounds/black.png"));
@@ -34,39 +40,50 @@ public class Assets {
 	
 	//Meteors
 	public static final Texture meteorBrown1 = new Texture(Gdx.files.internal("Meteors/meteorBrown_big1.png"));
-	public static final Texture meteorBrown2 = new Texture(Gdx.files.internal("Meteors/meteorBrown_big2.png"));
-	public static final Texture meteorBrown3 = new Texture(Gdx.files.internal("Meteors/meteorBrown_big3.png"));
-	public static final Texture meteorBrown4 = new Texture(Gdx.files.internal("Meteors/meteorBrown_big4.png"));
 	public static final Texture meteorGray1 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big1.png"));
-	public static final Texture meteorGray2 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big2.png"));
-	public static final Texture meteorGray3 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big3.png"));
-	public static final Texture meteorGray4 = new Texture(Gdx.files.internal("Meteors/meteorGrey_big4.png"));
+	
+	//Player
+	public static final Texture playerShip1_blue = new Texture(Gdx.files.internal("Player/playerShip1_blue.png"));
+	public static final Texture playerShip2_blue = new Texture(Gdx.files.internal("Player/playerShip2_blue.png"));
+	public static final Texture playerShip3_blue = new Texture(Gdx.files.internal("Player/playerShip3_blue.png"));
+	public static final Texture ufoBlue = new Texture(Gdx.files.internal("Player/ufoBlue.png"));
+	
+	public static final Texture playerShip1_green = new Texture(Gdx.files.internal("Player/playerShip1_green.png"));
+	public static final Texture playerShip2_green = new Texture(Gdx.files.internal("Player/playerShip2_green.png"));
+	public static final Texture playerShip3_green = new Texture(Gdx.files.internal("Player/playerShip3_green.png"));
+	public static final Texture ufoGreen = new Texture(Gdx.files.internal("Player/ufoGreen.png"));
+	
+	public static final Texture playerShip1_red = new Texture(Gdx.files.internal("Player/playerShip1_red.png"));
+	public static final Texture playerShip2_red = new Texture(Gdx.files.internal("Player/playerShip2_red.png"));
+	public static final Texture playerShip3_red = new Texture(Gdx.files.internal("Player/playerShip3_red.png"));
+	public static final Texture ufoRed = new Texture(Gdx.files.internal("Player/ufoRed.png"));
+	
+	public static final Texture playerShip1_orange = new Texture(Gdx.files.internal("Player/playerShip1_orange.png"));
+	public static final Texture playerShip2_orange = new Texture(Gdx.files.internal("Player/playerShip2_orange.png"));
+	public static final Texture playerShip3_orange = new Texture(Gdx.files.internal("Player/playerShip3_orange.png"));
+	public static final Texture ufoYellow = new Texture(Gdx.files.internal("Player/ufoYellow.png"));
 		
 	//Enemies
 	public static final Texture enemyBlack1 = new Texture(Gdx.files.internal("Enemies/enemyBlack1.png"));
 	public static final Texture enemyBlack2 = new Texture(Gdx.files.internal("Enemies/enemyBlack2.png"));
 	public static final Texture enemyBlack3 = new Texture(Gdx.files.internal("Enemies/enemyBlack3.png"));
 	public static final Texture enemyBlack4 = new Texture(Gdx.files.internal("Enemies/enemyBlack4.png"));
-	public static final Texture enemyBlack5 = new Texture(Gdx.files.internal("Enemies/enemyBlack5.png"));
 	
 	public static final Texture enemyBlue1 = new Texture(Gdx.files.internal("Enemies/enemyBlue1.png"));
 	public static final Texture enemyBlue1Normal = new Texture(Gdx.files.internal("enemyBlue1Normal.png"));
 	public static final Texture enemyBlue2 = new Texture(Gdx.files.internal("Enemies/enemyBlue2.png"));
 	public static final Texture enemyBlue3 = new Texture(Gdx.files.internal("Enemies/enemyBlue3.png"));
 	public static final Texture enemyBlue4 = new Texture(Gdx.files.internal("Enemies/enemyBlue4.png"));
-	public static final Texture enemyBlue5 = new Texture(Gdx.files.internal("Enemies/enemyBlue5.png"));
 	
 	public static final Texture enemyGreen1 = new Texture(Gdx.files.internal("Enemies/enemyGreen1.png"));
 	public static final Texture enemyGreen2 = new Texture(Gdx.files.internal("Enemies/enemyGreen2.png"));
 	public static final Texture enemyGreen3 = new Texture(Gdx.files.internal("Enemies/enemyGreen3.png"));
 	public static final Texture enemyGreen4 = new Texture(Gdx.files.internal("Enemies/enemyGreen4.png"));
-	public static final Texture enemyGreen5 = new Texture(Gdx.files.internal("Enemies/enemyGreen5.png"));
 	
 	public static final Texture enemyRed1 = new Texture(Gdx.files.internal("Enemies/enemyRed1.png"));
 	public static final Texture enemyRed2 = new Texture(Gdx.files.internal("Enemies/enemyRed2.png"));
 	public static final Texture enemyRed3 = new Texture(Gdx.files.internal("Enemies/enemyRed3.png"));
 	public static final Texture enemyRed4 = new Texture(Gdx.files.internal("Enemies/enemyRed4.png"));
-	public static final Texture enemyRed5 = new Texture(Gdx.files.internal("Enemies/enemyRed5.png"));
 	
 	//Bolts
 	public static final Texture bolt_Bronze = new Texture(Gdx.files.internal("Power-ups/Bolt/bolt_bronze.png"));
@@ -88,4 +105,23 @@ public class Assets {
 	public static final Texture things_Bronze = new Texture(Gdx.files.internal("Power-ups/Things/things_bronze.png"));
 	public static final Texture things_Silver= new Texture(Gdx.files.internal("Power-ups/Things/things_silver.png"));
 	public static final Texture things_Gold = new Texture(Gdx.files.internal("Power-ups/Things/things_gold.png"));
+
+	public static final Texture defaulNormal = new Texture(Gdx.files.internal("enemyBlue1Normal.png"));
+	
+	static {
+	    final Map<String, Texture> NormasByName = new HashMap<String, Texture>();
+	    NormasByName.put("playerNormal1", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("playerNormal2", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("playerNormal3", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("playerNormal4", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    
+	    NormasByName.put("enemyNormal1", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("enemyNormal2", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("enemyNormal3", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    NormasByName.put("enemyNormal4", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+
+	    NormasByName.put("meteorNormal", new Texture(Gdx.files.internal("enemyBlue1Normal.png")));
+	    
+	    NORMALS_BY_NAME = Collections.unmodifiableMap(NormasByName);
+	}
 }

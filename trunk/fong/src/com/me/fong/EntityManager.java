@@ -17,6 +17,7 @@ public class EntityManager {
 
 	public void tick(float delta) {
 		ArrayList<Entity> ticks = new ArrayList<Entity>(entities);
+		shaderManager.switchToNormalShader(game.batch);
 		
 		//ShaderManager.tick(delta);
 		shaderManager.passLights();
@@ -47,6 +48,7 @@ public class EntityManager {
 			ticks.get(i).tick(delta);
 		}
 		//System.out.println(shaderManager.getlog());
+		//shaderManager.switchToDefaultShader(game.batch);
 	}
 
 	public void addEntity(Entity e) {
