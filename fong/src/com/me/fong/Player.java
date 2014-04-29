@@ -70,7 +70,7 @@ public class Player extends BaseShip {
 				Assets.laserRed, getOrigiX()
 						- Assets.laserRed.getWidth() * 0.5f
 						* MyGame.scaleX, getY()
-						+ getTexture().getHeight() * MyGame.scaleY, this.entityManager, orientation);
+						+ getTexture().getHeight()*0.5f * MyGame.scaleY + Assets.laserRed.getHeight()*0.5f * MyGame.scaleY, this.entityManager, orientation);
 		projectiles.add(projectile);
 		entityManager.addEntity(projectile);
 		projectileInterval = getFireRate();

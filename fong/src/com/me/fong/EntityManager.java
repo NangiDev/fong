@@ -41,7 +41,7 @@ public class EntityManager {
 
 	public void addEntity(Entity e) {
 		try {
-			entities.add(e);
+			entities.add(0, e);
 			e.setID(getNewID());
 			if (e instanceof Player)
 				this.player = (Player) e;
