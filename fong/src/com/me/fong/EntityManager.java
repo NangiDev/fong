@@ -48,7 +48,7 @@ public class EntityManager {
 			ticks.get(i).tick(delta);
 		}
 		//System.out.println(shaderManager.getlog());
-		//shaderManager.switchToDefaultShader(game.batch);
+		shaderManager.switchToDefaultShader(game.batch);
 	}
 
 	public void addEntity(Entity e) {

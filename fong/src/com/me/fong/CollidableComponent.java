@@ -26,10 +26,7 @@ public class CollidableComponent extends Shadable{
 	public BoundingBox getBoundingBox(){
 	
 		minVec = new Vector3(getX(), getY(), 0);
-		if(orientation)
-			maxVec = new Vector3(getX()+getTexture().getWidth()*MyGame.scaleX, getY()+getTexture().getHeight()*MyGame.scaleY, 0.1f);
-		else
-			maxVec = new Vector3(getX()+getTexture().getWidth()*MyGame.scaleX, getY()-getTexture().getHeight()*MyGame.scaleY, 0.1f);
+		maxVec = new Vector3(getX()+getTexture().getWidth()*MyGame.scaleX, getY()+getTexture().getHeight()*MyGame.scaleY, 0.1f);
 			
 		return boundingBox.set(minVec, maxVec);
 	}

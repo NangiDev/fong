@@ -179,8 +179,8 @@ public class MyGame extends Game {
 
 	@Override
 	public void render() {
-		Gdx.graphics.getGL20().glClearColor( 0.2f, 0f, 0.3f, 1 );
-		Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+		//Gdx.graphics.getGL20().glClearColor( 0.2f, 0f, 0.3f, 1 );
+		//Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		super.render();
 	}
 

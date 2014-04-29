@@ -17,7 +17,6 @@ public class Ai extends BaseShip {
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, x, y, entityManager, ignoreLighting);
 		this.entityManager = entityManager;
-		setOrientation(true);
 		setHealth(3);
 	}
 
@@ -69,8 +68,8 @@ public class Ai extends BaseShip {
 		Projectile projectile = new Projectile(getSpriteBatch(),
 				Assets.laserRed, getOrigiX() - Assets.laserRed.getWidth()
 						* 0.5f * MyGame.scaleX, getY()
-						- getTexture().getHeight()*0.5f * MyGame.scaleY + Assets.laserRed.getHeight() * MyGame.scaleY,
-				this.entityManager, orientation);
+						- getTexture().getHeight()*0.5f - 1.0f * MyGame.scaleY,
+				this.entityManager, true);
 		projectiles.add(projectile);
 		entityManager.addEntity(projectile);
 		projectileInterval = getFireRate();
