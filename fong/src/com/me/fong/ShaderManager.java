@@ -89,7 +89,7 @@ public class ShaderManager {
 	
 	public ShaderManager(){
 
-		sun = new LightSource(0.8f, 0.2f, this);
+		sun = new LightSource(0.5f, 0.5f, this);
 		sun.setSunLight();
 		
 		ShaderProgram.pedantic = false;

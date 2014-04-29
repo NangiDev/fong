@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FileTextureData;
 
 public class Shadable extends DrawComponent{
 	
@@ -11,7 +12,11 @@ public class Shadable extends DrawComponent{
 	public Shadable(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, x, y, entityManager);
 		this.ignoreLighting = ignoreLighting;
-		this.normalTexture = Assets.enemyBlue1Normal;
+		String path = ((FileTextureData)texture.getTextureData()).getFileHandle().path();
+		
+		this.normalTexture = Assets.NORMALS_BY_NAME.get(path);
+		if(this.normalTexture == null)
+			this.normalTexture = Assets.defaulNormal;
 	}
 	
 	public void bind(){

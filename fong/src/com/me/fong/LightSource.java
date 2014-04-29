@@ -1,16 +1,14 @@
 package com.me.fong;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 
 public class LightSource{
 	
-	public static final float defaultLightZ = 0.1f;
+	public static final float defaultLightZ = 1.0f;
 	private Vector3 pos;
 	private Vector3 color;
 	private Vector3 fallOff;
 	private float intensity;
-	private SpriteBatch batch;
 		
 	public LightSource(float x, float y, ShaderManager shaderManager){
 		pos = new Vector3(x, y, defaultLightZ);
@@ -46,9 +44,9 @@ public class LightSource{
 	}
 	
 	public void setSunLight(){
-		color = new Vector3(0.96f, 0.9f, 0.14f);
-		fallOff = new Vector3(.4f, 3f, 20f);
-		intensity = 10.0f;
+		color = new Vector3(1.0f, 1.0f, 1.0f);
+		fallOff = new Vector3(5f, 5f, 50f);
+		intensity = 100.0f;
 	}
 	
 	public Vector3 getPos(){

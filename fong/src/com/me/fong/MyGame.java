@@ -26,8 +26,6 @@ public class MyGame extends Game {
 	public static float scaleX, scaleY;
 
 	public SpriteBatch batch;
-	public ShaderProgram defaultShader;
-	public ShaderProgram normalShader;
 
 	public BitmapFont fontLarge, fontMedium, fontSmall;
 	public boolean musicOn, soundOn, lightOn;
@@ -181,7 +179,7 @@ public class MyGame extends Game {
 
 	@Override
 	public void render() {
-		Gdx.graphics.getGL20().glClearColor( 1, 0, 0, 1 );
+		Gdx.graphics.getGL20().glClearColor( 0.2f, 0f, 0.3f, 1 );
 		Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		super.render();
 	}
