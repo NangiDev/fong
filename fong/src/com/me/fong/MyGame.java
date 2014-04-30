@@ -2,8 +2,8 @@ package com.me.fong;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -20,17 +20,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class MyGame extends Game {
+	public static boolean musicOn = true;
+	public static boolean soundOn = true;
+	public static boolean lightOn = true;
+	
 	public static float screenWidth;
 	public static float screenHeight;
 	public static float scaleX;
 	public static float scaleY;
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
-	
+
 	private int backgroundSpeed = 150;
 	public int score = 0;
-	public boolean musicOn, soundOn, lightOn;
-	public FileHandle file;
+	private Preferences prefs;
 
 	public BitmapFont fontLarge, fontMedium, fontSmall;
 	public Skin skin;
@@ -70,12 +73,13 @@ public class MyGame extends Game {
 		camera = new OrthographicCamera(1, screenHeight / screenWidth);
 		camera.setToOrtho(false, screenWidth, screenHeight);
 		batch.setProjectionMatrix(camera.combined);
-		
-		Gdx.input.setCatchBackKey(true);
-		highscoreManager = new HighscoreManager();
-		entityManager = new EntityManager(this);
-		soundManager = new SoundManager(musicOn, soundOn);
 
+		highscoreManager = new HighscoreManager();
+		readFromSavefile();
+		entityManager = new EntityManager(this);
+		soundManager = new SoundManager();
+
+		Gdx.input.setCatchBackKey(true);
 		createFont();
 		setupLayout();
 		switchToScreen(GameState.MainMenu);
@@ -148,6 +152,7 @@ public class MyGame extends Game {
 	@Override
 	public void render() {
 		super.render();
+		soundManager.tick();
 	}
 
 	@Override
@@ -163,11 +168,48 @@ public class MyGame extends Game {
 	public void resume() {
 	}
 
+	public void readFromSavefile() {
+		prefs = Gdx.app.getPreferences("FongSaveFile");
+		if (prefs.get().size() > 0) {
+			soundOn = prefs.getBoolean("soundOn");
+			musicOn = prefs.getBoolean("musicOn");
+			lightOn = prefs.getBoolean("lightOn");
+
+			for (int i = 1; i <= 5; i++) {
+				String str = prefs.getString("" + i);
+				String[] parts = str.split(" ");
+				highscoreManager.addScore(new Score(parts[0], Integer
+						.parseInt(parts[1])));
+			}
+		} else {
+			prefs.putBoolean("soundOn", true);
+			prefs.putBoolean("musicOn", true);
+			prefs.putBoolean("lightOn", true);
+			prefs.putString("1", "Föng 0");
+			prefs.putString("2", "Föng 0");
+			prefs.putString("3", "Föng 0");
+			prefs.putString("4", "Föng 0");
+			prefs.putString("5", "Föng 0");
+			prefs.flush();
+			
+			soundOn = prefs.getBoolean("soundOn");
+			musicOn = prefs.getBoolean("musicOn");
+			lightOn = prefs.getBoolean("lightOn");
+
+			for (int i = 1; i <= 5; i++) {
+				String str = prefs.getString("" + i);
+				String[] parts = str.split(" ");
+				highscoreManager.addScore(new Score(parts[0], Integer
+						.parseInt(parts[1])));
+			}
+		}
+	}
+
 	// Creates fontbitmaps from .ttf font
 	private void createFont() {
-		int largeSize = (int)(screenWidth / 8);
-		int mediumSize = (int)(screenWidth / 12);
-		int smallSize = (int)(screenWidth / 24);
+		int largeSize = (int) (screenWidth / 8);
+		int mediumSize = (int) (screenWidth / 12);
+		int smallSize = (int) (screenWidth / 24);
 
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("fonts/font.ttf"));

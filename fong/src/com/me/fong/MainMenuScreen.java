@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 public class MainMenuScreen implements Screen {
 
 	private MyGame game;
-	private TextureCombiner newHeader;
 	private Texture header;
 	//private Texture headerNormals;
 	private Label signature;
@@ -81,8 +80,8 @@ public class MainMenuScreen implements Screen {
 	public void update(float delta) {
 		if(Gdx.input.isTouched()){
 			System.out.println("LIGHT_POS updated");
-			float x = (Gdx.input.getX() / game.screenWidth);
-			float y = 1-(Gdx.input.getY() / game.screenHeight);
+			//float x = (Gdx.input.getX() / MyGame.screenWidth);
+			//float y = 1-(Gdx.input.getY() / MyGame.screenHeight);
 			//light.setPos(x, y);
 		}
 		
