@@ -23,7 +23,7 @@ public class Assets {
 	// Sounds
 	public static final Music music = Gdx.audio.newMusic(Gdx.files
 			.internal("musik.mp3"));
-	public static final Sound laser = Gdx.audio.newSound(Gdx.files
+	public static final Sound laserSound = Gdx.audio.newSound(Gdx.files
 			.internal("Pewpew.wav"));
 
 	// Backgrounds

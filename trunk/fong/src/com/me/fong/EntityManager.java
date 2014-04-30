@@ -17,7 +17,8 @@ public class EntityManager {
 
 	public void tick(float delta) {
 		ArrayList<Entity> ticks = new ArrayList<Entity>(entities);
-		shaderManager.switchToNormalShader(game.batch);
+		if(MyGame.lightOn)
+			shaderManager.switchToNormalShader(game.batch);
 		
 		//ShaderManager.tick(delta);
 		shaderManager.passLights();
@@ -37,7 +38,7 @@ public class EntityManager {
 					}
 				}
 			}
-			if(ticks.get(i) instanceof Shadable){
+			if(ticks.get(i) instanceof Shadable && MyGame.lightOn){
 				((Shadable) ticks.get(i)).bind();
 			}
 			
@@ -47,14 +48,12 @@ public class EntityManager {
 
 			ticks.get(i).tick(delta);
 		}
-		//System.out.println(shaderManager.getlog());
 		shaderManager.switchToDefaultShader(game.batch);
 	}
 
 	public void addEntity(Entity e) {
 		try {
 			entities.add(0, e);
-			//e.setID(getNewID());
 			if (e instanceof Player)
 				this.player = (Player) e;
 		} catch (Exception e1) {

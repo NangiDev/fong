@@ -1,6 +1,7 @@
 package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,15 +21,12 @@ public class OptionScreen implements Screen{
 	private Label music;
 	private Label soundFx;
 	private Label lightFx;
+	private Preferences prefs;
 	
 	public OptionScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/options.png"));
-		
-		this.toggleMusicButton = new MenuButton(" True", game.mediumButtonStyle, true);
-		this.toggleSoundFxButton = new MenuButton(" True", game.mediumButtonStyle, true);
-		this.toggleLightFxButton = new MenuButton(" True", game.mediumButtonStyle, true);
-		
+				
 		this.innerTable = new Table(game.skin);
 		music = new Label("Music", game.mediumlabelStyle);
 		soundFx = new Label("Sound", game.mediumlabelStyle);
@@ -72,16 +70,29 @@ public class OptionScreen implements Screen{
 
 	@Override
 	public void show() {
+		this.toggleMusicButton = new MenuButton("", game.mediumButtonStyle, MyGame.musicOn);
+		this.toggleSoundFxButton = new MenuButton("", game.mediumButtonStyle, MyGame.soundOn);
+		this.toggleLightFxButton = new MenuButton("", game.mediumButtonStyle, MyGame.lightOn);
 		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
-		game.musicOn = toggleMusicButton.getBoolean();
-		game.soundOn = toggleSoundFxButton.getBoolean();
-		game.lightOn = toggleLightFxButton.getBoolean();
+		saveOptionState();
 		game.table.clearChildren();
 		innerTable.clearChildren();
+	}
+	
+	private void saveOptionState(){
+		MyGame.musicOn = toggleMusicButton.getBoolean();
+		MyGame.soundOn = toggleSoundFxButton.getBoolean();
+		MyGame.lightOn = toggleLightFxButton.getBoolean();
+		
+		prefs = Gdx.app.getPreferences("FongSaveFile");
+		prefs.putBoolean("musicOn", MyGame.musicOn);
+		prefs.putBoolean("soundOn", MyGame.soundOn);
+		prefs.putBoolean("lightOn", MyGame.lightOn);
+		prefs.flush();
 	}
 
 	@Override
