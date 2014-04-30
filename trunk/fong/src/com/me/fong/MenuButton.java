@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class MenuButton extends TextButton {
 
-	public Boolean enable;
+	private Boolean enable = true;
 
 	public MenuButton(final String text, TextButtonStyle skin, boolean state) {
 		super(text, skin);
@@ -16,11 +16,11 @@ public class MenuButton extends TextButton {
 		addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				if (getText().toString().matches(" ON")) {
-					setText("OFF");
+				if (getText().toString().matches(" True")) {
+					setText("False");
 					enable = false;
 				} else {
-					setText(" ON");
+					setText(" True");
 					enable = true;
 				}
 			}
@@ -37,5 +37,9 @@ public class MenuButton extends TextButton {
 				game.switchToScreen(gameState);
 			}
 		});
+	}
+	
+	public boolean getBoolean(){
+		return this.enable;
 	}
 }

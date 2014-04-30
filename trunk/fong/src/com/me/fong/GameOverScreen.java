@@ -3,7 +3,6 @@ package com.me.fong;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -59,14 +58,14 @@ public class GameOverScreen implements Screen {
 
 		game.drawBackground(delta);
 
-		game.batch.draw(header, (game.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth() * game.scaleX,
-				header.getHeight() * game.scaleY);
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
+				header.getHeight() * MyGame.scaleY);
 
 		//game.table.drawDebug(game.stage);
-		game.batch.draw(nameFieldTexture, (game.screenWidth * 0.5f) - (nameFieldTexture.getWidth() * 0.5f * game.scaleX), nameField.getY(), nameFieldTexture.getWidth() * game.scaleX,
-				nameFieldTexture.getHeight() * game.scaleY);
+		game.batch.draw(nameFieldTexture, (MyGame.screenWidth * 0.5f) - (nameFieldTexture.getWidth() * 0.5f * MyGame.scaleX), nameField.getY(), nameFieldTexture.getWidth() * MyGame.scaleX,
+				nameFieldTexture.getHeight() * MyGame.scaleY);
 		game.table.draw(game.batch, 1);
 		game.batch.end();
 	}
@@ -77,13 +76,17 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void show() {
+		pointLabel.setText(("000000" + game.score).substring(("" + game.score).length()));
+		game.entityManager = new EntityManager(game);
 		game.gameScreen = null;
 		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
+		game.highscoreManager.addScore(new Score(nameField.getText().toString(), Integer.parseInt(pointLabel.getText().toString())));
 		game.table.clearChildren();
+		game.score = 0;
 	}
 
 	@Override

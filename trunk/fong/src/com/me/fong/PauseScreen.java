@@ -32,7 +32,7 @@ public class PauseScreen implements Screen{
 	public void draw(float delta) {
 		game.batch.begin();
 
-		game.drawBackground(delta);
+		game.drawBackground(0);
 		
 		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * MyGame.scaleX),

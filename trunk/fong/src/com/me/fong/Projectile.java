@@ -7,11 +7,13 @@ public class Projectile extends CollidableComponent{
 	
 	private EntityManager entityManager;
 	private boolean orientation;
+	private int parent;
 	
-	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation){
+	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation, int parent){
 		super(batch, texture, x, y, entityManager, true);
 		this.entityManager = entityManager;
 		this.orientation = orientation;
+		this.parent = parent;
 	}
 	
 	@Override
@@ -35,8 +37,18 @@ public class Projectile extends CollidableComponent{
 	@Override
 	public void onCollision(Object o){
 		super.onCollision(o);
-		if(o instanceof Projectile)
+		if(o instanceof Projectile || o instanceof PowerUps)
 			return;
+		if(o instanceof Player && parent == ((Player)o).getID()){
+			return;
+		}
+		if(o instanceof Ai && parent == ((Ai)o).getID()){
+			return;
+		}
 		dispose();
+	}
+	
+	public int getProjectileParent(){
+		return this.parent;
 	}
 }
