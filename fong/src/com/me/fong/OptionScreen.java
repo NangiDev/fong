@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -14,9 +13,9 @@ public class OptionScreen implements Screen{
 	private MyGame game;
 	private Texture header;
 	private TextButton backButton;
-	private TextButton toggleMusicButton;
-	private TextButton toggleSoundFxButton;
-	private TextButton toggleLightFxButton;
+	private MenuButton toggleMusicButton;
+	private MenuButton toggleSoundFxButton;
+	private MenuButton toggleLightFxButton;
 	private Table innerTable;
 	private Label music;
 	private Label soundFx;
@@ -25,9 +24,11 @@ public class OptionScreen implements Screen{
 	public OptionScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/options.png"));
-		this.toggleMusicButton = new MenuButton(" ON", game.mediumButtonStyle, true);
-		this.toggleSoundFxButton = new MenuButton(" ON", game.mediumButtonStyle, true);
-		this.toggleLightFxButton = new MenuButton(" ON", game.mediumButtonStyle, true);
+		
+		this.toggleMusicButton = new MenuButton(" True", game.mediumButtonStyle, true);
+		this.toggleSoundFxButton = new MenuButton(" True", game.mediumButtonStyle, true);
+		this.toggleLightFxButton = new MenuButton(" True", game.mediumButtonStyle, true);
+		
 		this.innerTable = new Table(game.skin);
 		music = new Label("Music", game.mediumlabelStyle);
 		soundFx = new Label("Sound", game.mediumlabelStyle);
@@ -54,11 +55,11 @@ public class OptionScreen implements Screen{
 		
 		game.drawBackground(delta);
 		
-		game.batch.draw(header, (game.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth()
-						* game.scaleX, header.getHeight()
-						* game.scaleY);
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth()
+						* MyGame.scaleX, header.getHeight()
+						* MyGame.scaleY);
 
 		game.table.draw(game.batch, 1);
 				
@@ -76,6 +77,9 @@ public class OptionScreen implements Screen{
 
 	@Override
 	public void hide() {
+		game.musicOn = toggleMusicButton.getBoolean();
+		game.soundOn = toggleSoundFxButton.getBoolean();
+		game.lightOn = toggleLightFxButton.getBoolean();
 		game.table.clearChildren();
 		innerTable.clearChildren();
 	}
@@ -94,19 +98,19 @@ public class OptionScreen implements Screen{
 	
 	private void setupMenuLayout() {
 				
-		innerTable.add().row().padBottom(25.0f * game.scaleY);
-		innerTable.add(music).align(Align.left).padRight(100.0f * game.scaleX);
-		innerTable.add(toggleMusicButton).align(Align.right).row().padBottom(25.0f * game.scaleY);
+		innerTable.add().row().padBottom(25.0f * MyGame.scaleY);
+		innerTable.add(music).align(Align.left).padRight(100.0f * MyGame.scaleX);
+		innerTable.add(toggleMusicButton).align(Align.right).row().padBottom(25.0f * MyGame.scaleY);
 		
-		innerTable.add(soundFx).align(Align.left).padRight(100.0f * game.scaleX);
-		innerTable.add(toggleSoundFxButton).align(Align.right).row().padBottom(25.0f * game.scaleY);
+		innerTable.add(soundFx).align(Align.left).padRight(100.0f * MyGame.scaleX);
+		innerTable.add(toggleSoundFxButton).align(Align.right).row().padBottom(25.0f * MyGame.scaleY);
 		
-		innerTable.add(lightFx).align(Align.left).padRight(100.0f * game.scaleX);
-		innerTable.add(toggleLightFxButton).align(Align.center).row().padBottom(25.0f * game.scaleY);
+		innerTable.add(lightFx).align(Align.left).padRight(100.0f * MyGame.scaleX);
+		innerTable.add(toggleLightFxButton).align(Align.center).row().padBottom(25.0f * MyGame.scaleY);
 
 		game.table.add(innerTable).row();
 		game.table.add(backButton);
 
-		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
+		game.table.padTop(header.getHeight() * 1.5f * MyGame.scaleY);
 	}
 }

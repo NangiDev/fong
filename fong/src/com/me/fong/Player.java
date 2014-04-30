@@ -1,21 +1,13 @@
 package com.me.fong;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.OnscreenKeyboard;
 
 public class Player extends BaseShip {
-	private float
-	projectileInterval = 0;
-	private ArrayList<Entity> projectiles = new ArrayList<Entity>();
-	//private EntityManager entityManager;
 
 	public Player(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting) {
-		super(batch, texture, y, y, entityManager, ignoreLighting);
-		//this.entityManager = entityManager;
+		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
 	}
 
@@ -36,21 +28,16 @@ public class Player extends BaseShip {
 		if (getX() > MyGame.screenWidth - getTexture().getWidth()
 				* MyGame.scaleX)
 			setX(MyGame.screenWidth - getTexture().getWidth() * MyGame.scaleX);
-
-		projectileInterval -= delta * 100;
-
-		if (projectileInterval < 0)
-			fireProjectile();
 	}
 
 	@Override
 	public void onCollision(Object o) {
 		super.onCollision(o);
-		if (o instanceof Projectile && projectiles.contains(((Projectile)o))) {
-			return;
-		}
-		else if(o instanceof Projectile){
+		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != this.getID()) {
 			dispose();
+		}
+		if (o instanceof PowerUps){
+			//Pickup
 		}
 		if (o instanceof Ai) {
 			dispose();
@@ -60,19 +47,7 @@ public class Player extends BaseShip {
 	@Override
 	public void dispose(){
 		super.dispose();
-		projectiles.clear();
 		getEntityManager().removeEntity(this);
 		getEntityManager().game.switchToScreen(GameState.GameOver);
-	}
-
-	public void fireProjectile() {
-		Projectile projectile = new Projectile(getSpriteBatch(),
-				Assets.laserRed, getOrigiX()
-						- Assets.laserRed.getWidth() * 0.5f
-						* MyGame.scaleX, getY()
-						+ getTexture().getHeight() + 1.0f * MyGame.scaleY, this.getEntityManager(), false);
-		projectiles.add(projectile);
-		getEntityManager().addEntity(projectile);
-		projectileInterval = getFireRate();
 	}
 }

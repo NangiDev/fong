@@ -54,7 +54,7 @@ public class EntityManager {
 	public void addEntity(Entity e) {
 		try {
 			entities.add(0, e);
-			e.setID(getNewID());
+			//e.setID(getNewID());
 			if (e instanceof Player)
 				this.player = (Player) e;
 		} catch (Exception e1) {
@@ -76,6 +76,7 @@ public class EntityManager {
 	}
 
 	public int getNewID() {
-		return ID++;
+		this.ID += 1;
+		return ID;
 	}
 }

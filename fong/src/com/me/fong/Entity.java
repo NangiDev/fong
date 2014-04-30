@@ -14,6 +14,7 @@ public class Entity implements Disposable {
 		this.x = x;
 		this.y = y;
 		this.entityManager = entityManager;
+		this.ID = entityManager.getNewID();
 	}
 
 	public void onTick(float delta) {

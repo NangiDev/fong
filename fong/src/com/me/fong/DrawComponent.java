@@ -24,7 +24,7 @@ public class DrawComponent extends Entity {
 		this.origoY = getY() + getTexture().getHeight() * 0.5f * MyGame.scaleY;
 	}
 
-	public float getOrigiX() {
+	public float getOrigoX() {
 		return this.origoX;
 	}
 

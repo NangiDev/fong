@@ -83,15 +83,15 @@ public class HighscoreScreen implements Screen {
 	}
 
 	private void updateHighscore() {
-		name1 = new Label(game.HighscoreManager.printScore(0),
+		name1 = new Label(game.highscoreManager.printScore(0),
 				game.mediumlabelStyle);
-		name2 = new Label(game.HighscoreManager.printScore(1),
+		name2 = new Label(game.highscoreManager.printScore(1),
 				game.mediumlabelStyle);
-		name3 = new Label(game.HighscoreManager.printScore(2),
+		name3 = new Label(game.highscoreManager.printScore(2),
 				game.mediumlabelStyle);
-		name4 = new Label(game.HighscoreManager.printScore(3),
+		name4 = new Label(game.highscoreManager.printScore(3),
 				game.mediumlabelStyle);
-		name5 = new Label(game.HighscoreManager.printScore(4),
+		name5 = new Label(game.highscoreManager.printScore(4),
 				game.mediumlabelStyle);
 	}
 

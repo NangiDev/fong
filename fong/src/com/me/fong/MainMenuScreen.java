@@ -137,7 +137,11 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
+		if(game.gameScreen != null)
+			game.gameScreen.dispose();
+		game.entityManager = new EntityManager(game);
 		game.gameScreen = null;
+		game.score = 0;
 		createScreen();
 		setupMenuLayout();
 	}

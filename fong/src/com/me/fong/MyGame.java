@@ -3,8 +3,7 @@ package com.me.fong;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -22,39 +20,36 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
 public class MyGame extends Game {
-	public static float screenWidth, screenHeight;
-	public static float scaleX, scaleY;
-
+	public static float screenWidth;
+	public static float screenHeight;
+	public static float scaleX;
+	public static float scaleY;
+	public OrthographicCamera camera;
 	public SpriteBatch batch;
+	
+	private int backgroundSpeed = 150;
+	public int score = 0;
+	public boolean musicOn, soundOn, lightOn;
+	public FileHandle file;
 
 	public BitmapFont fontLarge, fontMedium, fontSmall;
-	public boolean musicOn, soundOn, lightOn;
-
 	public Skin skin;
 	public Stage stage;
 	public Table table;
-
 	public TextFieldStyle textFieldStyle;
-
 	public TextButtonStyle largeButtonStyle;
 	public TextButtonStyle mediumButtonStyle;
 	public TextButtonStyle smallButtonStyle;
-
 	public LabelStyle largelabelStyle;
 	public LabelStyle mediumlabelStyle;
 	public LabelStyle smalllabelStyle;
-
 	public ListStyle listStyle;
 
-	public HighscoreManager HighscoreManager;
+	public HighscoreManager highscoreManager;
+	public EntityManager entityManager;
+	private SoundManager soundManager;
+
 	public Screen currentScreen;
-
-	public Color myDarkGreen, myGreen, myYellow;
-
-	public OrthographicCamera camera;
-	private Texture backgroundTexture;
-	public int backgroundSpeed = 0;
-
 	public GameScreen gameScreen;
 	private PauseScreen pauseScreen;
 	private OptionScreen optionScreen;
@@ -67,32 +62,19 @@ public class MyGame extends Game {
 
 	@Override
 	public void create() {
-		this.batch = new SpriteBatch();
-		//ShaderProgram.pedantic = false;
-		//defaultShader = ShaderManager.defaultShader;
-		//normalShader = ShaderManager.normalShader;
-		// Check that shader is compiled
-		//ShaderManager.shaderCompiled(normalShader);
-
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		scaleX = screenWidth / 600;
 		scaleY = screenHeight / 960;
+		batch = new SpriteBatch();
 		camera = new OrthographicCamera(1, screenHeight / screenWidth);
 		camera.setToOrtho(false, screenWidth, screenHeight);
 		batch.setProjectionMatrix(camera.combined);
-		this.backgroundTexture = Assets.backgroundPurple;
-
-		myDarkGreen = new Color(71.0f / 255.0f, 97.0f / 255.0f, 28.0f / 255.0f,
-				1.0f);
-		myGreen = new Color(125.0f / 255.0f, 149.0f / 255.0f, 85.0f / 255.0f,
-				1.0f);
-		myYellow = new Color(208.0f / 255.0f, 197.0f / 255.0f, 141.0f / 255.0f,
-				1.0f);
-
-		HighscoreManager = new HighscoreManager();
-
+		
 		Gdx.input.setCatchBackKey(true);
+		highscoreManager = new HighscoreManager();
+		entityManager = new EntityManager(this);
+		soundManager = new SoundManager(musicOn, soundOn);
 
 		createFont();
 		setupLayout();
@@ -112,35 +94,35 @@ public class MyGame extends Game {
 
 		textFieldStyle = new TextFieldStyle();
 		textFieldStyle.font = skin.getFont("fontMedium");
-		textFieldStyle.fontColor = myGreen;
+		textFieldStyle.fontColor = Assets.myGreen;
 		skin.add("textfieldcursor", new Texture("menu/cursor.png"));
 		textFieldStyle.cursor = skin.getDrawable("textfieldcursor");
 
 		largelabelStyle = new LabelStyle();
 		largelabelStyle.font = skin.getFont("fontLarge");
-		largelabelStyle.fontColor = myYellow;
+		largelabelStyle.fontColor = Assets.myYellow;
 
 		listStyle = new ListStyle();
 
 		mediumlabelStyle = new LabelStyle();
 		mediumlabelStyle.font = skin.getFont("fontMedium");
-		mediumlabelStyle.fontColor = myYellow;
+		mediumlabelStyle.fontColor = Assets.myYellow;
 
 		smalllabelStyle = new LabelStyle();
 		smalllabelStyle.font = skin.getFont("fontSmall");
-		smalllabelStyle.fontColor = myYellow;
+		smalllabelStyle.fontColor = Assets.myYellow;
 
 		largeButtonStyle = new TextButtonStyle();
 		largeButtonStyle.font = skin.getFont("fontLarge");
-		largeButtonStyle.fontColor = myYellow;
+		largeButtonStyle.fontColor = Assets.myYellow;
 
 		mediumButtonStyle = new TextButtonStyle();
 		mediumButtonStyle.font = skin.getFont("fontMedium");
-		mediumButtonStyle.fontColor = myYellow;
+		mediumButtonStyle.fontColor = Assets.myYellow;
 
 		smallButtonStyle = new TextButtonStyle();
 		smallButtonStyle.font = skin.getFont("fontSmall");
-		smallButtonStyle.fontColor = myYellow;
+		smallButtonStyle.fontColor = Assets.myYellow;
 
 		skin.add("default", largelabelStyle);
 		skin.add("default", mediumlabelStyle);
@@ -159,28 +141,12 @@ public class MyGame extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
-		backgroundTexture.dispose();
 		stage.dispose();
 		skin.dispose();
 	}
 
-	// Call this in each screen class that wants same background as main.
-	public void drawBackground(float delta) {
-		for (int x = 0; x < (screenWidth / (backgroundTexture.getWidth()*scaleX)); x++) {
-			for (int y = 0; y < (screenHeight/(backgroundTexture.getHeight()*scaleY)+1); y++) {
-				batch.draw(backgroundTexture, x * backgroundTexture.getWidth() * scaleX , y * backgroundTexture.getHeight() * scaleY - backgroundSpeed, backgroundTexture.getWidth() * scaleX, backgroundTexture.getHeight() * scaleY);
-			}
-		}
-		if(backgroundSpeed > backgroundTexture.getHeight() * scaleY)
-			backgroundSpeed = 0;
-		
-		backgroundSpeed += 250 * delta * scaleY;
-	}
-
 	@Override
 	public void render() {
-		//Gdx.graphics.getGL20().glClearColor( 0.2f, 0f, 0.3f, 1 );
-		//Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		super.render();
 	}
 
@@ -199,9 +165,9 @@ public class MyGame extends Game {
 
 	// Creates fontbitmaps from .ttf font
 	private void createFont() {
-		int largeSize = (int) (MyGame.screenWidth / 8);
-		int mediumSize = (int) (MyGame.screenWidth / 12);
-		int smallSize = (int) (MyGame.screenWidth / 24);
+		int largeSize = (int)(screenWidth / 8);
+		int mediumSize = (int)(screenWidth / 12);
+		int smallSize = (int)(screenWidth / 24);
 
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
 				Gdx.files.internal("fonts/font.ttf"));
@@ -275,5 +241,24 @@ public class MyGame extends Game {
 			break;
 		}
 		currentScreen = getScreen();
+	}
+
+	// Call this in each screen class that wants same background as main.
+	public void drawBackground(float delta) {
+		for (int x = 0; x < (screenWidth / (Assets.backgroundBlue.getWidth() * scaleX)); x++) {
+			for (int y = 0; y < (screenHeight
+					/ (Assets.backgroundBlue.getHeight() * scaleY) + 1); y++) {
+				batch.draw(Assets.backgroundBlue,
+						x * Assets.backgroundBlue.getWidth() * scaleX, y
+								* Assets.backgroundBlue.getHeight() * scaleY
+								- backgroundSpeed,
+						Assets.backgroundBlue.getWidth() * scaleX,
+						Assets.backgroundBlue.getHeight() * scaleY);
+			}
+		}
+		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
+			backgroundSpeed = 0;
+
+		backgroundSpeed += 250 * delta * scaleY;
 	}
 }

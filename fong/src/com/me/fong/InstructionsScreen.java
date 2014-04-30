@@ -23,7 +23,7 @@ public class InstructionsScreen implements Screen {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/instructions.png"));
 		
-		tutorialPlayer = Assets.enemyBlack1;
+		tutorialPlayer = Assets.playerShip1_orange;
 		playerX = (MyGame.screenWidth * 0.5f) - (tutorialPlayer.getWidth() * 0.5f * MyGame.scaleX);
 				
 		this.instructionsText = "Your goal is to stay alive!\n\n"
@@ -78,7 +78,7 @@ public class InstructionsScreen implements Screen {
 				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
 				header.getHeight() * MyGame.scaleY);
 		
-		game.batch.draw(tutorialPlayer, playerX, MyGame.screenHeight * 0.5f + tutorialPlayer.getHeight()* MyGame.scaleY,tutorialPlayer.getWidth() * MyGame.scaleX, -tutorialPlayer.getHeight() * MyGame.scaleY);
+		game.batch.draw(tutorialPlayer, playerX, MyGame.screenHeight * 0.5f,tutorialPlayer.getWidth() * MyGame.scaleX, tutorialPlayer.getHeight() * MyGame.scaleY);
 		
 		game.table.draw(game.batch, 1);
 
