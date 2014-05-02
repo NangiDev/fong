@@ -2,46 +2,43 @@ package com.me.fong;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 
 public class CollidableComponent extends Shadable{
 	
-	//private BoundingBox boundingBox;
-	private Vector3 minVec, maxVec;
-	private Circle circle;
+	private Vector3 minimum, maximum;
+	private BoundingBox wings;
+	private BoundingBox front;
 	
 	
 	public CollidableComponent(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting){
 		super(batch, texture, x, y, entityManager, ignoreLighting);
-		//circle = new Circle(getOrigoX(), getOrigoY(), 10);
-		//boundingBox = new BoundingBox();
 	}
 	
 	public boolean intersectsWith(CollidableComponent b){
-		this.circle = getCircle();
-		if(this.circle.overlaps(b.getCircle())){
-			return prefectPixelDetection(b);
+		this.wings = getWings();
+		if(this.wings.intersects(b.getWings())){
+			return true;
+		}
+		this.front = getFront();
+		if(this.front.intersects(b.getFront())){
+			return true;
 		}
 		return false;
 	}
 	
-	private boolean prefectPixelDetection(CollidableComponent b){
-		return true;
+	public BoundingBox getWings(){
+		minimum = new Vector3(getX(), getY() + getTexture().getHeight() * 0.6f *MyGame.scaleY, 0);
+		maximum = new Vector3(getX() + getTexture().getWidth() * MyGame.scaleX, getY() + getTexture().getHeight() * 0.4f * MyGame.scaleY, 0.1f);
+		return new BoundingBox(minimum, maximum);
 	}
 	
-	public Circle getCircle(){
-		return new Circle(getOrigoX(), getOrigoY(), getTexture().getHeight() > getTexture().getWidth() ? getTexture().getWidth()*0.5f*MyGame.scaleX:getTexture().getHeight()*0.5f*MyGame.scaleY);
+	public BoundingBox getFront(){
+		minimum = new Vector3(getX() + getTexture().getWidth() * 0.4f * MyGame.scaleX, getY(), 0);
+		maximum = new Vector3(getX() + getTexture().getWidth() * 0.6f * MyGame.scaleX, getY() + getTexture().getHeight() * MyGame.scaleY, 0.1f);
+		return new BoundingBox(minimum, maximum);
 	}
-	
-	/*public BoundingBox getBoundingBox(){
-	
-		minVec = new Vector3(getX(), getY(), 0);
-		maxVec = new Vector3(getX()+getTexture().getWidth()*MyGame.scaleX, getY()+getTexture().getHeight()*MyGame.scaleY, 0.1f);
-			
-		return boundingBox.set(minVec, maxVec);
-	}*/
 	
 	public void onCollision(Object o){
 	}
