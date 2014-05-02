@@ -9,6 +9,7 @@ public class EntityManager {
 	private int ID = 0;
 	public ShaderManager shaderManager;
 	public MyGame game;
+	private ArrayList<Entity> ticks;
 
 	public EntityManager(MyGame game) {
 		this.game = game;
@@ -16,7 +17,7 @@ public class EntityManager {
 	}
 
 	public void tick(float delta) {
-		ArrayList<Entity> ticks = new ArrayList<Entity>(entities);
+		ticks = new ArrayList<Entity>(entities);
 		if(MyGame.lightOn)
 			shaderManager.switchToNormalShader(game.batch);
 		
@@ -68,6 +69,14 @@ public class EntityManager {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public void clearEntityList(){
+		this.entities.clear();
+	}
+	
+	public ArrayList<Entity> getCurrentState(){
+		return ticks;
 	}
 
 	public Player getPlayer() {

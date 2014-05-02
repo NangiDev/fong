@@ -11,7 +11,7 @@ import com.badlogic.gdx.Input.Keys;
 
 public class GameOverScreen implements Screen {
 	private MyGame game;
-	private Texture header;
+	private Shadable header;
 	private TextField nameField;
 	private Texture nameFieldTexture;
 	private Label textLabel;
@@ -22,7 +22,6 @@ public class GameOverScreen implements Screen {
 
 	public GameOverScreen(MyGame myGame) {
 		this.game = myGame;
-		this.header = new Texture(Gdx.files.internal("menu/gameOver.png"));
 		nameFieldTexture = new Texture(Gdx.files.internal("menu/buttonYellow.png"));
 		nameField = new TextField("Föng", game.textFieldStyle);
 		nameField.setMaxLength(4);
@@ -43,31 +42,24 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		game.batch.begin();
+		game.drawBackground(delta);
 		update(delta);
 		draw(delta);
+		game.batch.end();
 	}
 
 	public void update(float delta) {
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
 			game.switchToScreen(GameState.MainMenu);
 		}
+		game.entityManager.tick(delta);
 	} 
 
 	public void draw(float delta) {
-		game.batch.begin();
-
-		game.drawBackground(delta);
-
-		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * MyGame.scaleX),
-				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
-				header.getHeight() * MyGame.scaleY);
-
-		//game.table.drawDebug(game.stage);
 		game.batch.draw(nameFieldTexture, (MyGame.screenWidth * 0.5f) - (nameFieldTexture.getWidth() * 0.5f * MyGame.scaleX), nameField.getY(), nameFieldTexture.getWidth() * MyGame.scaleX,
 				nameFieldTexture.getHeight() * MyGame.scaleY);
 		game.table.draw(game.batch, 1);
-		game.batch.end();
 	}
 
 	@Override
@@ -76,14 +68,17 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void show() {
-		pointLabel.setText(("000000" + game.score).substring(("" + game.score).length()));
-		game.entityManager = new EntityManager(game);
 		game.gameScreen = null;
+		this.header = new Shadable(game.batch, Assets.gameOver, (MyGame.screenWidth * 0.5f)
+				- (Assets.gameOver.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, game.entityManager, false);
+		pointLabel.setText(("000000" + game.score).substring(("" + game.score).length()));
 		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
+		game.entityManager.clearEntityList();
 		game.highscoreManager.addScore(new Score(nameField.getText().toString(), Integer.parseInt(pointLabel.getText().toString())));
 		game.table.clearChildren();
 		game.score = 0;
@@ -102,20 +97,20 @@ public class GameOverScreen implements Screen {
 	}
  
 	private void setupMenuLayout() {
-		game.table.add().row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add().row().align(Align.left).padBottom(25.0f * MyGame.scaleY);
 		game.table.add(textLabel);
 		
 		float textHeight = game.textFieldStyle.font.getBounds(nameField.getText()).height;
 		float textWidth = game.textFieldStyle.font.getBounds(nameField.getText()).width;
-		game.table.add().row().align(Align.center).padBottom(50.0f * game.scaleY).minSize(textWidth*1.1f,textHeight*2.0f).prefSize(textWidth*1.1f,textHeight*2.0f);
+		game.table.add().row().align(Align.center).padBottom(50.0f * MyGame.scaleY).minSize(textWidth*1.1f,textHeight*2.0f).prefSize(textWidth*1.1f,textHeight*2.0f);
 		game.table.add(nameField).row().align(Align.left);
 		
 		game.table.add(scoreLabel).row().align(Align.center)
-				.padBottom(50.0f * game.scaleY);
-		game.table.add(pointLabel).row().padBottom(25.0f * game.scaleY);
+				.padBottom(50.0f * MyGame.scaleY);
+		game.table.add(pointLabel).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(resumeButton).row();
 		game.table.add(backButton).row();
 
-		game.table.padTop(header.getHeight() * 1.2f * game.scaleY);
+		game.table.padTop(header.getTexture().getHeight() * 1.2f * MyGame.scaleY);
 	}
 }
