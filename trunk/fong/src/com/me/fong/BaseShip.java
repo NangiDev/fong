@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 
 public class BaseShip extends CollidableComponent {
 	private boolean alive;
 	private boolean isFacingDown;
 	private float health;
 	private float healthModifier;
+	private boolean healthModified;
 	private float speed;
 	private float speedModifier;
 	private float fireRate;
 	private float fireRateModifier;
 	private float projectileInterval = 0;
 	private ArrayList<PowerUps> powerUps;
-	private Animation disposeAnimation;
-
+private ActivePowerUp powerUp = ActivePowerUp.Shield;private Animation disposeAnimation;
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting, boolean isFacingDown) {
 		super(batch, texture, x, y, entityManager, ignoreLighting);
@@ -29,6 +30,7 @@ public class BaseShip extends CollidableComponent {
 		this.speed = 500;
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
+		healthModified = false;
 		randomizePowerUps();
 	}
 
@@ -36,8 +38,10 @@ public class BaseShip extends CollidableComponent {
 	public void tick(float delta) {
 		super.tick(delta);
 		projectileInterval -= delta * 100;
+		updatePowerUps();
 		fireProjectile();
 	}
+	
 	
 	@Override
 	public void onCollision(Object o){
@@ -47,10 +51,33 @@ public class BaseShip extends CollidableComponent {
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion, getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(), Assets.explosionSound);
 		super.onCollision(o);
 	}
-
-	private void randomizePowerUps() {
-		// Här ska powerups skapas och läggas i listan så att modifierarna kan
-		// ändras.
+	
+	protected void randomizePowerUps() {
+		int powerUpId = MathUtils.random(0, 3);
+		
+		switch(powerUpId){
+			case 0: 
+				powerUp = ActivePowerUp.None;
+				break;
+			case 1: 
+				powerUp = ActivePowerUp.FastFire;
+				break;	
+			case 2:
+				powerUp = ActivePowerUp.FastMovement;
+				break;
+			case 3:
+				powerUp = ActivePowerUp.Shield;
+				break;
+		}
+		
+		System.out.println(powerUp);
+		
+	}
+	
+	private void updatePowerUps(){
+		fireRateModifier = PowerUps.getFireBehavior(powerUp);
+		speedModifier = PowerUps.getMovementBehavior(powerUp);
+		healthModifier = PowerUps.getHealthBehavior(powerUp);
 	}
 
 	public void setAlive(Boolean alive) {
@@ -77,8 +104,17 @@ public class BaseShip extends CollidableComponent {
 		this.speed = speed;
 	}
 
+	public void setPowerUp(ActivePowerUp powerUp){
+		this.powerUp = powerUp;
+	}
+	
 	public float getHealth() {
-		return this.health * healthModifier;
+		if(!healthModified){
+			healthModified = true;
+			return this.health * healthModifier;
+		}			
+		else
+			return this.health;
 	}
 
 	public float getSpeed() {
@@ -89,7 +125,12 @@ public class BaseShip extends CollidableComponent {
 		return this.fireRate * fireRateModifier;
 	}
 
+	public ActivePowerUp getPowerUp(){
+		return this.powerUp;
+	}
+	
 	public void fireProjectile() {
+		
 		if (projectileInterval < 0) {
 			Projectile projectile = new Projectile(getSpriteBatch(),
 					Assets.laserRed, getOrigoX() - Assets.laserRed.getWidth()
