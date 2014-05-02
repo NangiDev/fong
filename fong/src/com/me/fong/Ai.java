@@ -18,7 +18,7 @@ public class Ai extends BaseShip {
 	@Override
 	public void onTick(float delta) {
 		setY(getY() - getSpeed() * delta * MyGame.scaleY);
-
+		
 		if (getY() > MyGame.screenHeight
 				|| getY() < 0 - (getTexture().getHeight() * MyGame.scaleY)
 				|| getX() > MyGame.screenWidth || getX() < 0) {
@@ -32,12 +32,14 @@ public class Ai extends BaseShip {
 
 	@Override
 	public void onCollision(Object o) {
+		if (o instanceof Meteor) {
+			return;
+		}
 		super.onCollision(o);
 		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != this.getID()) {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
 				// dispose();
-				//disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion, getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager());
 				setHealth(1);
 				int n = rand.nextInt((int) MyGame.screenWidth) + 1;
 				setX(n);

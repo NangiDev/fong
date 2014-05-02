@@ -40,9 +40,10 @@ public class Player extends BaseShip {
 		if (o instanceof PowerUps){
 			//Pickup
 		}
-		if (o instanceof Ai) {
+		if (o instanceof Ai || o instanceof Meteor){
 			dispose();
 		}
+
 	}
 	
 	@Override
