@@ -7,7 +7,6 @@ public class DrawComponent extends Entity {
 
 	private Texture texture;
 	private SpriteBatch batch;
-	private float origoX, origoY;
 
 	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager) {
@@ -19,17 +18,14 @@ public class DrawComponent extends Entity {
 	public void draw() {
 		batch.draw(texture, getX(), getY(), texture.getWidth() * MyGame.scaleX,
 				texture.getHeight() * MyGame.scaleY);
-
-		this.origoX = getX() + getTexture().getWidth() * 0.5f * MyGame.scaleX;
-		this.origoY = getY() + getTexture().getHeight() * 0.5f * MyGame.scaleY;
 	}
 
 	public float getOrigoX() {
-		return this.origoX;
+		return getX() + getTexture().getWidth() * 0.5f * MyGame.scaleX;
 	}
 
 	public float getOrigoY() {
-		return this.origoY;
+		return getY() + getTexture().getHeight() * 0.5f * MyGame.scaleY;
 	}
 
 	public void setSpriteBatch(SpriteBatch batch) {
