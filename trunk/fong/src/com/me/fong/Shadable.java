@@ -30,7 +30,7 @@ public class Shadable extends DrawComponent{
 		else if(path.contains("meteor")){
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("meteorNormal");
 		}
-		else if(path.contains("Menu")){
+		else if(path.contains("menu")){
 			path = path.substring(path.indexOf("/")+1, path.indexOf("."));
 			//System.out.println(path);
 			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");

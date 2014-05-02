@@ -29,26 +29,28 @@ public class Assets {
 			.internal("pause.mp3"));
 	public static final Sound laserSound = Gdx.audio.newSound(Gdx.files
 			.internal("laser.mp3"));
+	public static final Sound explosionSound = Gdx.audio.newSound(Gdx.files
+			.internal("explosion.mp3"));
 	
 	// Menu headers
 		public static final Texture buttonYellow = new Texture(
-				Gdx.files.internal("Menu/buttonYellow.png"));
+				Gdx.files.internal("menu/buttonYellow.png"));
 		public static final Texture credits = new Texture(
-				Gdx.files.internal("Menu/credits.png"));
+				Gdx.files.internal("menu/credits.png"));
 		public static final Texture cursor = new Texture(
-				Gdx.files.internal("Menu/cursor.png"));
+				Gdx.files.internal("menu/cursor.png"));
 		public static final Texture gameOver = new Texture(
-				Gdx.files.internal("Menu/gameOver.png"));
+				Gdx.files.internal("menu/gameOver.png"));
 		public static final Texture highscore = new Texture(
-				Gdx.files.internal("Menu/highscore.png"));
+				Gdx.files.internal("menu/highscore.png"));
 		public static final Texture instructions = new Texture(
-				Gdx.files.internal("Menu/instructions.png"));
+				Gdx.files.internal("menu/instructions.png"));
 		public static final Texture logotype = new Texture(
-				Gdx.files.internal("Menu/logotype.png"));
+				Gdx.files.internal("menu/logotype.png"));
 		public static final Texture options = new Texture(
-				Gdx.files.internal("Menu/options.png"));
+				Gdx.files.internal("menu/options.png"));
 		public static final Texture pause = new Texture(
-				Gdx.files.internal("Menu/pause.png"));
+				Gdx.files.internal("menu/pause.png"));
 
 	// Backgrounds
 	public static final Texture backgroundBlack = new Texture(
@@ -175,6 +177,10 @@ public class Assets {
 			Gdx.files.internal("Enemies/enemyRed3.png"));
 	public static final Texture enemyRed4 = new Texture(
 			Gdx.files.internal("Enemies/enemyRed4.png"));
+	
+	//Explosion
+	public static final Texture explosion = new Texture(
+			Gdx.files.internal("Player/Explosion.png"));
 
 	// Bolts
 	public static final Texture bolt_Bronze = new Texture(

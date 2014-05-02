@@ -61,6 +61,16 @@ public class EntityManager {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void addToEndEntity(Entity e) {
+		try {
+			entities.add(e);
+			if (e instanceof Player)
+				this.player = (Player) e;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
 
 	public void removeEntity(Entity e) {
 		try {
