@@ -14,6 +14,8 @@ public class Projectile extends CollidableComponent{
 		this.entityManager = entityManager;
 		this.orientation = orientation;
 		this.parent = parent;
+		if(MyGame.soundOn)
+			Assets.laserSound.play(0.5f);
 	}
 	
 	@Override
@@ -31,7 +33,6 @@ public class Projectile extends CollidableComponent{
 	@Override
 	public void dispose(){
 		super.dispose();
-		entityManager.removeEntity(this);
 	}
 	
 	@Override

@@ -23,8 +23,12 @@ public class Assets {
 	// Sounds
 	public static final Music music = Gdx.audio.newMusic(Gdx.files
 			.internal("musik.mp3"));
+	public static final Sound buttonSound = Gdx.audio.newSound(Gdx.files
+			.internal("bumper.mp3"));
+	public static final Sound pauseSound = Gdx.audio.newSound(Gdx.files
+			.internal("pause.mp3"));
 	public static final Sound laserSound = Gdx.audio.newSound(Gdx.files
-			.internal("Pewpew.wav"));
+			.internal("laser.mp3"));
 
 	// Backgrounds
 	public static final Texture backgroundBlack = new Texture(

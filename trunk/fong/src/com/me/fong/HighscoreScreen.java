@@ -45,10 +45,10 @@ public class HighscoreScreen implements Screen {
 
 		game.drawBackground(delta);
 
-		game.batch.draw(header, (game.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth() * game.scaleX,
-				header.getHeight() * game.scaleY);
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
+				header.getHeight() * MyGame.scaleY);
 
 		game.table.draw(game.batch, 1);
 
@@ -97,19 +97,19 @@ public class HighscoreScreen implements Screen {
 
 	private void setupMenuLayout() {
 
-		game.table.add().row().align(Align.left).padBottom(25.0f * game.scaleY);
+		game.table.add().row().align(Align.left).padBottom(25.0f * MyGame.scaleY);
 		game.table.add(name1).row().align(Align.left)
-				.padBottom(25.0f * game.scaleY);
+				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(name2).row().align(Align.left)
-				.padBottom(25.0f * game.scaleY);
+				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(name3).row().align(Align.left)
-				.padBottom(25.0f * game.scaleY);
+				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(name4).row().align(Align.left)
-				.padBottom(25.0f * game.scaleY);
+				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(name5).row().align(Align.center)
-				.padBottom(25.0f * game.scaleY);
+				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(backButton).row().align(Align.center);
 
-		game.table.padTop(header.getHeight() * 1.5f * game.scaleY);
+		game.table.padTop(header.getHeight() * 1.5f * MyGame.scaleY);
 	}
 }

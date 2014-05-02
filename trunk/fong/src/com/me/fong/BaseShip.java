@@ -92,8 +92,14 @@ public class BaseShip extends CollidableComponent {
 					Assets.laserRed, getOrigoX() - Assets.laserRed.getWidth()
 							* 0.5f * MyGame.scaleX, getOrigoY() - Assets.laserRed.getHeight()
 							* 0.5f * MyGame.scaleY, this.getEntityManager(), isFacingDown, this.getID());
-			getEntityManager().addEntity(projectile);
 			projectileInterval = getFireRate();
 		}
+	}
+	
+	@Override
+	public void dispose(){
+		if(!alive)
+			
+		super.dispose();
 	}
 }

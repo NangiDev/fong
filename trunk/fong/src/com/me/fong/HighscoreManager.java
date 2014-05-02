@@ -23,6 +23,7 @@ public class HighscoreManager {
 	
 	public String printScore(int index) {
 		String name = scoreList.get(index).getName();
+		name = name + (("    ").substring(name.length()));
 		int score = scoreList.get(index).getScore();
 		String scoreStr = (("000000" + score).substring(("" + score).length()));
 		return "" + (index + 1) + " " + name + " " + scoreStr;

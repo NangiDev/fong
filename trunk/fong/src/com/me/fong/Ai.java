@@ -12,7 +12,7 @@ public class Ai extends BaseShip {
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
 		this.entityManager = entityManager;
-		setHealth(3);
+		setHealth(1);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Ai extends BaseShip {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
 				// dispose();
-				setHealth(3);
+				setHealth(1);
 				int n = rand.nextInt((int) MyGame.screenWidth) + 1;
 				setX(n);
 				setY(MyGame.screenHeight);
@@ -51,6 +51,5 @@ public class Ai extends BaseShip {
 	@Override
 	public void dispose() {
 		super.dispose();
-		entityManager.removeEntity(this);
 	}
 }
