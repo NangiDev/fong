@@ -69,8 +69,6 @@ public class InstructionsScreen implements Screen {
 		game.batch.begin();
 		game.drawBackground(delta);
 
-		game.world.tick(delta);
-
 		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,

@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 			game.switchToScreen(GameState.Pause);
 		}
 		if (!ignoreTicks)
-			game.world.tick(delta);
+			game.entityManager.tick(delta);
 	}
 
 	public void draw(float delta) {
@@ -50,7 +50,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		game.world = new World(game);
 		this.ignoreTicks = false;
 		scoreLabel.setText(("000000" + game.score).substring(("" + game.score)
 				.length()));

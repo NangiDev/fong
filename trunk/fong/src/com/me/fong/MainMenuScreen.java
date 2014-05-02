@@ -1,58 +1,42 @@
 package com.me.fong;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class MainMenuScreen implements Screen {
 
 	private MyGame game;
-	private Texture header;
 	private Label signature;
 	private TextButton startButton;
 	private TextButton highscoreButton;
 	private TextButton howToPlayButton;
 	private TextButton optionsButton;
 	private TextButton creditsButton;
+	private Shadable header;
 
 	public MainMenuScreen(MyGame myGame) {
 		this.game = myGame;
-		
-		header = new Texture(Gdx.files.internal("menu/logotype.png"));
+		this.header = new Shadable(game.batch, Assets.logotype, MyGame.screenWidth * 0.5f - Assets.logotype.getWidth() * 0.5f * MyGame.scaleX, MyGame.screenHeight * 0.7f, game.entityManager, false);
 	}
 
 	@Override
 	public void render(float delta) {
+		game.batch.begin();
+		game.drawBackground(delta);
 		update(delta);
 		draw(delta);
+		game.batch.end();
 	}
 
 	public void update(float delta) {
+		game.entityManager.tick(delta);
 	}
 
-	public void draw(float delta) {
-		game.batch.begin();
-		game.drawBackground(delta);
-		
-		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * MyGame.scaleX),
-				MyGame.screenHeight * 0.7f, header.getWidth()
-						* MyGame.scaleX, header.getHeight()
-						* MyGame.scaleY);
-		
+	public void draw(float delta) {				
 		signature.draw(game.batch, 1);
-
 		game.table.draw(game.batch, 1);
-
-		game.batch.end();
 	}
 
 	@Override
@@ -61,11 +45,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		if(game.gameScreen != null)
-			game.gameScreen.dispose();
-		game.entityManager = new EntityManager(game);
-		game.gameScreen = null;
-		game.score = 0;
 		createScreen();
 		setupMenuLayout();
 	}
@@ -85,7 +64,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		
 	}
 	
 	private void createScreen(){
@@ -95,7 +73,6 @@ public class MainMenuScreen implements Screen {
 		signature.setWrap(true);
 		signature.setPosition(0, signature.getHeight() * 0.5f * MyGame.scaleY);
 		
-
 		startButton = new MenuButton("Start", game.mediumButtonStyle,
 				GameState.Game, game);
 		highscoreButton = new MenuButton("Highscore", game.mediumButtonStyle,
@@ -117,7 +94,6 @@ public class MainMenuScreen implements Screen {
 		game.table.add(optionsButton).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(howToPlayButton).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(creditsButton);
-		
-		game.table.padTop(header.getHeight() * 1.5f * MyGame.scaleY);
+		game.table.padTop(header.getTexture().getHeight() * 1.5f * MyGame.scaleY);
 	}
 }

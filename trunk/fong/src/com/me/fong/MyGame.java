@@ -50,7 +50,6 @@ public class MyGame extends Game {
 
 	public HighscoreManager highscoreManager;
 	public EntityManager entityManager;
-	public World world;
 	private SoundManager soundManager;
 
 	public Screen currentScreen;
@@ -79,7 +78,6 @@ public class MyGame extends Game {
 		readFromSavefile();
 		entityManager = new EntityManager(this);
 		soundManager = new SoundManager();
-		world = new World(this);
 
 		Gdx.input.setCatchBackKey(true);
 		createFont();

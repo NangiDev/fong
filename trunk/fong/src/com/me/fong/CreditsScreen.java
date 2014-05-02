@@ -49,10 +49,10 @@ public class CreditsScreen implements Screen {
 
 		game.drawBackground(delta);
 
-		game.batch.draw(header, (game.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * game.scaleX),
-				game.screenHeight * 0.7f, header.getWidth() * game.scaleX,
-				header.getHeight() * game.scaleY);
+		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
+				- (header.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
+				header.getHeight() * MyGame.scaleY);
 
 		game.table.draw(game.batch, 1);
 
@@ -90,12 +90,12 @@ public class CreditsScreen implements Screen {
 		textLabel.setWrap(true);
 
 
-		game.table.add().row().padBottom(50.0f * game.scaleY).expandX();
-		game.table.add(thanksLabel).row().padBottom(50.0f * game.scaleY)
+		game.table.add().row().padBottom(50.0f * MyGame.scaleY).expandX();
+		game.table.add(thanksLabel).row().padBottom(50.0f * MyGame.scaleY)
 				.fill(true, false);
 		game.table.add(textLabel).row();
 		game.table.add(backButton).row();
 
-		game.table.padTop(header.getHeight() * 1.2f * game.scaleY);
+		game.table.padTop(header.getHeight() * 1.2f * MyGame.scaleY);
 	}
 }
