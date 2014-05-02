@@ -212,10 +212,13 @@ public class Assets {
 
 	// Normals
 	static final Map<String, Texture> NORMALS_BY_NAME;
-	public static final Texture defaulNormal = new Texture(
-			Gdx.files.internal("Normals/defaultNormal.png"));
 	static {
 		final Map<String, Texture> NormasByName = new HashMap<String, Texture>();
+		NormasByName
+		.put("defaultNormal",
+				new Texture(Gdx.files
+						.internal("Normals/defaultNormal.png")));
+		
 		NormasByName
 				.put("playerNormal1",
 						new Texture(Gdx.files

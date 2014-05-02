@@ -3,14 +3,13 @@ package com.me.fong;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class HighscoreScreen implements Screen {
 	private MyGame game;
-	private Texture header;
+	private Shadable header;
 	private TextButton backButton;
 	private Label name1;
 	private Label name2;
@@ -20,7 +19,6 @@ public class HighscoreScreen implements Screen {
 
 	public HighscoreScreen(MyGame myGame) {
 		this.game = myGame;
-		header = new Texture(Gdx.files.internal("menu/highscore.png"));
 
 		backButton = new MenuButton("Back", game.mediumButtonStyle,
 				GameState.MainMenu, game);
@@ -30,29 +28,22 @@ public class HighscoreScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		game.batch.begin();
+		game.drawBackground(delta);
 		update(delta);
 		draw(delta);
+		game.batch.end();
 	}
 
 	public void update(float delta) {
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
 			game.switchToScreen(GameState.MainMenu);
 		}
+		game.entityManager.tick(delta);
 	}
 
 	public void draw(float delta) {
-		game.batch.begin();
-
-		game.drawBackground(delta);
-
-		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
-				- (header.getWidth() * 0.5f * MyGame.scaleX),
-				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
-				header.getHeight() * MyGame.scaleY);
-
 		game.table.draw(game.batch, 1);
-
-		game.batch.end();
 	}
 
 	@Override
@@ -61,12 +52,16 @@ public class HighscoreScreen implements Screen {
 
 	@Override
 	public void show() {
+		this.header = new Shadable(game.batch, Assets.highscore, (MyGame.screenWidth * 0.5f)
+				- (Assets.highscore.getWidth() * 0.5f * MyGame.scaleX),
+				MyGame.screenHeight * 0.7f, game.entityManager, false);
 		updateHighscore();
 		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
+		game.entityManager.clearEntityList();
 		game.table.clearChildren();
 	}
 
@@ -110,6 +105,6 @@ public class HighscoreScreen implements Screen {
 				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(backButton).row().align(Align.center);
 
-		game.table.padTop(header.getHeight() * 1.5f * MyGame.scaleY);
+		game.table.padTop(header.getTexture().getHeight() * 1.5f * MyGame.scaleY);
 	}
 }

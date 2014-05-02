@@ -11,9 +11,4 @@ public class World {
 		player = new Player(game.batch,Assets.playerShip2_red, MyGame.screenWidth*0.5f, MyGame.screenHeight*0.2f, game.entityManager, false);
 		ai = new Ai(game.batch,Assets.enemyBlue4, MyGame.screenWidth*0.5f, MyGame.screenHeight, game.entityManager, false);
 	}
-	
-	public void tick(float delta){
-		game.entityManager.tick(delta);
-		game.score += (int)(1 * delta * 100);
-	}
 }

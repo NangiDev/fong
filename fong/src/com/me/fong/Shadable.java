@@ -16,7 +16,7 @@ public class Shadable extends DrawComponent{
 		
 		if(path.contains("player")){
 			path = "playerNormal" + path.replaceAll("[^0-9]+", "");
-			System.out.println(path);
+			//System.out.println(path);
 			this.normalTexture = Assets.NORMALS_BY_NAME.get(path);
 		}
 		else if(path.contains("ufo")){
@@ -24,14 +24,19 @@ public class Shadable extends DrawComponent{
 		}
 		else if(path.contains("enemy")){
 			path = "enemyNormal" + path.replaceAll("[^0-9]+", "");
-			System.out.println(path);
+			//System.out.println(path);
 			this.normalTexture = Assets.NORMALS_BY_NAME.get(path);
 		}
 		else if(path.contains("meteor")){
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("meteorNormal");
 		}
+		else if(path.contains("Menu")){
+			path = path.substring(path.indexOf("/")+1, path.indexOf("."));
+			//System.out.println(path);
+			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");
+		}
 		else{
-			this.normalTexture = Assets.NORMALS_BY_NAME.get("logotypeNormal");
+			this.normalTexture = Assets.NORMALS_BY_NAME.get("defaultNormal");
 		}
 	}
 	

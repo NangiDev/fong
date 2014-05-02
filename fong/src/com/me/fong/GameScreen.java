@@ -1,5 +1,7 @@
 package com.me.fong;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -12,12 +14,14 @@ public class GameScreen implements Screen {
 	private TextButton pauseButton;
 	private Label scoreLabel;
 	private boolean ignoreTicks = false;
+	private World world;
+	private ArrayList<Entity> pauseGameState;
 
 	public GameScreen(MyGame myGame) {
 		this.game = myGame;
-
 		setupGUI();
 		System.out.println("new GameScreen created");
+		pauseGameState = new ArrayList<Entity>();
 	}
 
 	@Override
@@ -33,8 +37,10 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
 			game.switchToScreen(GameState.Pause);
 		}
-		if (!ignoreTicks)
+		if (!ignoreTicks) {
 			game.entityManager.tick(delta);
+			game.score += (int) (1 * delta * 100);
+		}
 	}
 
 	public void draw(float delta) {
@@ -50,6 +56,13 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		if (pauseGameState.size() <= 0)
+			this.world = new World(game);
+		else {
+			for (Entity e : pauseGameState) {
+				game.entityManager.addEntity(e);
+			}
+		}
 		this.ignoreTicks = false;
 		scoreLabel.setText(("000000" + game.score).substring(("" + game.score)
 				.length()));
@@ -58,6 +71,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
+		pauseGameState = game.entityManager.getCurrentState();
+		game.entityManager.clearEntityList();
 		game.score = Integer.parseInt(scoreLabel.getText().toString());
 		game.stage.getRoot().removeActor(pauseButton);
 	}
@@ -72,7 +87,7 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void dispose(){
+	public void dispose() {
 	}
 
 	private void setupGUI() {
