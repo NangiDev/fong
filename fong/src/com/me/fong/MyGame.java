@@ -28,11 +28,11 @@ public class MyGame extends Game {
 	public static float screenHeight;
 	public static float scaleX;
 	public static float scaleY;
+	public static int score = 0;
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
 
 	private int backgroundSpeed = 150;
-	public int score = 0;
 	private Preferences prefs;
 
 	public BitmapFont fontLarge, fontMedium, fontSmall;
@@ -212,7 +212,7 @@ public class MyGame extends Game {
 		int smallSize = (int) (screenWidth / 24);
 
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(
-				Gdx.files.internal("fonts/font.ttf"));
+				Gdx.files.internal("Fonts/font.ttf"));
 		FreeTypeFontParameter FTFP = new FreeTypeFontParameter();
 
 		FTFP.size = largeSize;

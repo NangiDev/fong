@@ -1,17 +1,17 @@
 package com.me.fong;
 
 import java.util.Random;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Ai extends BaseShip {
 	private Random rand = new Random();
-	private EntityManager entityManager;
+	private Animation disposeAnimation;
 
 	public Ai(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
-		this.entityManager = entityManager;
 		setHealth(1);
 	}
 
@@ -37,10 +37,12 @@ public class Ai extends BaseShip {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
 				// dispose();
+				//disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion, getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager());
 				setHealth(1);
 				int n = rand.nextInt((int) MyGame.screenWidth) + 1;
 				setX(n);
 				setY(MyGame.screenHeight);
+				MyGame.score += 100;
 			}
 		}
 		if (o instanceof Player) {

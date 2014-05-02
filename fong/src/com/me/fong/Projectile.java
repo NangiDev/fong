@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Projectile extends CollidableComponent{
 	
-	private EntityManager entityManager;
 	private boolean orientation;
 	private int parent;
+	private Animation disposeAnimation;
 	
 	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation, int parent){
 		super(batch, texture, x, y, entityManager, true);
-		this.entityManager = entityManager;
 		this.orientation = orientation;
 		this.parent = parent;
 		if(MyGame.soundOn)
@@ -45,6 +44,9 @@ public class Projectile extends CollidableComponent{
 		}
 		if(o instanceof Ai && parent == ((Ai)o).getID()){
 			return;
+		}
+		if(o instanceof Ai && parent != ((Ai)o).getID()){
+			disposeAnimation = new Animation(getSpriteBatch(), Assets.laserRed2, getOrigoX(), getOrigoY() + getTexture().getHeight()*0.5f*MyGame.scaleY, 0.5f, 2.5f, getEntityManager(), Assets.laserSound);
 		}
 		dispose();
 	}

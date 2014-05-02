@@ -16,6 +16,7 @@ public class BaseShip extends CollidableComponent {
 	private float fireRateModifier;
 	private float projectileInterval = 0;
 	private ArrayList<PowerUps> powerUps;
+	private Animation disposeAnimation;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting, boolean isFacingDown) {
@@ -43,6 +44,8 @@ public class BaseShip extends CollidableComponent {
 		super.onCollision(o);
 		if(o instanceof Projectile && ((Projectile)o).getProjectileParent() == this.getID())
 			return;
+
+		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion, getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(), Assets.explosionSound);
 	}
 
 	private void randomizePowerUps() {
@@ -98,8 +101,6 @@ public class BaseShip extends CollidableComponent {
 	
 	@Override
 	public void dispose(){
-		if(!alive)
-			
 		super.dispose();
 	}
 }
