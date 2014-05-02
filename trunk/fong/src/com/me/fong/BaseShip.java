@@ -41,11 +41,11 @@ public class BaseShip extends CollidableComponent {
 	
 	@Override
 	public void onCollision(Object o){
-		super.onCollision(o);
 		if(o instanceof Projectile && ((Projectile)o).getProjectileParent() == this.getID())
 			return;
 
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion, getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(), Assets.explosionSound);
+		super.onCollision(o);
 	}
 
 	private void randomizePowerUps() {

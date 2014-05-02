@@ -99,10 +99,13 @@ public class Assets {
 			Gdx.files.internal("Lasers/Collision/laserRed04.png"));
 
 	// Meteors
-	public static final Texture meteorBrown1 = new Texture(
+	public static final Texture meteorBrown = new Texture(
 			Gdx.files.internal("Meteors/meteorBrown_big1.png"));
-	public static final Texture meteorGray1 = new Texture(
+	public static final Texture meteorGray = new Texture(
 			Gdx.files.internal("Meteors/meteorGrey_big1.png"));
+	
+	public static final Texture meteorExplosion = new Texture(
+			Gdx.files.internal("Meteors/meteorExplosion.png"));
 
 	// Player
 	public static final Texture playerShip1_blue = new Texture(
