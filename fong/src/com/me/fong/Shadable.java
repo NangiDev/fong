@@ -31,7 +31,7 @@ public class Shadable extends DrawComponent{
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("meteorNormal");
 		}
 		else{
-			this.normalTexture = Assets.defaulNormal;
+			this.normalTexture = Assets.NORMALS_BY_NAME.get("logotypeNormal");
 		}
 	}
 	
