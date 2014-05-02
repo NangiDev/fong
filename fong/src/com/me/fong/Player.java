@@ -9,6 +9,7 @@ public class Player extends BaseShip {
 	public Player(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
+		super.setPowerUp(ActivePowerUp.None);
 	}
 
 	@Override
