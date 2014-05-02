@@ -16,15 +16,12 @@ public class InstructionsScreen implements Screen {
 	private String controlText;
 	private Label textLabel;
 	private Label controlLabel;
-	private Texture tutorialPlayer;
 	private float playerX;
+	private DrawComponent player;
 
 	public InstructionsScreen(MyGame myGame) {
 		this.game = myGame;
 		this.header = new Texture(Gdx.files.internal("menu/instructions.png"));
-		
-		tutorialPlayer = Assets.playerShip1_orange;
-		playerX = (MyGame.screenWidth * 0.5f) - (tutorialPlayer.getWidth() * 0.5f * MyGame.scaleX);
 				
 		this.instructionsText = "Your goal is to stay alive!\n\n"
 				+ "It is easier if you pick up power-ups\n\n"
@@ -51,37 +48,35 @@ public class InstructionsScreen implements Screen {
 			game.switchToScreen(GameState.MainMenu);
 		}
 		
-		if (Gdx.input.isTouched()) {
-			if (Gdx.input.getX() > playerX + tutorialPlayer.getWidth() * 0.5f
+		if (Gdx.input.isTouched() && Gdx.input.getY() > MyGame.screenHeight * 0.1f * MyGame.scaleY) {
+			if (Gdx.input.getX() > player.getX() + player.getTexture().getWidth() * 0.5f
 					* MyGame.scaleX + 10.0f * MyGame.scaleX)
-				playerX += 800 * delta * MyGame.scaleX;
+				player.setX(player.getX() + 800 * delta * MyGame.scaleX);
 
-			else if (Gdx.input.getX() < playerX + tutorialPlayer.getWidth() * 0.5f
+			else if (Gdx.input.getX() < player.getX() + player.getTexture().getWidth() * 0.5f
 					* MyGame.scaleX - 10.0f * MyGame.scaleX)
-				playerX -= 800 * delta * MyGame.scaleX;
+				player.setX(player.getX() - 800 * delta * MyGame.scaleX);
 		}
 
-		if (playerX < 0)
-			playerX = 0;
-		if (playerX > MyGame.screenWidth - tutorialPlayer.getWidth()
+		if (player.getX() < 0)
+			player.setX(0);
+		if (player.getX() > MyGame.screenWidth - player.getTexture().getWidth()
 				* MyGame.scaleX)
-			playerX = MyGame.screenWidth - tutorialPlayer.getWidth() * MyGame.scaleX;
+			player.setX(MyGame.screenWidth - player.getTexture().getWidth() * MyGame.scaleX);
 	}
 
 	public void draw(float delta) {
 		game.batch.begin();
-
 		game.drawBackground(delta);
+
+		game.world.tick(delta);
 
 		game.batch.draw(header, (MyGame.screenWidth * 0.5f)
 				- (header.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, header.getWidth() * MyGame.scaleX,
 				header.getHeight() * MyGame.scaleY);
-		
-		game.batch.draw(tutorialPlayer, playerX, MyGame.screenHeight * 0.5f,tutorialPlayer.getWidth() * MyGame.scaleX, tutorialPlayer.getHeight() * MyGame.scaleY);
-		
+				
 		game.table.draw(game.batch, 1);
-
 		game.batch.end();
 	}
 
@@ -91,11 +86,14 @@ public class InstructionsScreen implements Screen {
 
 	@Override
 	public void show() {
+		playerX = MyGame.screenWidth * 0.5f - Assets.playerShip1_orange.getWidth() * 0.5f * MyGame.scaleX;
+		player = new DrawComponent(game.batch, Assets.playerShip1_orange, playerX, MyGame.screenHeight * 0.5f, game.entityManager);
 		setupMenuLayout();
 	}
 
 	@Override
 	public void hide() {
+		player.dispose();
 		game.table.clearChildren();
 	}
 

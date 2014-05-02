@@ -34,6 +34,7 @@ public class Player extends BaseShip {
 	public void onCollision(Object o) {
 		super.onCollision(o);
 		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != this.getID()) {
+			setAlive(false);
 			dispose();
 		}
 		if (o instanceof PowerUps){
@@ -47,7 +48,6 @@ public class Player extends BaseShip {
 	@Override
 	public void dispose(){
 		super.dispose();
-		getEntityManager().removeEntity(this);
 		getEntityManager().game.switchToScreen(GameState.GameOver);
 	}
 }

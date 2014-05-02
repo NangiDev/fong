@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class GameScreen implements Screen {
 
-	private World world;
 	private MyGame game;
 	private TextButton pauseButton;
 	private Label scoreLabel;
@@ -18,7 +17,6 @@ public class GameScreen implements Screen {
 		this.game = myGame;
 
 		setupGUI();
-		world = new World(game);
 		System.out.println("new GameScreen created");
 	}
 
@@ -36,7 +34,7 @@ public class GameScreen implements Screen {
 			game.switchToScreen(GameState.Pause);
 		}
 		if (!ignoreTicks)
-			world.tick(delta);
+			game.world.tick(delta);
 	}
 
 	public void draw(float delta) {
@@ -52,6 +50,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		game.world = new World(game);
 		this.ignoreTicks = false;
 		scoreLabel.setText(("000000" + game.score).substring(("" + game.score)
 				.length()));
@@ -74,8 +73,7 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void dispose() {
-		world = null;
+	public void dispose(){
 	}
 
 	private void setupGUI() {

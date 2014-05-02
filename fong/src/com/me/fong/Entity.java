@@ -15,6 +15,7 @@ public class Entity implements Disposable {
 		this.y = y;
 		this.entityManager = entityManager;
 		this.ID = entityManager.getNewID();
+		this.entityManager.addEntity(this);
 	}
 
 	public void onTick(float delta) {
@@ -68,5 +69,6 @@ public class Entity implements Disposable {
 	
 	@Override
 	public void dispose() {
+		this.entityManager.removeEntity(this);
 	}
 }
