@@ -24,13 +24,13 @@ public class Assets {
 	public static final Music music = Gdx.audio.newMusic(Gdx.files
 			.internal("ReachingNull.mp3"));
 	public static final Sound buttonSound = Gdx.audio.newSound(Gdx.files
-			.internal("ButtonPress.wav"));
+			.internal("ButtonPress.mp3"));
 	public static final Sound pauseSound = Gdx.audio.newSound(Gdx.files
-			.internal("pause.wav"));
+			.internal("pause.mp3"));
 	public static final Sound laserSound = Gdx.audio.newSound(Gdx.files
-			.internal("laser1.wav"));
+			.internal("Laser1.mp3"));
 	public static final Sound explosionSound = Gdx.audio.newSound(Gdx.files
-			.internal("Explosion.wav"));
+			.internal("Explosion.mp3"));
 	
 	// Menu headers
 		public static final Texture buttonYellow = new Texture(
