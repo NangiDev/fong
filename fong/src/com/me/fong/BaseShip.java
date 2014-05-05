@@ -18,7 +18,8 @@ public class BaseShip extends CollidableComponent {
 	private float fireRateModifier;
 	private float projectileInterval = 0;
 	private ArrayList<PowerUps> powerUps;
-private ActivePowerUp powerUp = ActivePowerUp.Shield;private Animation disposeAnimation;
+	protected ActivePowerUp powerUp = ActivePowerUp.None;
+	private Animation disposeAnimation;
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting, boolean isFacingDown) {
 		super(batch, texture, x, y, entityManager, ignoreLighting);
@@ -31,7 +32,7 @@ private ActivePowerUp powerUp = ActivePowerUp.Shield;private Animation disposeAn
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
 		healthModified = false;
-		randomizePowerUps();
+		//randomizePowerUps();
 	}
 
 	@Override
@@ -52,27 +53,31 @@ private ActivePowerUp powerUp = ActivePowerUp.Shield;private Animation disposeAn
 		super.onCollision(o);
 	}
 	
-	protected void randomizePowerUps() {
+	/*private void randomizePowerUps() {
 		int powerUpId = MathUtils.random(0, 3);
 		
 		switch(powerUpId){
 			case 0: 
 				powerUp = ActivePowerUp.None;
+				setTexture(Assets.enemyBlack1);
 				break;
 			case 1: 
 				powerUp = ActivePowerUp.FastFire;
+				setTexture(Assets.enemyBlack3);
 				break;	
 			case 2:
 				powerUp = ActivePowerUp.FastMovement;
+				setTexture(Assets.enemyBlack2);
 				break;
 			case 3:
 				powerUp = ActivePowerUp.Shield;
+				setTexture(Assets.enemyBlack4);
 				break;
 		}
 		
 		System.out.println(powerUp);
 		
-	}
+	}*/
 	
 	private void updatePowerUps(){
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
