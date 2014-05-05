@@ -22,15 +22,15 @@ public class Assets {
 	
 	// Sounds
 	public static final Music music = Gdx.audio.newMusic(Gdx.files
-			.internal("musik.mp3"));
+			.internal("ReachingNull.mp3"));
 	public static final Sound buttonSound = Gdx.audio.newSound(Gdx.files
-			.internal("bumper.mp3"));
+			.internal("ButtonPress.wav"));
 	public static final Sound pauseSound = Gdx.audio.newSound(Gdx.files
-			.internal("pause.mp3"));
+			.internal("pause.wav"));
 	public static final Sound laserSound = Gdx.audio.newSound(Gdx.files
-			.internal("laser.mp3"));
+			.internal("laser1.wav"));
 	public static final Sound explosionSound = Gdx.audio.newSound(Gdx.files
-			.internal("explosion.mp3"));
+			.internal("Explosion.wav"));
 	
 	// Menu headers
 		public static final Texture buttonYellow = new Texture(
