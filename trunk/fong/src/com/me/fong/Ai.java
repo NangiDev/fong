@@ -13,6 +13,7 @@ public class Ai extends BaseShip {
 	public Ai(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
+		randomizePowerUps();
 		setHealth(1);
 	}
 
