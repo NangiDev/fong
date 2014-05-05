@@ -1,7 +1,5 @@
 package com.me.fong;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -17,14 +15,14 @@ public class BaseShip extends CollidableComponent {
 	private float fireRate;
 	private float fireRateModifier;
 	private float projectileInterval = 0;
-	private ArrayList<PowerUps> powerUps;
 	protected ActivePowerUp powerUp = ActivePowerUp.None;
 	private Animation disposeAnimation;
+	
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
-			EntityManager entityManager, boolean ignoreLighting, boolean isFacingDown) {
+			EntityManager entityManager, boolean ignoreLighting,
+			boolean isFacingDown) {
 		super(batch, texture, x, y, entityManager, ignoreLighting);
 		this.alive = true;
-		this.powerUps = new ArrayList<PowerUps>();
 		this.healthModifier = 1;
 		this.fireRate = 50;
 		this.fireRateModifier = 1;
@@ -42,19 +40,37 @@ public class BaseShip extends CollidableComponent {
 		updatePowerUps();
 		fireProjectile();
 	}
-	
-	
+
 	@Override
-	public void onCollision(Object o){
-		if(o instanceof Projectile && ((Projectile)o).getProjectileParent() == this.getID())
+	public void onCollision(Object o) {
+		if (o instanceof Projectile
+				&& ((Projectile) o).getProjectileParent() == this.getID())
 			return;
 
-		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion, getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(), Assets.explosionSound);
+		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
+				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
+				Assets.explosionSound);
 		super.onCollision(o);
 	}
-	
+
 	/*private void randomizePowerUps() {
 		int powerUpId = MathUtils.random(0, 3);
+<<<<<<< .mine
+
+		switch (powerUpId) {
+		case 0:
+			powerUp = ActivePowerUp.None;
+			break;
+		case 1:
+			powerUp = ActivePowerUp.FastFire;
+			break;
+		case 2:
+			powerUp = ActivePowerUp.FastMovement;
+			break;
+		case 3:
+			powerUp = ActivePowerUp.Shield;
+			break;
+=======
 		
 		switch(powerUpId){
 			case 0: 
@@ -73,13 +89,14 @@ public class BaseShip extends CollidableComponent {
 				powerUp = ActivePowerUp.Shield;
 				setTexture(Assets.enemyBlack4);
 				break;
+>>>>>>> .r86
 		}
-		
+
 		System.out.println(powerUp);
-		
+
 	}*/
-	
-	private void updatePowerUps(){
+
+	private void updatePowerUps() {
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
 		speedModifier = PowerUps.getMovementBehavior(powerUp);
 		healthModifier = PowerUps.getHealthBehavior(powerUp);
@@ -93,14 +110,6 @@ public class BaseShip extends CollidableComponent {
 		return this.alive;
 	}
 
-	public void addPowerUp(PowerUps pwu) {
-		this.powerUps.add(pwu);
-	}
-
-	public ArrayList<PowerUps> getPowerUpList() {
-		return this.powerUps;
-	}
-
 	public void setHealth(float health) {
 		this.health = health;
 	}
@@ -109,16 +118,15 @@ public class BaseShip extends CollidableComponent {
 		this.speed = speed;
 	}
 
-	public void setPowerUp(ActivePowerUp powerUp){
+	public void setPowerUp(ActivePowerUp powerUp) {
 		this.powerUp = powerUp;
 	}
-	
+
 	public float getHealth() {
-		if(!healthModified){
+		if (!healthModified) {
 			healthModified = true;
 			return this.health * healthModifier;
-		}			
-		else
+		} else
 			return this.health;
 	}
 
@@ -130,23 +138,25 @@ public class BaseShip extends CollidableComponent {
 		return this.fireRate * fireRateModifier;
 	}
 
-	public ActivePowerUp getPowerUp(){
+	public ActivePowerUp getPowerUp() {
 		return this.powerUp;
 	}
-	
+
 	public void fireProjectile() {
-		
+
 		if (projectileInterval < 0) {
 			Projectile projectile = new Projectile(getSpriteBatch(),
 					Assets.laserRed, getOrigoX() - Assets.laserRed.getWidth()
-							* 0.5f * MyGame.scaleX, getOrigoY() - Assets.laserRed.getHeight()
-							* 0.5f * MyGame.scaleY, this.getEntityManager(), isFacingDown, this.getID());
+							* 0.5f * MyGame.scaleX, getOrigoY()
+							- Assets.laserRed.getHeight() * 0.5f
+							* MyGame.scaleY, this.getEntityManager(),
+					isFacingDown, this.getID());
 			projectileInterval = getFireRate();
 		}
 	}
-	
+
 	@Override
-	public void dispose(){
+	public void dispose() {
 		super.dispose();
 	}
 }
