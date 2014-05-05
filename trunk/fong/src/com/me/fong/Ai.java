@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Ai extends BaseShip {
 	private Random rand = new Random();
@@ -44,12 +45,39 @@ public class Ai extends BaseShip {
 				int n = rand.nextInt((int) MyGame.screenWidth) + 1;
 				setX(n);
 				setY(MyGame.screenHeight);
+				randomizePowerUps();
 				MyGame.score += 100;
 			}
 		}
 		if (o instanceof Player) {
 			dispose();
 		}
+	}
+	
+	private void randomizePowerUps() {
+		int powerUpId = MathUtils.random(0, 3);
+		
+		switch(powerUpId){
+			case 0: 
+				powerUp = ActivePowerUp.None;
+				setTexture(Assets.enemyBlack1);
+				break;
+			case 1: 
+				powerUp = ActivePowerUp.FastFire;
+				setTexture(Assets.enemyBlack3);
+				break;	
+			case 2:
+				powerUp = ActivePowerUp.FastMovement;
+				setTexture(Assets.enemyBlack2);
+				break;
+			case 3:
+				powerUp = ActivePowerUp.Shield;
+				setTexture(Assets.enemyBlack4);
+				break;
+		}
+		
+		System.out.println(powerUp);
+		
 	}
 
 	@Override
