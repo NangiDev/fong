@@ -21,7 +21,8 @@ public class CreditsScreen implements Screen {
 
 		this.creditsText = "Our tutor Mathias Broxwall at Örebro University\n\n"
 				+ "Ray Larabie at www.1001fonts.com for fonts\n\n"
-				+ "Kenney at www.kenney.nl for graphics";
+				+ "Kenney at www.kenney.nl for graphics\n\n"
+				+ "ShawnDaley on SoundCloud  for music";
 
 		thanksLabel = new Label("Thanks!", game.largelabelStyle);
 		textLabel = new Label(creditsText, game.smalllabelStyle);
