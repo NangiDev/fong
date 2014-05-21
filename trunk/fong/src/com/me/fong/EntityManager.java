@@ -17,6 +17,7 @@ public class EntityManager {
 	}
 
 	public void tick(float delta) {
+		//System.out.println("Entities size: " + entities.size());
 		ticks = new ArrayList<Entity>(entities);
 		if(MyGame.lightOn)
 			shaderManager.switchToNormalShader(game.batch);
@@ -78,6 +79,15 @@ public class EntityManager {
 			e = null;
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public boolean entityExists(Entity e){
+		if(entities.contains(e)){
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 	

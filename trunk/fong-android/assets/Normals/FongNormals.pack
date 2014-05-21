@@ -1,0 +1,124 @@
+
+FongNormals.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+creditsNormal
+  rotate: false
+  xy: 1, 769
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+gameOverNormal
+  rotate: false
+  xy: 1, 517
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+highscoreNormal
+  rotate: false
+  xy: 503, 769
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+instructionsNormal
+  rotate: false
+  xy: 1, 265
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+logotypeNormal
+  rotate: false
+  xy: 503, 517
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+optionsNormal
+  rotate: false
+  xy: 1, 13
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+pauseNormal
+  rotate: false
+  xy: 503, 265
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1
+enemy2Normal
+  rotate: false
+  xy: 503, 179
+  size: 104, 84
+  orig: 104, 84
+  offset: 0, 0
+  index: -1
+enemy3Normal
+  rotate: false
+  xy: 503, 93
+  size: 103, 84
+  orig: 103, 84
+  offset: 0, 0
+  index: -1
+playerShip2Normal
+  rotate: false
+  xy: 609, 188
+  size: 112, 75
+  orig: 112, 75
+  offset: 0, 0
+  index: -1
+meteorNormal
+  rotate: false
+  xy: 503, 7
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: -1
+playerShip1Normal
+  rotate: false
+  xy: 723, 188
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+playerShip3Normal
+  rotate: false
+  xy: 824, 188
+  size: 98, 75
+  orig: 98, 75
+  offset: 0, 0
+  index: -1
+enemy1Normal
+  rotate: false
+  xy: 924, 179
+  size: 93, 84
+  orig: 93, 84
+  offset: 0, 0
+  index: -1
+ufoNormal
+  rotate: false
+  xy: 609, 95
+  size: 91, 91
+  orig: 91, 91
+  offset: 0, 0
+  index: -1
+enemy4Normal
+  rotate: false
+  xy: 702, 102
+  size: 82, 84
+  orig: 82, 84
+  offset: 0, 0
+  index: -1
+defaultNormal
+  rotate: false
+  xy: 1, 1
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1

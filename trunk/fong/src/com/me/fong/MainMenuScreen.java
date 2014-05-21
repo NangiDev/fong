@@ -15,7 +15,7 @@ public class MainMenuScreen implements Screen {
 	private TextButton optionsButton;
 	private TextButton creditsButton;
 	private Shadable header;
-
+	
 	public MainMenuScreen(MyGame myGame) {
 		this.game = myGame;
 	}

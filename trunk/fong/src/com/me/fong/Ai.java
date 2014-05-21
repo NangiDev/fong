@@ -15,6 +15,7 @@ public class Ai extends BaseShip {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
 		randomizePowerUps();
 		setHealth(1);
+		setIsPlayer(false);
 	}
 
 	@Override
@@ -24,29 +25,29 @@ public class Ai extends BaseShip {
 		if (getY() > MyGame.screenHeight
 				|| getY() < 0 - (getTexture().getHeight() * MyGame.scaleY)
 				|| getX() > MyGame.screenWidth || getX() < 0) {
-			int n = rand.nextInt((int) (MyGame.screenWidth - getTexture()
+			/*int n = rand.nextInt((int) (MyGame.screenWidth - getTexture()
 					.getWidth() * MyGame.scaleX)) + 1;
 			setX(n);
-			setY(MyGame.screenHeight);
-			// this.dispose();
+			setY(MyGame.screenHeight);*/
+			this.dispose();
 		}
 	}
 
 	@Override
 	public void onCollision(Object o) {
-		if (o instanceof Meteor) {
+		if (o instanceof Meteor || o instanceof Ai) {
 			return;
 		}
 		super.onCollision(o);
-		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != this.getID()) {
+		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != getIsPlayer()) {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
-				// dispose();
-				setHealth(1);
+				dispose();
+				/*setHealth(1);
 				int n = rand.nextInt((int) MyGame.screenWidth) + 1;
 				setX(n);
 				setY(MyGame.screenHeight);
-				randomizePowerUps();
+				randomizePowerUps();*/
 				MyGame.score += 100;
 			}
 		}
@@ -77,7 +78,7 @@ public class Ai extends BaseShip {
 				break;
 		}
 		
-		System.out.println(powerUp);
+		//System.out.println(powerUp);
 		
 	}
 

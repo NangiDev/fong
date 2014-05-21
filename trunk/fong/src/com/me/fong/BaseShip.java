@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class BaseShip extends CollidableComponent {
 	private boolean alive;
 	private boolean isFacingDown;
+	private boolean isPlayer;
 	private float health;
 	private float healthModifier;
 	private boolean healthModified;
@@ -44,7 +45,7 @@ public class BaseShip extends CollidableComponent {
 	@Override
 	public void onCollision(Object o) {
 		if (o instanceof Projectile
-				&& ((Projectile) o).getProjectileParent() == this.getID())
+				&& ((Projectile) o).getProjectileParent() == isPlayer)
 			return;
 
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
@@ -52,49 +53,6 @@ public class BaseShip extends CollidableComponent {
 				Assets.explosionSound);
 		super.onCollision(o);
 	}
-
-	/*private void randomizePowerUps() {
-		int powerUpId = MathUtils.random(0, 3);
-<<<<<<< .mine
-
-		switch (powerUpId) {
-		case 0:
-			powerUp = ActivePowerUp.None;
-			break;
-		case 1:
-			powerUp = ActivePowerUp.FastFire;
-			break;
-		case 2:
-			powerUp = ActivePowerUp.FastMovement;
-			break;
-		case 3:
-			powerUp = ActivePowerUp.Shield;
-			break;
-=======
-		
-		switch(powerUpId){
-			case 0: 
-				powerUp = ActivePowerUp.None;
-				setTexture(Assets.enemyBlack1);
-				break;
-			case 1: 
-				powerUp = ActivePowerUp.FastFire;
-				setTexture(Assets.enemyBlack3);
-				break;	
-			case 2:
-				powerUp = ActivePowerUp.FastMovement;
-				setTexture(Assets.enemyBlack2);
-				break;
-			case 3:
-				powerUp = ActivePowerUp.Shield;
-				setTexture(Assets.enemyBlack4);
-				break;
->>>>>>> .r86
-		}
-
-		System.out.println(powerUp);
-
-	}*/
 
 	private void updatePowerUps() {
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
@@ -141,6 +99,14 @@ public class BaseShip extends CollidableComponent {
 	public ActivePowerUp getPowerUp() {
 		return this.powerUp;
 	}
+	
+	public void setIsPlayer(boolean isPlayer){
+		this.isPlayer = isPlayer;
+	}
+	
+	public boolean getIsPlayer(){
+		return this.isPlayer;
+	}
 
 	public void fireProjectile() {
 
@@ -150,7 +116,7 @@ public class BaseShip extends CollidableComponent {
 							* 0.5f * MyGame.scaleX, getOrigoY()
 							- Assets.laserRed.getHeight() * 0.5f
 							* MyGame.scaleY, this.getEntityManager(),
-					isFacingDown, this.getID());
+					isFacingDown, isPlayer);
 			projectileInterval = getFireRate();
 		}
 	}

@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Projectile extends CollidableComponent{
 	
 	private boolean orientation;
-	private int parent;
+	private boolean parentIsPlayer;
 	private Animation disposeAnimation;
 	
-	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation, int parent){
+	public Projectile(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean orientation, boolean parentIsPlayer){
 		super(batch, texture, x, y, entityManager, true);
 		this.orientation = orientation;
-		this.parent = parent;
+		this.parentIsPlayer = parentIsPlayer;
 		if(MyGame.soundOn)
 			Assets.laserSound.play(0.5f);
 	}
@@ -39,19 +39,19 @@ public class Projectile extends CollidableComponent{
 		super.onCollision(o);
 		if(o instanceof Projectile || o instanceof PowerUps)
 			return;
-		if(o instanceof Player && parent == ((Player)o).getID()){
+		if(o instanceof Player && parentIsPlayer){
 			return;
 		}
-		if(o instanceof Ai && parent == ((Ai)o).getID()){
+		if(o instanceof Ai && !parentIsPlayer){
 			return;
 		}
-		if(o instanceof Ai && parent != ((Ai)o).getID()){
+		if(o instanceof Ai && !parentIsPlayer){
 			disposeAnimation = new Animation(getSpriteBatch(), Assets.laserRed2, getOrigoX(), getOrigoY() + getTexture().getHeight()*0.5f*MyGame.scaleY, 0.5f, 2.5f, getEntityManager(), Assets.laserSound);
 		}
 		dispose();
 	}
 	
-	public int getProjectileParent(){
-		return this.parent;
+	public boolean getProjectileParent(){
+		return this.parentIsPlayer;
 	}
 }

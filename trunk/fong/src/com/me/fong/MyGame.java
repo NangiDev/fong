@@ -301,6 +301,6 @@ public class MyGame extends Game {
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 
-		backgroundSpeed += 250 * delta * scaleY;
+		backgroundSpeed += 1500 * delta * scaleY;
 	}
 }

@@ -10,6 +10,7 @@ public class Player extends BaseShip {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
 		super.setPowerUp(ActivePowerUp.None);
+		setIsPlayer(true);
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class Player extends BaseShip {
 	@Override
 	public void onCollision(Object o) {
 		super.onCollision(o);
-		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != this.getID()) {
+		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != getIsPlayer()) {
 			setAlive(false);
 			dispose();
 		}

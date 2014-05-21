@@ -33,7 +33,7 @@ public class Meteor extends CollidableComponent{
 	@Override
 	public void onCollision(Object o) {
 		if(o instanceof Projectile){
-			disposeAnimation = new Animation(getSpriteBatch(), Assets.meteorExplosion, getOrigoX(), getY(), 2.5f, 5.0f, getEntityManager(), Assets.explosionSound);
+			disposeAnimation = new Animation(getSpriteBatch(), Assets.meteorExplosion, getOrigoX(), getY(), 2.0f, 8.0f, getEntityManager(), Assets.explosionSound);
 			int n = rand.nextInt((int) MyGame.screenWidth) + 1;
 			setX(n);
 			setY(MyGame.screenHeight);

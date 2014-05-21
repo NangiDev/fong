@@ -39,6 +39,7 @@ public class GameScreen implements Screen {
 		}
 		if (!ignoreTicks) {
 			game.entityManager.tick(delta);
+			world.tick(delta);
 			game.score += (int) (1 * delta * 100);
 		}
 	}
