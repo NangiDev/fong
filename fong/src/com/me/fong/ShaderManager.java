@@ -87,12 +87,11 @@ public class ShaderManager {
 					"	vec4 Cd = texture2D(u_texture, vTexCoord);\n" +
 					"	vec4 Cs = vec4(1.0, 1.0, 1.0, 0.0);\n" +
 					"	vec4 La = vec4(0.2, 0.2, 0.2, 0.0);\n" +
-					"	vec4 Ld = LightColor;\n" +
-					"	vec4 Ls = vec4(3.0, 3.0, 3.0, 0.0);\n" +
+					"	vec4 Ld = vec4(1.0, 1.0, 1.0, 0.0);\n" +
+					"	vec4 Ls = LightColor;\n" +
 					"	float f = 50.0;\n" +
 					"	vec4 NormalMap2 = texture2D(u_normals, vTexCoord);\n" +
 					"	vec4 N = normalize(NormalMap2 * 2.0 - 1.0);\n" +
-					"	//vec4 N3 = vec4(N2, 1.0);\n" +
 					"   vec4 Vl = vec4(normalize(vec4(LightPos, 1.0) - position));" +
 					"   vec4 rL = reflect(N, Vl);\n" +
 					"	vec4 Ve = normalize(position);\n" +
