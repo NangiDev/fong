@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player extends BaseShip {
 
-	public Player(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting) {
+	public Player(SpriteBatch batch, Texture texture, float x, float y,
+			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
 		super.setPowerUp(ActivePowerUp.None);
@@ -16,23 +17,29 @@ public class Player extends BaseShip {
 
 	@Override
 	public void onTick(float delta) {
-		if (Gdx.input.isTouched() && Gdx.input.getY() > MyGame.screenHeight * 0.1f * MyGame.scaleY) {
+		if (Gdx.input.isTouched()
+				&& Gdx.input.getY() > MyGame.screenHeight * 0.1f
+						* MyGame.scaleY) {
 			if (Gdx.input.getX() > getX() + getTexture().getWidth() * 0.5f
-					* MyGame.scaleX + 10.0f * MyGame.scaleX)
+					* MyGame.scaleX + 10.0f * MyGame.scaleX) {
 				setX(getX() + getSpeed() * delta * MyGame.scaleX);
+			}
 
 			else if (Gdx.input.getX() < getX() + getTexture().getWidth() * 0.5f
-					* MyGame.scaleX - 10.0f * MyGame.scaleX)
+					* MyGame.scaleX - 10.0f * MyGame.scaleX) {
 				setX(getX() - getSpeed() * delta * MyGame.scaleX);
-		}
-		
+			}
+		} else {
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)){
-			setX(getX() + getSpeed() * delta * MyGame.scaleX);
-		}
+			if (Gdx.input.isKeyPressed(Keys.RIGHT)
+					|| Gdx.input.isKeyPressed(Keys.D)) {
+				setX(getX() + getSpeed() * delta * MyGame.scaleX);
+			}
 
-		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)){
-			setX(getX() - getSpeed() * delta * MyGame.scaleX);
+			if (Gdx.input.isKeyPressed(Keys.LEFT)
+					|| Gdx.input.isKeyPressed(Keys.A)) {
+				setX(getX() - getSpeed() * delta * MyGame.scaleX);
+			}
 		}
 
 		if (getX() < 0)
@@ -45,21 +52,22 @@ public class Player extends BaseShip {
 	@Override
 	public void onCollision(Object o) {
 		super.onCollision(o);
-		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != getIsPlayer()) {
+		if (o instanceof Projectile
+				&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
 			setAlive(false);
 			dispose();
 		}
-		if (o instanceof PowerUps){
-			//Pickup
+		if (o instanceof PowerUps) {
+			// Pickup
 		}
-		if (o instanceof Ai || o instanceof Meteor){
+		if (o instanceof Ai || o instanceof Meteor) {
 			dispose();
 		}
 
 	}
-	
+
 	@Override
-	public void dispose(){
+	public void dispose() {
 		super.dispose();
 		getEntityManager().game.switchToScreen(GameState.GameOver);
 	}
