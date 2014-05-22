@@ -56,16 +56,16 @@ public class WaveManager {
 	}
 
 	private void createEnemies() {
-		randomizeFormation();
+		randomizeBehavior();
 		enemies.clear();
-		String[] a = formation.split("");
 		ai = new Ai(game.batch, Assets.enemyBlue4, 0, 0, game.entityManager,
 				false);
 		ai.randomizePowerUps();
 
 		for (int y = 0; y < formation.length() / 5.0f; y++) {
 			for (int x = 0; x < 5.0f; x++) {
-				if (a[y + x + 4 * y].matches("1")) {
+				char a = formation.charAt(x+5*y);
+				if (a == '1') {
 					Ai temp = new Ai(game.batch, ai.getTexture(), 0, 0,
 							game.entityManager, false);
 					temp.setPowerUp(ai.getPowerUp());
@@ -79,10 +79,10 @@ public class WaveManager {
 		}
 	}
 
-	private void randomizeFormation() {
+	private void randomizeBehavior() {
 		switch (key) {
 		case 0:
-			formation = "10000" + "01000" + "00100" + "00010" + "00001";
+			formation = "10000" + "01000" + "00100" + "00010" + "00001";  // Formation
 			break;
 		case 1:
 			formation = "00100" + "01010" + "10001";

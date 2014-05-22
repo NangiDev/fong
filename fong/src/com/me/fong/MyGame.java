@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,7 +24,7 @@ public class MyGame extends Game {
 	public static boolean musicOn = true;
 	public static boolean soundOn = true;
 	public static boolean lightOn = true;
-	
+
 	public static float screenWidth;
 	public static float screenHeight;
 	public static float scaleX;
@@ -152,6 +153,10 @@ public class MyGame extends Game {
 	@Override
 	public void render() {
 		super.render();
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)){
+			System.exit(0);
+			Gdx.app.exit();
+		}
 		soundManager.tick();
 	}
 
@@ -191,7 +196,7 @@ public class MyGame extends Game {
 			prefs.putString("4", "Föng 0");
 			prefs.putString("5", "Föng 0");
 			prefs.flush();
-			
+
 			soundOn = prefs.getBoolean("soundOn");
 			musicOn = prefs.getBoolean("musicOn");
 			lightOn = prefs.getBoolean("lightOn");
@@ -301,6 +306,6 @@ public class MyGame extends Game {
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 
-		backgroundSpeed += 1500 * delta * scaleY;
+		backgroundSpeed += 1000 * delta * scaleY;
 	}
 }

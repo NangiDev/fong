@@ -1,6 +1,7 @@
 package com.me.fong;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -23,6 +24,15 @@ public class Player extends BaseShip {
 			else if (Gdx.input.getX() < getX() + getTexture().getWidth() * 0.5f
 					* MyGame.scaleX - 10.0f * MyGame.scaleX)
 				setX(getX() - getSpeed() * delta * MyGame.scaleX);
+		}
+		
+
+		if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)){
+			setX(getX() + getSpeed() * delta * MyGame.scaleX);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)){
+			setX(getX() - getSpeed() * delta * MyGame.scaleX);
 		}
 
 		if (getX() < 0)
