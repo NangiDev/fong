@@ -68,7 +68,7 @@ public class EntityManager {
 			}
 
 			if (ticks.get(i) instanceof DrawComponent) {
-				((DrawComponent) ticks.get(i)).draw();
+				((DrawComponent) ticks.get(i)).draw();				
 			}
 
 			ticks.get(i).tick(delta);

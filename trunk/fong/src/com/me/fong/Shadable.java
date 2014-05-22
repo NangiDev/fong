@@ -35,6 +35,25 @@ public class Shadable extends DrawComponent{
 			//System.out.println(path);
 			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");
 		}
+		
+		else if(path.contains("bolt_gold")){
+			path = path.substring(path.indexOf("/")+1, path.indexOf("."));
+			System.out.println(path);
+			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");
+		}
+		
+		else if(path.contains("pill_green")){
+			path = path.substring(path.indexOf("/")+1, path.indexOf("."));
+			System.out.println(path);
+			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");
+		}
+		
+		else if(path.contains("shield_bronze")){
+			path = path.substring(path.indexOf("/")+1, path.indexOf("."));
+			System.out.println(path);
+			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");
+		}
+		
 		else{
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("defaultNormal");
 		}

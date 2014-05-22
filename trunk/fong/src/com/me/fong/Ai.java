@@ -37,11 +37,13 @@ public class Ai extends BaseShip {
 		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != getIsPlayer()) {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
+				PowerUpPickup p = new PowerUpPickup(getSpriteBatch(), Assets.pill_blue, getOrigoX(), getOrigoY(), getEntityManager(), false);
 				dispose();
 				MyGame.score += 100;
 			}
 		}
 		if (o instanceof Player) {
+			
 			dispose();
 		}
 	}
