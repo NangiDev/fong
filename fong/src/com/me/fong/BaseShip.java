@@ -16,7 +16,7 @@ public class BaseShip extends CollidableComponent {
 	private float fireRate;
 	private float fireRateModifier;
 	private float projectileInterval = 0;
-	protected ActivePowerUp powerUp = ActivePowerUp.None;
+	protected EnumPowerUp powerUp = EnumPowerUp.None;
 	private Animation disposeAnimation;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
@@ -27,7 +27,7 @@ public class BaseShip extends CollidableComponent {
 		this.healthModifier = 1;
 		this.fireRate = 50;
 		this.fireRateModifier = 1;
-		this.speed = 500;
+		this.speed = 300;
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
 		healthModified = false;
@@ -38,7 +38,7 @@ public class BaseShip extends CollidableComponent {
 		super.tick(delta);
 		projectileInterval -= delta * 100;
 		updatePowerUps();
-		fireProjectile();
+		//fireProjectile();
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class BaseShip extends CollidableComponent {
 		this.speed = speed;
 	}
 
-	public void setPowerUp(ActivePowerUp powerUp) {
+	public void setPowerUp(EnumPowerUp powerUp) {
 		this.powerUp = powerUp;
 	}
 
@@ -96,7 +96,7 @@ public class BaseShip extends CollidableComponent {
 		return this.fireRate * fireRateModifier;
 	}
 
-	public ActivePowerUp getPowerUp() {
+	public EnumPowerUp getPowerUp() {
 		return this.powerUp;
 	}
 

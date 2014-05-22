@@ -2,6 +2,9 @@ package com.me.fong;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+
 public class EntityManager {
 
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -11,39 +14,59 @@ public class EntityManager {
 	public MyGame game;
 	private ArrayList<Entity> ticks;
 
+	private boolean almighty = false;
+	private boolean slutanuro = true;
+
 	public EntityManager(MyGame game) {
 		this.game = game;
 		this.shaderManager = new ShaderManager();
 	}
 
 	public void tick(float delta) {
-		//System.out.println("Entities size: " + entities.size());
+		// System.out.println("Entities size: " + entities.size());
 		ticks = new ArrayList<Entity>(entities);
-		if(MyGame.lightOn)
+		if (MyGame.lightOn)
 			shaderManager.switchToNormalShader(game.batch);
 		
-		//ShaderManager.tick(delta);
+
+		if (Gdx.input.isKeyPressed(Keys.J) && slutanuro){
+			almighty = !almighty;
+			if(almighty)
+				System.out.println("GODMODE ON!!");
+			else
+				System.out.println("NOBODYMODE ON!!");
+			slutanuro = false;
+		}
+		
+		if(!Gdx.input.isKeyPressed(Keys.J)){
+			slutanuro = true;
+		}
+
+		// ShaderManager.tick(delta);
 		shaderManager.passLights();
 
 		for (int i = 0; i < ticks.size(); i++) {
-			for (int j = i + 1; j < ticks.size(); j++) {
-				if (ticks.get(i) instanceof CollidableComponent
-						&& ticks.get(j) instanceof CollidableComponent) {
-					if (((CollidableComponent) ticks.get(i))
-							.intersectsWith((CollidableComponent) ticks.get(j))) {
-						CollidableComponent a = (CollidableComponent) ticks
-								.get(i);
-						CollidableComponent b = (CollidableComponent) ticks
-								.get(j);
-						a.onCollision(b);
-						b.onCollision(a);
+			if (!almighty) {
+				for (int j = i + 1; j < ticks.size(); j++) {
+					if (ticks.get(i) instanceof CollidableComponent
+							&& ticks.get(j) instanceof CollidableComponent) {
+						if (((CollidableComponent) ticks.get(i))
+								.intersectsWith((CollidableComponent) ticks
+										.get(j))) {
+							CollidableComponent a = (CollidableComponent) ticks
+									.get(i);
+							CollidableComponent b = (CollidableComponent) ticks
+									.get(j);
+							a.onCollision(b);
+							b.onCollision(a);
+						}
 					}
 				}
 			}
-			if(ticks.get(i) instanceof Shadable && MyGame.lightOn){
+			if (ticks.get(i) instanceof Shadable && MyGame.lightOn) {
 				((Shadable) ticks.get(i)).bind();
 			}
-			
+
 			if (ticks.get(i) instanceof DrawComponent) {
 				((DrawComponent) ticks.get(i)).draw();
 			}
@@ -62,7 +85,7 @@ public class EntityManager {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void addToEndEntity(Entity e) {
 		try {
 			entities.add(e);
@@ -81,21 +104,20 @@ public class EntityManager {
 			e1.printStackTrace();
 		}
 	}
-	
-	public boolean entityExists(Entity e){
-		if(entities.contains(e)){
+
+	public boolean entityExists(Entity e) {
+		if (entities.contains(e)) {
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
-	
-	public void clearEntityList(){
+
+	public void clearEntityList() {
 		this.entities.clear();
 	}
-	
-	public ArrayList<Entity> getCurrentState(){
+
+	public ArrayList<Entity> getCurrentState() {
 		return ticks;
 	}
 
