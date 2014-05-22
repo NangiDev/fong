@@ -14,6 +14,7 @@ public class Ai extends BaseShip {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
 		setHealth(1);
 		setIsPlayer(false);
+		setFireRate(100);
 		aiC = new AiControllers(this);
 		this.controllerType = controllerType;
 	}
@@ -37,7 +38,7 @@ public class Ai extends BaseShip {
 		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != getIsPlayer()) {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
-				PowerUpPickup p = new PowerUpPickup(getSpriteBatch(), Assets.pill_blue, getOrigoX(), getOrigoY(), getEntityManager(), false);
+				PowerUpPickup p = new PowerUpPickup(getSpriteBatch(), Assets.pill_green, getOrigoX(), getOrigoY(), getEntityManager(), false);
 				dispose();
 				MyGame.score += 100;
 			}

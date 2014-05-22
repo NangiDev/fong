@@ -33,7 +33,8 @@ public class MyGame extends Game {
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
 
-	private int backgroundSpeed = 150;
+	private int backgroundSpeed = 100;
+	public static float backgroundStrafe = 0;
 	private Preferences prefs;
 
 	public BitmapFont fontLarge, fontMedium, fontSmall;
@@ -292,11 +293,11 @@ public class MyGame extends Game {
 
 	// Call this in each screen class that wants same background as main.
 	public void drawBackground(float delta) {
-		for (int x = 0; x < (screenWidth / (Assets.backgroundBlue.getWidth() * scaleX)); x++) {
+		for (int x = -1; x < (screenWidth / (Assets.backgroundBlue.getWidth() * scaleX)+1); x++) {
 			for (int y = 0; y < (screenHeight
 					/ (Assets.backgroundBlue.getHeight() * scaleY) + 1); y++) {
 				batch.draw(Assets.backgroundBlue,
-						x * Assets.backgroundBlue.getWidth() * scaleX, y
+						x * Assets.backgroundBlue.getWidth() * scaleX + backgroundStrafe, y
 								* Assets.backgroundBlue.getHeight() * scaleY
 								- backgroundSpeed,
 						Assets.backgroundBlue.getWidth() * scaleX,
@@ -305,7 +306,13 @@ public class MyGame extends Game {
 		}
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
+		
+		if (backgroundStrafe > Assets.backgroundBlue.getWidth() * scaleX)
+			backgroundStrafe = 0;
 
-		backgroundSpeed += 1000 * delta * scaleY;
+		if (backgroundStrafe < -(Assets.backgroundBlue.getWidth() * scaleX))
+			backgroundStrafe = 0;
+
+		backgroundSpeed += 1500 * delta * scaleY;
 	}
 }

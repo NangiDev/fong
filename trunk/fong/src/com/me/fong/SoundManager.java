@@ -10,7 +10,7 @@ public class SoundManager {
 	
 	public void tick(){
 		if(MyGame.musicOn)
-			Assets.music.setVolume(1.0f);
+			Assets.music.setVolume(0.2f);
 		else
 			Assets.music.setVolume(0.0f);
 	}

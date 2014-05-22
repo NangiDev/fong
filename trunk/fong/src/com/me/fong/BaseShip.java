@@ -25,7 +25,7 @@ public class BaseShip extends CollidableComponent {
 		super(batch, texture, x, y, entityManager, ignoreLighting);
 		this.alive = true;
 		this.healthModifier = 1;
-		this.fireRate = 50;
+		this.fireRate = 40;
 		this.fireRateModifier = 1;
 		this.speed = 300;
 		this.speedModifier = 1;
@@ -46,12 +46,12 @@ public class BaseShip extends CollidableComponent {
 		if (o instanceof Projectile
 				&& ((Projectile) o).getProjectileParent() == isPlayer)
 			return;
-		if(!(o instanceof PowerUpPickup)){
+		/*if(!(o instanceof PowerUpPickup)){
 			disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
 					getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
 					Assets.explosionSound);
 			getEntityManager().addEntity(disposeAnimation);
-		}
+		}*/
 		super.onCollision(o);
 	}
 
@@ -79,6 +79,10 @@ public class BaseShip extends CollidableComponent {
 
 	public void setPowerUp(EnumPowerUp powerUp) {
 		this.powerUp = powerUp;
+	}
+	
+	public void setFireRate(float fireRate) {
+		this.fireRate = fireRate;
 	}
 
 	public float getHealth() {
@@ -124,6 +128,10 @@ public class BaseShip extends CollidableComponent {
 
 	@Override
 	public void dispose() {
+		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
+				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
+				Assets.explosionSound);
+		getEntityManager().addEntity(disposeAnimation);
 		super.dispose();
 	}
 }

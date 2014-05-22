@@ -4,14 +4,14 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Animation extends DrawComponent{
+public class Animation extends Shadable{
 	
 	private SpriteBatch batch;
 	private Texture texture;
 	private float scaleVar, scaleMax, scaleSpeed;
 
 	public Animation(SpriteBatch batch, Texture texture, float x, float y, float scaleMax, float scaleSpeed, EntityManager entityManager, Sound sound){
-		super(batch, texture, x, y, entityManager);
+		super(batch, texture, x, y, entityManager, true);
 		this.batch = batch;
 		this.texture = texture;
 		this.scaleVar = 0.0f;
