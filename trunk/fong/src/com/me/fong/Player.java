@@ -11,7 +11,7 @@ public class Player extends BaseShip {
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
-		super.setPowerUp(ActivePowerUp.None);
+		super.setPowerUp(EnumPowerUp.None);
 		setIsPlayer(true);
 	}
 

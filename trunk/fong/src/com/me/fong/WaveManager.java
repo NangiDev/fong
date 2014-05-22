@@ -13,6 +13,7 @@ public class WaveManager {
 	private boolean waveStart;
 	private int waveDelay;
 	private String formation = "";
+	private EnumAiControllers aiC;
 
 	private ArrayList<Ai> enemies = new ArrayList<Ai>();
 	private ArrayList<Ai> ticks;
@@ -56,10 +57,10 @@ public class WaveManager {
 	}
 
 	private void createEnemies() {
-		randomizeBehavior();
+		aiC = randomizeBehavior();
 		enemies.clear();
 		ai = new Ai(game.batch, Assets.enemyBlue4, 0, 0, game.entityManager,
-				false);
+				false, aiC);
 		ai.randomizePowerUps();
 
 		for (int y = 0; y < formation.length() / 5.0f; y++) {
@@ -67,9 +68,9 @@ public class WaveManager {
 				char a = formation.charAt(x+5*y);
 				if (a == '1') {
 					Ai temp = new Ai(game.batch, ai.getTexture(), 0, 0,
-							game.entityManager, false);
+							game.entityManager, false, aiC);
 					temp.setPowerUp(ai.getPowerUp());
-					temp.setX(x * (MyGame.screenWidth / 5.0f));
+					temp.setX(x * (MyGame.screenWidth / 5.0f) + 10.0f * MyGame.scaleX);
 					temp.setY(MyGame.screenHeight + y
 							* (MyGame.screenHeight / 5.0f));
 					game.entityManager.addEntity(temp);
@@ -79,42 +80,54 @@ public class WaveManager {
 		}
 	}
 
-	private void randomizeBehavior() {
+	private EnumAiControllers randomizeBehavior() {
+		EnumAiControllers e = null;
 		switch (key) {
 		case 0:
 			formation = "10000" + "01000" + "00100" + "00010" + "00001";  // Formation
+			e = EnumAiControllers.None;
 			break;
 		case 1:
 			formation = "00100" + "01010" + "10001";
+			e = EnumAiControllers.None;
 			break;
 		case 2:
 			formation = "00100" + "01010" + "00100";
+			e = EnumAiControllers.None;
 			break;
 		case 3:
 			formation = "00001" + "00010" + "00100" + "01000" + "10000";
+			e = EnumAiControllers.None;
 			break;
 		case 4:
 			formation = "00100" + "01010" + "10001" + "01010" + "10001";
+			e = EnumAiControllers.None;
 			break;
 		case 5:
 			formation = "10000" + "10000" + "10000" + "10000" + "10000";
+			e = EnumAiControllers.Snake;
 			break;
 		case 6:
 			formation = "10001" + "00100" + "10001";
+			e = EnumAiControllers.None;
 			break;
 		case 7:
 			formation = "00100" + "00100" + "00100" + "00100" + "00100";
+			e = EnumAiControllers.Snake;
 			break;
 		case 8:
 			formation = "10101" + "00000" + "10101";
+			e = EnumAiControllers.None;
 			break;
 		case 9:
 			formation = "00001" + "00001" + "00001" + "00001" + "00001";
+			e = EnumAiControllers.Snake;
 			break;
 		}
 
 		key++;
 		if (key > 9)
 			key = 0;
+		return e;
 	}
 }

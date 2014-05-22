@@ -6,16 +6,21 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Ai extends BaseShip {
 
+	private AiControllers aiC;
+	private EnumAiControllers controllerType;
+
 	public Ai(SpriteBatch batch, Texture texture, float x, float y,
-			EntityManager entityManager, boolean ignoreLighting) {
+			EntityManager entityManager, boolean ignoreLighting, EnumAiControllers controllerType) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
 		setHealth(1);
 		setIsPlayer(false);
+		aiC = new AiControllers(this);
+		this.controllerType = controllerType;
 	}
 
 	@Override
 	public void onTick(float delta) {
-		setY(getY() - getSpeed() * delta * MyGame.scaleY);
+		aiC.controller(controllerType, delta);
 		
 		if (getY() < 0 - (getTexture().getHeight() * MyGame.scaleY)
 				|| getX() > MyGame.screenWidth || getX() < 0) {
@@ -46,19 +51,19 @@ public class Ai extends BaseShip {
 		
 		switch(powerUpId){
 			case 0: 
-				powerUp = ActivePowerUp.None;
+				powerUp = EnumPowerUp.None;
 				setTexture(Assets.enemyBlack1);
 				break;
 			case 1: 
-				powerUp = ActivePowerUp.FastFire;
+				powerUp = EnumPowerUp.FastFire;
 				setTexture(Assets.enemyBlack3);
 				break;	
 			case 2:
-				powerUp = ActivePowerUp.FastMovement;
+				powerUp = EnumPowerUp.FastMovement;
 				setTexture(Assets.enemyBlack2);
 				break;
 			case 3:
-				powerUp = ActivePowerUp.Shield;
+				powerUp = EnumPowerUp.Shield;
 				setTexture(Assets.enemyBlack4);
 				break;
 		}
