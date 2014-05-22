@@ -72,6 +72,7 @@ public class GameOverScreen implements Screen {
 		this.header = new Shadable(game.batch, Assets.gameOver, (MyGame.screenWidth * 0.5f)
 				- (Assets.gameOver.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, game.entityManager, false);
+		game.entityManager.addEntity(header);
 		pointLabel.setText(("000000" + game.score).substring(("" + game.score).length()));
 		setupMenuLayout();
 	}

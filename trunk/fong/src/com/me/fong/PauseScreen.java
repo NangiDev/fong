@@ -40,6 +40,7 @@ public class PauseScreen implements Screen{
 		this.header = new Shadable(game.batch, Assets.pause, (MyGame.screenWidth * 0.5f)
 				- (Assets.pause.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, game.entityManager, false);
+		game.entityManager.addEntity(header);
 		resumeButton = new MenuButton("Resume", game.mediumButtonStyle, GameState.Game, game);
 		exitButton = new MenuButton("Exit", game.mediumButtonStyle, GameState.MainMenu, game);
 		setupMenuLayout();
