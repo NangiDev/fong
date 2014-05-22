@@ -42,7 +42,6 @@ public class EntityManager {
 			slutanuro = true;
 		}
 
-		// ShaderManager.tick(delta);
 		shaderManager.passLights();
 
 		for (int i = 0; i < ticks.size(); i++) {

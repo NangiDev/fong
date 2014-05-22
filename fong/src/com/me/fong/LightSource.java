@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class LightSource{
 	
-	public static final float defaultLightZ = 1.0f;
+	public static final float defaultLightZ = 0.5f;
 	private Vector3 pos;
 	private Vector3 color;
 	private Vector3 fallOff;

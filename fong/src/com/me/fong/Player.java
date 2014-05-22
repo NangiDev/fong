@@ -11,12 +11,15 @@ public class Player extends BaseShip {
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
-		super.setPowerUp(EnumPowerUp.None);
+		setPowerUp(EnumPowerUp.None);
 		setIsPlayer(true);
 	}
 
 	@Override
 	public void onTick(float delta) {
+		fireProjectile();
+		float oldPos = getX();
+		
 		if (Gdx.input.isTouched()
 				&& Gdx.input.getY() > MyGame.screenHeight * 0.1f
 						* MyGame.scaleY) {
@@ -41,6 +44,8 @@ public class Player extends BaseShip {
 				setX(getX() - getSpeed() * delta * MyGame.scaleX);
 			}
 		}
+		
+		MyGame.backgroundStrafe -= (getX()-oldPos)*0.5f;
 
 		if (getX() < 0)
 			setX(0);

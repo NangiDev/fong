@@ -5,19 +5,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
 public class PowerUpPickup extends CollidableComponent{
-	private ActivePowerUp powerUp; 
+	private EnumPowerUp powerUp; 
 
 	public PowerUpPickup(SpriteBatch batch, Texture texture, float x, float y,
-			EntityManager entityManager, boolean ignoreLighting, ActivePowerUp powerUp) {
+			EntityManager entityManager, boolean ignoreLighting, EnumPowerUp powerUp) {
 		super(batch, texture, x, y, entityManager, ignoreLighting);
 		this.powerUp = powerUp;
 		
-		if(powerUp == ActivePowerUp.FastFire)
+		if(powerUp == EnumPowerUp.FastFire)
 			setTexture(Assets.pill_green);
-		else if(powerUp == ActivePowerUp.FastMovement)
+		else if(powerUp == EnumPowerUp.FastMovement)
 			setTexture(Assets.bolt_Gold);
-		else if(powerUp == ActivePowerUp.Shield)
+		else if(powerUp == EnumPowerUp.Shield)
 			setTexture(Assets.shield_Bronze);
+				
 		getEntityManager().addEntity(this);
 	}
 	
@@ -28,7 +29,7 @@ public class PowerUpPickup extends CollidableComponent{
 		getEntityManager().addEntity(this);
 	}
 	
-	public ActivePowerUp getPowerUp(){
+	public EnumPowerUp getPowerUp(){
 		return powerUp;
 	}
 	
@@ -49,8 +50,8 @@ public class PowerUpPickup extends CollidableComponent{
 		}
 		
 		if (o instanceof Player) {
-			if(MyGame.soundOn)
-				Assets.powerUpSound.play(0.8f);
+			//if(MyGame.soundOn)
+				//Assets.powerUpSound.play(0.8f);
 			dispose();
 		}
 	}
@@ -60,15 +61,15 @@ public class PowerUpPickup extends CollidableComponent{
 		
 		switch(powerUpId){
 			case 0: 
-				powerUp = ActivePowerUp.FastFire;
+				powerUp = EnumPowerUp.FastFire;
 				setTexture(Assets.pill_green);
 				break;	
 			case 1:
-				powerUp = ActivePowerUp.FastMovement;
+				powerUp = EnumPowerUp.FastMovement;
 				setTexture(Assets.bolt_Gold);
 				break;
 			case 2:
-				powerUp = ActivePowerUp.Shield;
+				powerUp = EnumPowerUp.Shield;
 				setTexture(Assets.shield_Bronze);
 				break;
 		}

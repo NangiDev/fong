@@ -276,11 +276,11 @@ public class Assets {
 				new Texture(Gdx.files.internal("Normals/optionsNormal.png")));
 		NormasByName.put("pauseNormal",
 				new Texture(Gdx.files.internal("Normals/pauseNormal.png")));
-		NormasByName.put("pauseNormal",
+		NormasByName.put("bolt_goldNormal",
 				new Texture(Gdx.files.internal("Normals/bolt_goldNormal.png")));
-		NormasByName.put("pauseNormal",
+		NormasByName.put("pill_greenNormal",
 				new Texture(Gdx.files.internal("Normals/pill_greenNormal.png")));
-		NormasByName.put("pauseNormal",
+		NormasByName.put("shield_bronzeNormal",
 				new Texture(Gdx.files.internal("Normals/shield_bronzeNormal.png")));
 		
 
