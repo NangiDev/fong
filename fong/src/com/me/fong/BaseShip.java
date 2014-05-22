@@ -46,15 +46,16 @@ public class BaseShip extends CollidableComponent {
 		if (o instanceof Projectile
 				&& ((Projectile) o).getProjectileParent() == isPlayer)
 			return;
-
-		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
-				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
-				Assets.explosionSound);
-		getEntityManager().addEntity(disposeAnimation);
+		if(!(o instanceof PowerUpPickup)){
+			disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
+					getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
+					Assets.explosionSound);
+			getEntityManager().addEntity(disposeAnimation);
+		}
 		super.onCollision(o);
 	}
 
-	private void updatePowerUps() {
+	protected void updatePowerUps() {
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
 		speedModifier = PowerUps.getMovementBehavior(powerUp);
 		healthModifier = PowerUps.getHealthBehavior(powerUp);

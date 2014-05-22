@@ -57,8 +57,10 @@ public class Player extends BaseShip {
 			setAlive(false);
 			dispose();
 		}
-		if (o instanceof PowerUps) {
-			// Pickup
+		if (o instanceof PowerUpPickup){
+			PowerUpPickup p = (PowerUpPickup)o;
+			powerUp = p.getPowerUp();
+			updatePowerUps();
 		}
 		if (o instanceof Ai || o instanceof Meteor) {
 			dispose();

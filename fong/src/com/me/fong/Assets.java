@@ -31,6 +31,9 @@ public class Assets {
 			.internal("Laser1.mp3"));
 	public static final Sound explosionSound = Gdx.audio.newSound(Gdx.files
 			.internal("Explosion.mp3"));
+	public static final Sound powerUpSound = Gdx.audio.newSound(Gdx.files
+			.internal("PowerUp.mp3"));
+	
 	
 	// Menu headers
 		public static final Texture buttonYellow = new Texture(
@@ -210,7 +213,11 @@ public class Assets {
 			Gdx.files.internal("Power-ups/Star/star_silver.png"));
 	public static final Texture star_Gold = new Texture(
 			Gdx.files.internal("Power-ups/Star/star_gold.png"));
-
+	
+	//Shield
+	public static final Texture shield_Bronze = new Texture(
+			Gdx.files.internal("Power-ups/Shield/shield_bronze.png"));
+	
 	// Things
 	public static final Texture things_Bronze = new Texture(
 			Gdx.files.internal("Power-ups/Things/things_bronze.png"));
@@ -269,6 +276,13 @@ public class Assets {
 				new Texture(Gdx.files.internal("Normals/optionsNormal.png")));
 		NormasByName.put("pauseNormal",
 				new Texture(Gdx.files.internal("Normals/pauseNormal.png")));
+		NormasByName.put("pauseNormal",
+				new Texture(Gdx.files.internal("Normals/bolt_goldNormal.png")));
+		NormasByName.put("pauseNormal",
+				new Texture(Gdx.files.internal("Normals/pill_greenNormal.png")));
+		NormasByName.put("pauseNormal",
+				new Texture(Gdx.files.internal("Normals/shield_bronzeNormal.png")));
+		
 
 		NORMALS_BY_NAME = Collections.unmodifiableMap(NormasByName);
 	}
