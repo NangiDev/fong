@@ -15,6 +15,7 @@ public class Projectile extends CollidableComponent{
 		this.parentIsPlayer = parentIsPlayer;
 		if(MyGame.soundOn)
 			Assets.laserSound.play(0.5f);
+		entityManager.addEntity(this);
 	}
 	
 	@Override

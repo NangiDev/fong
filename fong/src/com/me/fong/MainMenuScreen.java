@@ -49,6 +49,7 @@ public class MainMenuScreen implements Screen {
 				MyGame.screenWidth * 0.5f - Assets.logotype.getWidth() * 0.5f
 						* MyGame.scaleX, MyGame.screenHeight * 0.7f,
 				game.entityManager, false);
+		game.entityManager.addEntity(header);
 		createScreen();
 		setupMenuLayout();
 	}

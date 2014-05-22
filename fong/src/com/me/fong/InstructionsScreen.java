@@ -90,10 +90,12 @@ public class InstructionsScreen implements Screen {
 				(MyGame.screenWidth * 0.5f)
 						- (Assets.instructions.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, game.entityManager, false);
+		game.entityManager.addEntity(header);
 		playerX = MyGame.screenWidth * 0.5f
 				- Assets.playerShip1_orange.getWidth() * 0.5f * MyGame.scaleX;
 		player = new Shadable(game.batch, Assets.playerShip1_orange, playerX,
 				MyGame.screenHeight * 0.5f, game.entityManager, false);
+		game.entityManager.addEntity(player);
 		setupMenuLayout();
 	}
 

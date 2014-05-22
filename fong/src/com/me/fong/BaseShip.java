@@ -18,7 +18,7 @@ public class BaseShip extends CollidableComponent {
 	private float projectileInterval = 0;
 	protected ActivePowerUp powerUp = ActivePowerUp.None;
 	private Animation disposeAnimation;
-	
+
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting,
 			boolean isFacingDown) {
@@ -31,7 +31,6 @@ public class BaseShip extends CollidableComponent {
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
 		healthModified = false;
-		//randomizePowerUps();
 	}
 
 	@Override
@@ -51,6 +50,7 @@ public class BaseShip extends CollidableComponent {
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
 				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
 				Assets.explosionSound);
+		getEntityManager().addEntity(disposeAnimation);
 		super.onCollision(o);
 	}
 
@@ -99,12 +99,12 @@ public class BaseShip extends CollidableComponent {
 	public ActivePowerUp getPowerUp() {
 		return this.powerUp;
 	}
-	
-	public void setIsPlayer(boolean isPlayer){
+
+	public void setIsPlayer(boolean isPlayer) {
 		this.isPlayer = isPlayer;
 	}
-	
-	public boolean getIsPlayer(){
+
+	public boolean getIsPlayer() {
 		return this.isPlayer;
 	}
 

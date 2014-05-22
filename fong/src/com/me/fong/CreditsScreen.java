@@ -62,6 +62,7 @@ public class CreditsScreen implements Screen {
 				(MyGame.screenWidth * 0.5f)
 						- (Assets.credits.getWidth() * 0.5f * MyGame.scaleX),
 				MyGame.screenHeight * 0.7f, game.entityManager, false);
+		game.entityManager.addEntity(header);
 		setupMenuLayout();
 	}
 
