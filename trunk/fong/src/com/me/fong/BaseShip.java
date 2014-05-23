@@ -16,7 +16,7 @@ public class BaseShip extends CollidableComponent {
 	private float fireRate;
 	private float fireRateModifier;
 	private float projectileInterval = 0;
-	protected EnumPowerUp powerUp = EnumPowerUp.None;
+	protected EnumPowerUp powerUp = EnumPowerUp.FastMovement;
 	private Animation disposeAnimation;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
@@ -30,7 +30,7 @@ public class BaseShip extends CollidableComponent {
 		this.speed = 300;
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
-		healthModified = false;
+		this.healthModified = false;
 	}
 
 	@Override
@@ -38,6 +38,10 @@ public class BaseShip extends CollidableComponent {
 		super.tick(delta);
 		projectileInterval -= delta * 100;
 		updatePowerUps();
+		if(getHealth() <= 0){
+			disposeAnimation();
+		}
+		
 		//fireProjectile();
 	}
 
@@ -86,10 +90,10 @@ public class BaseShip extends CollidableComponent {
 	}
 
 	public float getHealth() {
-		if (!healthModified) {
-			healthModified = true;
-			return this.health * healthModifier;
-		} else
+		//if (!healthModified) {
+		//	healthModified = true;
+		//	return this.health * healthModifier;
+		//} else
 			return this.health;
 	}
 
@@ -117,9 +121,9 @@ public class BaseShip extends CollidableComponent {
 
 		if (projectileInterval < 0) {
 			Projectile projectile = new Projectile(getSpriteBatch(),
-					Assets.laserRed, getOrigoX() - Assets.laserRed.getWidth()
+					Assets.laserGreen, getOrigoX() - Assets.laserGreen.getWidth()
 							* 0.5f * MyGame.scaleX, getOrigoY()
-							- Assets.laserRed.getHeight() * 0.5f
+							- Assets.laserGreen.getHeight() * 0.5f
 							* MyGame.scaleY, this.getEntityManager(),
 					isFacingDown, isPlayer);
 			projectileInterval = getFireRate();
@@ -128,10 +132,13 @@ public class BaseShip extends CollidableComponent {
 
 	@Override
 	public void dispose() {
+		super.dispose();
+	}
+	
+	public void disposeAnimation(){
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
 				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
 				Assets.explosionSound);
 		getEntityManager().addEntity(disposeAnimation);
-		super.dispose();
 	}
 }

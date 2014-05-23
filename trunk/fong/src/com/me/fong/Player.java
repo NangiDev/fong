@@ -7,11 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player extends BaseShip {
 
+	private boolean invincible = false;
+	private float invincibleTime;
+
 	public Player(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
-		setPowerUp(EnumPowerUp.None);
+		setHealth(2);
+		//setPowerUp(EnumPowerUp.None);
 		setIsPlayer(true);
 	}
 
@@ -19,7 +23,7 @@ public class Player extends BaseShip {
 	public void onTick(float delta) {
 		fireProjectile();
 		float oldPos = getX();
-		
+
 		if (Gdx.input.isTouched()
 				&& Gdx.input.getY() > MyGame.screenHeight * 0.1f
 						* MyGame.scaleY) {
@@ -44,33 +48,76 @@ public class Player extends BaseShip {
 				setX(getX() - getSpeed() * delta * MyGame.scaleX);
 			}
 		}
-		
-		MyGame.backgroundStrafe -= (getX()-oldPos)*0.5f;
+
+		MyGame.backgroundStrafe -= (getX() - oldPos) * 0.5f;
 
 		if (getX() < 0)
 			setX(0);
 		if (getX() > MyGame.screenWidth - getTexture().getWidth()
 				* MyGame.scaleX)
 			setX(MyGame.screenWidth - getTexture().getWidth() * MyGame.scaleX);
+
+		if (((System.nanoTime() - invincibleTime) / 1000000) > 1000.0f) {
+			invincible = false;
+		}
+
+		if (invincible && ((System.nanoTime() / 1000000) % 2) == 0) {
+			ignoreDraw = !ignoreDraw;
+		} else {
+			ignoreDraw = false;
+		}
+
+		//System.out.println(getHealth());
 	}
 
 	@Override
 	public void onCollision(Object o) {
 		super.onCollision(o);
-		if (o instanceof Projectile
-				&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
-			setAlive(false);
-			dispose();
-		}
-		if (o instanceof PowerUpPickup){
-			PowerUpPickup p = (PowerUpPickup)o;
+		if (o instanceof PowerUpPickup) {
+			PowerUpPickup p = (PowerUpPickup) o;
 			powerUp = p.getPowerUp();
 			updatePowerUps();
-		}
-		if (o instanceof Ai || o instanceof Meteor) {
-			dispose();
+			updateTexture();
 		}
 
+		if (!invincible) {
+			if (o instanceof Projectile
+					&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
+				//setHealth(getHealth() - 1);
+				invincible = true;
+				invincibleTime = System.nanoTime();
+				if (getHealth() <= 0)
+					dispose();
+			}
+			if (o instanceof Ai || o instanceof Meteor) {
+				//setHealth(getHealth() - 1);
+				invincible = true;
+				invincibleTime = System.nanoTime();
+				if (getHealth() <= 0)
+					dispose();
+			}
+		}
+	}
+
+	public void updateTexture() {
+		switch (powerUp) {
+		/*ase None:
+			break;*/
+		case FastFire:
+			setTexture(Assets.playerShip1_red);
+			break;
+		case FastMovement:
+			setTexture(Assets.playerShip2_red);
+			break;
+		case Shield:
+			setTexture(Assets.playerShip3_red);
+			break;
+		}
+		setNormal(getTexture());
+	}
+
+	public boolean getInvincible() {
+		return this.invincible;
 	}
 
 	@Override

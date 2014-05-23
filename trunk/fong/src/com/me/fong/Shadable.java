@@ -12,6 +12,21 @@ public class Shadable extends DrawComponent{
 	public Shadable(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, x, y, entityManager);
 		this.ignoreLighting = ignoreLighting;
+		setNormal(texture);
+	}
+	
+	public void bind(){
+		if(ignoreLighting){
+			((EntityManager)getEntityManager()).shaderManager.switchToDefaultShader(getSpriteBatch());
+		}
+		else{
+			((EntityManager)getEntityManager()).shaderManager.switchToNormalShader(getSpriteBatch());
+			normalTexture.bind(1);
+			getTexture().bind(0);
+		}
+	}
+	
+	protected void setNormal(Texture texture){
 		String path = ((FileTextureData)texture.getTextureData()).getFileHandle().path();
 		
 		if(path.contains("player")){
@@ -36,31 +51,20 @@ public class Shadable extends DrawComponent{
 			this.normalTexture = Assets.NORMALS_BY_NAME.get(path + "Normal");
 		}
 		
-		else if(path.contains("bolt_gold")){
+		else if(path.contains("bolt")){
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("bolt_goldNormal");
 		}
 		
-		else if(path.contains("pill_green")){
+		else if(path.contains("pill")){
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("pill_greenNormal");
 		}
 		
-		else if(path.contains("shield_bronze")){
+		else if(path.contains("shield")){
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("shield_bronzeNormal");
 		}
 		
 		else{
 			this.normalTexture = Assets.NORMALS_BY_NAME.get("defaultNormal");
-		}
-	}
-	
-	public void bind(){
-		if(ignoreLighting){
-			((EntityManager)getEntityManager()).shaderManager.switchToDefaultShader(getSpriteBatch());
-		}
-		else{
-			((EntityManager)getEntityManager()).shaderManager.switchToNormalShader(getSpriteBatch());
-			normalTexture.bind(1);
-			getTexture().bind(0);
 		}
 	}
 }

@@ -2,8 +2,13 @@ package com.me.fong;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+
 public class WaveManager {
 	private int key = 0;
+	private int levelCount = 0;
+	private Array<Integer> waveOrder = new Array<Integer>();
 	private MyGame game;
 	private Ai ai;
 	private Meteor ob;
@@ -61,6 +66,7 @@ public class WaveManager {
 		enemies.clear();
 		ai = new Ai(game.batch, Assets.enemyBlue4, 0, 0, game.entityManager,
 				false, aiC);
+		ai.setLevel(levelCount);
 		ai.randomizePowerUps();
 
 		for (int y = 0; y < formation.length() / 5.0f; y++) {
@@ -82,6 +88,25 @@ public class WaveManager {
 
 	private EnumAiControllers randomizeBehavior() {
 		EnumAiControllers e = null;
+		key = MathUtils.random(0, 9);
+
+		
+		if(levelCount <= 0){
+			waveOrder.add(key);
+		}
+		else{
+			key = waveOrder.get(waveNumber-1);
+			System.out.println("current wave: " + waveOrder.get(waveNumber-1));
+		}
+
+		System.out.println("Wavenumber: " + waveNumber + " " + "Level: " + levelCount);
+		System.out.println("List: " + waveOrder);
+		
+		if((waveNumber%10) == 0){
+			waveNumber = 0;
+			levelCount++;
+		}
+		
 		switch (key) {
 		case 0:
 			formation = "10000" + "01000" + "00100" + "00010" + "00001";  // Formation
@@ -124,10 +149,6 @@ public class WaveManager {
 			e = EnumAiControllers.Snake;
 			break;
 		}
-
-		key++;
-		if (key > 9)
-			key = 0;
 		return e;
 	}
 }

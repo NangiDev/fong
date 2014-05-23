@@ -7,6 +7,7 @@ public class DrawComponent extends Entity {
 
 	private Texture texture;
 	private SpriteBatch batch;
+	protected boolean ignoreDraw = false;
 
 	public DrawComponent(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager) {
@@ -16,8 +17,10 @@ public class DrawComponent extends Entity {
 	}
 
 	public void draw() {
-		batch.draw(texture, getX(), getY(), texture.getWidth() * MyGame.scaleX,
-				texture.getHeight() * MyGame.scaleY);
+		if (!ignoreDraw) {
+			batch.draw(texture, getX(), getY(), texture.getWidth()
+					* MyGame.scaleX, texture.getHeight() * MyGame.scaleY);
+		}
 	}
 
 	public float getOrigoX() {
