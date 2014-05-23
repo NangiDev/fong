@@ -1,7 +1,7 @@
 package com.me.fong;
 
 public enum EnumPowerUp {
-	None,
+	//None,
 	FastFire,
 	FastMovement,
 	Shield
