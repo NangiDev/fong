@@ -11,7 +11,8 @@ public class Ai extends BaseShip {
 	private int level = 0;
 
 	public Ai(SpriteBatch batch, Texture texture, float x, float y,
-			EntityManager entityManager, boolean ignoreLighting, EnumAiControllers controllerType) {
+			EntityManager entityManager, boolean ignoreLighting,
+			EnumAiControllers controllerType) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
 		setHealth(1);
 		setIsPlayer(false);
@@ -19,11 +20,15 @@ public class Ai extends BaseShip {
 		aiC = new AiControllers(this);
 		this.controllerType = controllerType;
 	}
+	
+	public void updateAiController(){
+		aiC.updateAiC();
+	}
 
 	@Override
 	public void onTick(float delta) {
 		aiC.controller(controllerType, delta);
-		
+
 		if (getY() < 0 - (getTexture().getHeight() * MyGame.scaleY)
 				|| getX() > MyGame.screenWidth || getX() < 0) {
 			this.dispose();
@@ -36,10 +41,13 @@ public class Ai extends BaseShip {
 			return;
 		}
 		super.onCollision(o);
-		if (o instanceof Projectile && ((Projectile)o).getProjectileParent() != getIsPlayer()) {
+		if (o instanceof Projectile
+				&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
-				PowerUpPickup p = new PowerUpPickup(getSpriteBatch(), Assets.pill_green, getOrigoX(), getOrigoY(), getEntityManager(), false, getPowerUp());
+				PowerUpPickup p = new PowerUpPickup(getSpriteBatch(),
+						Assets.pill_green, getOrigoX(), getOrigoY(),
+						getEntityManager(), false, getPowerUp());
 				dispose();
 				MyGame.score += 100;
 			}
@@ -49,48 +57,116 @@ public class Ai extends BaseShip {
 			dispose();
 		}
 	}
-	
+
 	public void randomizePowerUps() {
 		int powerUpId = MathUtils.random(1, 3);
-		switch(powerUpId){
-			/*case 0: 
-				powerUp = EnumPowerUp.None;
-				setTexture(Assets.enemyBlack1);
-				break;*/
-			case 1: 
-				powerUp = EnumPowerUp.FastFire;
-				if(level == 0)
-					setTexture(Assets.enemyBlue3);
-				if(level == 1)
-					setTexture(Assets.enemyGreen3);
-				if(level == 2)
-					setTexture(Assets.enemyRed3);
-				if(level == 3)
-					setTexture(Assets.enemyBlack3);
-				break;	
-			case 2:
-				powerUp = EnumPowerUp.FastMovement;
-				if(level == 0)
-					setTexture(Assets.enemyBlue2);
-				if(level == 1)
-					setTexture(Assets.enemyGreen2);
-				if(level == 2)
-					setTexture(Assets.enemyRed2);
-				if(level == 3)
-					setTexture(Assets.enemyBlack2);
-				break;
-			case 3:
-				powerUp = EnumPowerUp.Shield;
-				if(level == 0)
-					setTexture(Assets.enemyBlue4);
-				if(level == 1)
-					setTexture(Assets.enemyGreen4);
-				if(level == 2)
-					setTexture(Assets.enemyRed4);
-				if(level == 3)
-					setTexture(Assets.enemyBlack4);
-				break;
+		//System.out.println("Level: " + level);
+		switch (powerUpId) {
+		case 1:
+			powerUp = EnumPowerUp.FastFire;
+			if (level == 0) {
+				setTexture(Assets.enemyBlue3);
+			}
+			if (level == 1) {
+				setTexture(Assets.enemyGreen3);
+			}
+			if (level == 2) {
+				setTexture(Assets.enemyRed3);
+			}
+			if (level == 3) {
+				setTexture(Assets.enemyBlack3);
+			}
+			/*if (level == 4) {
+				randomizeColor(powerUp);
+			}*/
+			break;
+		case 2:
+			powerUp = EnumPowerUp.FastMovement;
+			if (level == 0) {
+				setTexture(Assets.enemyBlue2);
+			}
+			if (level == 1) {
+				setTexture(Assets.enemyGreen2);
+			}
+			if (level == 2) {
+				setTexture(Assets.enemyRed2);
+			}
+			if (level == 3) {
+				setTexture(Assets.enemyBlack2);
+			}
+			/*if (level == 4) {
+				randomizeColor(powerUp);
+			}*/
+			break;
+		case 3:
+			powerUp = EnumPowerUp.Shield;
+			if (level == 0) {
+				setTexture(Assets.enemyBlue4);
+			}
+			if (level == 1) {
+				setTexture(Assets.enemyGreen4);
+			}
+			if (level == 2) {
+				setTexture(Assets.enemyRed4);
+			}
+			if (level == 3) {
+				setTexture(Assets.enemyBlack4);
+			}
+			/*if (level == 4) {
+				randomizeColor(powerUp);
+			}*/
+			break;
 		}
+	}
+
+	public void randomizeColor(EnumPowerUp powerup) {
+		int colorInt = MathUtils.random(0, 3);
+		//System.out.println("Randomize color");
+		switch (powerup) {
+		case FastFire:
+			if (colorInt == 0) {
+				setTexture(Assets.enemyBlack3);
+			}
+			if (colorInt == 1) {
+				setTexture(Assets.enemyBlue3);
+			}
+			if (colorInt == 2) {
+				setTexture(Assets.enemyRed3);
+			}
+			if (colorInt == 3) {
+				setTexture(Assets.enemyGreen3);
+			}
+			break;
+		case FastMovement:
+			if (colorInt == 0) {
+				setTexture(Assets.enemyBlack2);
+			}
+			if (colorInt == 1) {
+				setTexture(Assets.enemyBlue2);
+			}
+			if (colorInt == 2) {
+				setTexture(Assets.enemyRed2);
+			}
+			if (colorInt == 3) {
+				setTexture(Assets.enemyGreen2);
+			}
+			break;
+		case Shield:
+			if (colorInt == 0) {
+				setTexture(Assets.enemyBlack4);
+			}
+			if (colorInt == 1) {
+				setTexture(Assets.enemyBlue4);
+			}
+			if (colorInt == 2) {
+				setTexture(Assets.enemyRed4);
+			}
+			if (colorInt == 3) {
+				setTexture(Assets.enemyGreen4);
+			}
+			break;
+		}
+
 	}
 
 	@Override
@@ -99,6 +175,6 @@ public class Ai extends BaseShip {
 	}
 
 	public void setLevel(int levelCount) {
-		this.level  = levelCount;
+		this.level = levelCount;
 	}
 }

@@ -45,7 +45,7 @@ public class PowerUpPickup extends CollidableComponent{
 	
 	@Override
 	public void onCollision(Object o) {
-		if (o instanceof Meteor || o instanceof Ai) {
+		if (o instanceof Meteor || o instanceof Ai || o instanceof Projectile) {
 			return;
 		}
 		
