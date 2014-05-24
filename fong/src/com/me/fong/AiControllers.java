@@ -12,6 +12,7 @@ public class AiControllers {
 	private boolean startCircle = false;
 	private boolean endCircle = false;
 	private float index = 1;
+	private float oldTime = 1;
 
 	public AiControllers(Ai ai) {
 		this.ai = ai;
@@ -98,10 +99,29 @@ public class AiControllers {
 			}
 			break;
 		case homingHunting:
-			if (ai.getOrigoY() >= MyGame.screenHeight * 0.7f) {
-				ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
-			} else {
 
+			if (!startCircle) {
+				ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
+				oldTime = System.nanoTime();
+			}
+
+			if (!endCircle && ai.getOrigoY() <= MyGame.screenHeight * 0.7f) {
+				startCircle = true;
+				if (((System.nanoTime() - oldTime) / 1000000) > 500.0f) {
+					midPoint = new Vector2(Player.getPlayerPos().x, Player.getPlayerPos().y);
+					currentPos = new Vector2(ai.getOrigoX(), ai.getOrigoY());
+					dir = new Vector2(midPoint.x - currentPos.x, midPoint.y
+							- currentPos.y);
+					dir = dir.nor();
+					endCircle = true;
+				}
+			}
+
+			if (endCircle) {
+				ai.setY(ai.getY() + ai.getSpeed() * 1.5f * dir.y * delta
+						* MyGame.scaleY);
+				ai.setX(ai.getX() + ai.getSpeed() * 1.5f * dir.x * delta
+						* MyGame.scaleX);
 			}
 			break;
 		default:
