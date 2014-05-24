@@ -30,6 +30,7 @@ public class MyGame extends Game {
 	public static float scaleX;
 	public static float scaleY;
 	public static int score = 0;
+	public static float difficulty = 1;
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
 

@@ -33,6 +33,7 @@ public class PowerUpPickup extends CollidableComponent{
 		return powerUp;
 	}
 	
+	
 	@Override
 	public void onTick(float delta) {
 		setY(getY() - 500 * delta * MyGame.scaleY);
