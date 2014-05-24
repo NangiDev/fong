@@ -11,6 +11,7 @@ public class AiControllers {
 	private Vector2 dir;
 	private boolean startCircle = false;
 	private boolean endCircle = false;
+	private float index = 1;
 
 	public AiControllers(Ai ai) {
 		this.ai = ai;
@@ -49,37 +50,58 @@ public class AiControllers {
 			dir = new Vector2(midPoint.x - currentPos.x, midPoint.y
 					- currentPos.y);
 			dir = dir.nor();
-			
+
 			if (startX > midPoint.x)
-				dir.rotate90(1);
+				dir.rotate(89);
 			else
-				dir.rotate90(-1);
-			
-			if((!startCircle && ai.getOrigoY() >= MyGame.screenHeight*0.5f) || (endCircle && ai.getOrigoY() <= MyGame.screenHeight*0.5f)  ){
+				dir.rotate(-89);
+
+			if ((!startCircle && ai.getOrigoY() >= MyGame.screenHeight * 0.5f)
+					|| (endCircle && ai.getOrigoY() <= MyGame.screenHeight * 0.5f)) {
 				ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
-			}
-			else{
+			} else {
 				startCircle = true;
 				ai.setY(ai.getY() + ai.getSpeed() * dir.y * delta
 						* MyGame.scaleY);
 				ai.setX(ai.getX() + ai.getSpeed() * dir.x * delta
 						* MyGame.scaleX);
-				
-				if(startX < MyGame.screenWidth*0.5f && dir.angle() > 180 && dir.angle() < 200){
+
+				if (startX < MyGame.screenWidth * 0.5f && dir.angle() > 180
+						&& dir.angle() < 200) {
 					endCircle = true;
 				}
-				if(startX > MyGame.screenWidth*0.5f && dir.angle() > 270){
+				if (startX > MyGame.screenWidth * 0.5f && dir.angle() > 270) {
 					endCircle = true;
 				}
 			}
 			break;
 		case ZigZag:
 			ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
-			if(startX < MyGame.screenWidth*0.5f){
-				ai.setX(ai.getX() + ai.getSpeed() * delta * MyGame.scaleX);
+			if (startX > MyGame.screenWidth * 0.5f) {
+				if (ai.getOrigoX() >= startX) {
+					startCircle = true;
+				} else if (startX - ai.getOrigoX() > MyGame.screenWidth * 0.5f) {
+					startCircle = false;
+				}
+			} else {
+				if (ai.getOrigoX() - strafe * delta * MyGame.scaleX <= startX) {
+					startCircle = false;
+				} else if (startX - ai.getOrigoX() < -MyGame.screenWidth * 0.5f) {
+					startCircle = true;
+				}
 			}
-			else{
-				ai.setX(ai.getX() - ai.getSpeed() * delta * MyGame.scaleX);
+
+			if (startCircle) {
+				ai.setX(ai.getX() - strafe * delta * MyGame.scaleX);
+			} else {
+				ai.setX(ai.getX() + strafe * delta * MyGame.scaleX);
+			}
+			break;
+		case homingHunting:
+			if (ai.getOrigoY() >= MyGame.screenHeight * 0.7f) {
+				ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
+			} else {
+
 			}
 			break;
 		default:

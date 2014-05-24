@@ -94,19 +94,13 @@ public class WaveManager {
 	private EnumAiControllers randomizeBehavior() {
 		EnumAiControllers e = null;
 		key = MathUtils.random(0, 9);
-		key = 2;
+		//key = 8;
 		if(levelCount <= 0){
 			waveOrder.add(key);
 		}
 		else{
 			key = waveOrder.get(waveNumber-1);
-			//System.out.println("current wave: " + waveOrder.get(waveNumber-1));
 		}
-
-		//System.out.println("Wavenumber: " + waveNumber + " " + "Level: " + levelCount);
-		//System.out.println("List: " + waveOrder);
-		//System.out.println("Level: " + levelCount);
-		
 		if((waveNumber%10) == 0){
 			waveNumber = 0;
 			levelCount++;
@@ -114,44 +108,44 @@ public class WaveManager {
 		
 		switch (key) {
 		case 0:
-			formation = "100000000" + "100000000" + "100000000" + "100000000" + "100000000" + "100000000";  // Formation
+			formation = "010000000" + "010000000" + "010000000" + "010000000" + "010000000" + "010000000";  // Formation
 			e = EnumAiControllers.Round;
 			break;
 		case 1:
-			formation = "010000010" + "000000000" + "010101010" + "000000000" + "010000010" + "000000000" + "010000010";
+			formation = "000000010" + "000000010" + "000000010" + "000000010" + "000000010" + "000000010";  
 			e = EnumAiControllers.Round;
 			break;
 		case 2:
-			formation = "111100000" + "000001111" + "111100000" + "000001111" + "111100000" + "000001111";
+			formation = "100100000" + "100100000" + "000000000" + "000001001" + "000001001";
 			e = EnumAiControllers.ZigZag;
 			break;
 		case 3:
-			formation = "000010000" + "000100000" + "001000000" + "010000000" + "100000000";
-			e = EnumAiControllers.None;
+			formation = "000000010" + "000001001" + "000000100" + "010000000" + "100100000" + "001000000";
+			e = EnumAiControllers.ZigZag;
 			break;
 		case 4:
-			formation = "001000000" + "010100000" + "100010000" + "010100000" + "100010000";
-			e = EnumAiControllers.Round;
+			formation = "000010000" + "000010000" + "000010000" + "000010000" + "000010000" + "000010000";
+			e = EnumAiControllers.Snake;
 			break;
 		case 5:
-			formation = "100000000" + "100000000" + "100000000" + "100000000" + "100000000";
+			formation = "100000000" + "000000001" + "100000000" + "000000001" + "100000000" + "000000001" + "100000000" + "000000001";
 			e = EnumAiControllers.Snake;
 			break;
 		case 6:
-			formation = "100010000" + "001001001" + "100011001";
+			formation = "100000000" +  "000000001" +  "010000000" + "000000010" + "001000000" + "000000100" + "000100000" + "000001000" + "000010000";
 			e = EnumAiControllers.None;
 			break;
 		case 7:
-			formation = "001000000" + "001000000" + "001000000" + "001000000" + "001000000";
-			e = EnumAiControllers.Snake;
+			formation = "000010000" +  "000001000" +  "000100000" + "000000100" + "001000000" + "000000010" + "010000000" + "000000001" + "100000000";
+			e = EnumAiControllers.None;
 			break;
 		case 8:
-			formation = "101010000" + "000000000" + "101010000";
-			e = EnumAiControllers.None;
+			formation = "000010000"; 
+			e = EnumAiControllers.homingHunting;
 			break;
 		case 9:
 			formation = "000010000" + "000010000" + "000010000" + "000010000" + "000010000";
-			e = EnumAiControllers.Snake;
+			e = EnumAiControllers.homingHunting;
 			break;
 		}
 		return e;

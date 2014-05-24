@@ -29,8 +29,7 @@ public class Ai extends BaseShip {
 	public void onTick(float delta) {
 		aiC.controller(controllerType, delta);
 
-		if (getY() < 0 - (getTexture().getHeight() * MyGame.scaleY)
-				|| getX() > MyGame.screenWidth || getX() < 0) {
+		if (getY() < 0) {
 			this.dispose();
 		}
 	}
