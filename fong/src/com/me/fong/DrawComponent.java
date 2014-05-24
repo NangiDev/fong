@@ -20,6 +20,7 @@ public class DrawComponent extends Entity {
 		if (!ignoreDraw) {
 			batch.draw(texture, getX(), getY(), texture.getWidth()
 					* MyGame.scaleX, texture.getHeight() * MyGame.scaleY);
+			
 		}
 	}
 

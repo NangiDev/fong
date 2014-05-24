@@ -14,7 +14,7 @@ public class Ai extends BaseShip {
 			EntityManager entityManager, boolean ignoreLighting,
 			EnumAiControllers controllerType) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, true);
-		setHealth(1);
+		setHealth(1.0f);
 		setIsPlayer(false);
 		setFireRate(100);
 		aiC = new AiControllers(this);
@@ -28,7 +28,7 @@ public class Ai extends BaseShip {
 	@Override
 	public void onTick(float delta) {
 		aiC.controller(controllerType, delta);
-
+		//System.out.println(getHealth());
 		if (getY() < 0) {
 			this.dispose();
 		}
@@ -36,13 +36,15 @@ public class Ai extends BaseShip {
 
 	@Override
 	public void onCollision(Object o) {
+		
 		if (o instanceof Meteor || o instanceof Ai) {
 			return;
 		}
 		super.onCollision(o);
 		if (o instanceof Projectile
 				&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
-			setHealth(getHealth() - 1);
+			setHealth(getHealth() - 1.0f);
+			
 			if (getHealth() <= 0) {
 				int rand = MathUtils.random(0, 9);
 				if (rand == 0) {
@@ -62,6 +64,7 @@ public class Ai extends BaseShip {
 
 	public void randomizePowerUps() {
 		int powerUpId = MathUtils.random(1, 3);
+		//powerUpId = 3;
 		// System.out.println("Level: " + level);
 		switch (powerUpId) {
 		case 1:
@@ -118,7 +121,10 @@ public class Ai extends BaseShip {
 			 * if (level == 4) { randomizeColor(powerUp); }
 			 */
 			break;
+			
 		}
+		updatePowerUps();
+		
 	}
 
 	public void randomizeColor(EnumPowerUp powerup) {

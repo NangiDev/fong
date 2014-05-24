@@ -17,7 +17,7 @@ public class Player extends BaseShip {
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
-		setHealth(2);
+		setHealth(1.0f);
 		setIsPlayer(true);
 	}
 
@@ -86,14 +86,14 @@ public class Player extends BaseShip {
 		if (!invincible) {
 			if (o instanceof Projectile
 					&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
-				// setHealth(getHealth() - 1);
+				setHealth(getHealth() - 1);
 				invincible = true;
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
 					dispose();
 			}
 			if (o instanceof Ai || o instanceof Meteor) {
-				// setHealth(getHealth() - 1);
+				setHealth(getHealth() - 1);
 				invincible = true;
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
