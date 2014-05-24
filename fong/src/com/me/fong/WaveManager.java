@@ -114,6 +114,7 @@ public class WaveManager {
 		if ((waveNumber % 10) == 0) {
 			waveNumber = 0;
 			levelCount++;
+			MyGame.difficulty += 0.25;
 		}
 
 		switch (key) {
