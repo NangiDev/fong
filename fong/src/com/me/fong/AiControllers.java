@@ -73,6 +73,15 @@ public class AiControllers {
 				}
 			}
 			break;
+		case ZigZag:
+			ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
+			if(startX < MyGame.screenWidth*0.5f){
+				ai.setX(ai.getX() + ai.getSpeed() * delta * MyGame.scaleX);
+			}
+			else{
+				ai.setX(ai.getX() - ai.getSpeed() * delta * MyGame.scaleX);
+			}
+			break;
 		default:
 			break;
 		}

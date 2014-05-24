@@ -42,7 +42,7 @@ public class BaseShip extends CollidableComponent {
 			disposeAnimation();
 		}
 		
-		//fireProjectile();
+		fireProjectile();
 	}
 
 	@Override
@@ -50,12 +50,6 @@ public class BaseShip extends CollidableComponent {
 		if (o instanceof Projectile
 				&& ((Projectile) o).getProjectileParent() == isPlayer)
 			return;
-		/*if(!(o instanceof PowerUpPickup)){
-			disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
-					getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
-					Assets.explosionSound);
-			getEntityManager().addEntity(disposeAnimation);
-		}*/
 		super.onCollision(o);
 	}
 

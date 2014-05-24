@@ -93,9 +93,8 @@ public class WaveManager {
 
 	private EnumAiControllers randomizeBehavior() {
 		EnumAiControllers e = null;
-		//key = MathUtils.random(0, 9);
-		key = 1;
-		
+		key = MathUtils.random(0, 9);
+		key = 2;
 		if(levelCount <= 0){
 			waveOrder.add(key);
 		}
@@ -123,8 +122,8 @@ public class WaveManager {
 			e = EnumAiControllers.Round;
 			break;
 		case 2:
-			formation = "001000000" + "010100000" + "001000000";
-			e = EnumAiControllers.None;
+			formation = "111100000" + "000001111" + "111100000" + "000001111" + "111100000" + "000001111";
+			e = EnumAiControllers.ZigZag;
 			break;
 		case 3:
 			formation = "000010000" + "000100000" + "001000000" + "010000000" + "100000000";
@@ -139,7 +138,7 @@ public class WaveManager {
 			e = EnumAiControllers.Snake;
 			break;
 		case 6:
-			formation = "100010000" + "001000000" + "100010000";
+			formation = "100010000" + "001001001" + "100011001";
 			e = EnumAiControllers.None;
 			break;
 		case 7:
@@ -147,7 +146,7 @@ public class WaveManager {
 			e = EnumAiControllers.Snake;
 			break;
 		case 8:
-			formation = "101010000" + "00000000" + "101010000";
+			formation = "101010000" + "000000000" + "101010000";
 			e = EnumAiControllers.None;
 			break;
 		case 9:
