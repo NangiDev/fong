@@ -68,7 +68,7 @@ public class WaveManager {
 		enemies.clear();
 		ai = new Ai(game.batch, Assets.enemyBlue4, 0, 0, game.entityManager,
 				false, aiC);
-		ai.setLevel(levelCount);
+		ai.setLevel(waveNumber + 1 );
 		ai.randomizePowerUps();
 		
 
@@ -84,6 +84,7 @@ public class WaveManager {
 						temp.setY(MyGame.screenHeight + y
 								* (MyGame.screenHeight / 9.0f));
 						temp.updateAiController();
+						temp.setHealth(ai.getHealth());
 						if (levelCount >= 4) {
 							temp.randomizeColor(temp.getPowerUp());
 						}
