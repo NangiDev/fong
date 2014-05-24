@@ -16,7 +16,7 @@ public class CollidableComponent extends Shadable{
 		super(batch, texture, x, y, entityManager, ignoreLighting);
 	}
 	
-	public boolean intersectsWith(CollidableComponent b){
+	public boolean intersectsWith(CollidableComponent b){		
 		this.wings = getWings();
 		if(this.wings.intersects(b.getWings())){
 			return true;

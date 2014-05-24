@@ -27,7 +27,7 @@ public class BaseShip extends CollidableComponent {
 		this.healthModifier = 1;
 		this.fireRate = 40;
 		this.fireRateModifier = 1;
-		this.speed = 200;
+		this.speed = 150;
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
 		this.healthModified = false;
@@ -37,11 +37,13 @@ public class BaseShip extends CollidableComponent {
 	public void tick(float delta) {
 		super.tick(delta);
 		projectileInterval -= delta * 100;
-		if(getHealth() <= 0){
+		if (getHealth() <= 0) {
 			disposeAnimation();
 		}
-		if(Player.getPlayerPos().x >= getX() && Player.getPlayerPos().x <= getX() + getTexture().getWidth())
+		if (Player.getPlayerPos().x >= getX()
+				&& Player.getPlayerPos().x <= getX() + getTexture().getWidth()) {
 			fireProjectile();
+		}
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class BaseShip extends CollidableComponent {
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
 		speedModifier = PowerUps.getMovementBehavior(powerUp);
 		health += PowerUps.getHealthBehavior(powerUp);
-		
+
 	}
 
 	public void setAlive(Boolean alive) {
@@ -78,17 +80,17 @@ public class BaseShip extends CollidableComponent {
 	public void setPowerUp(EnumPowerUp powerUp) {
 		this.powerUp = powerUp;
 	}
-	
+
 	public void setFireRate(float fireRate) {
 		this.fireRate = fireRate;
 	}
 
 	public float getHealth() {
-		//if (!healthModified) {
-		//	healthModified = true;
-		//	return this.health * healthModifier;
-		//} else
-			return this.health;
+		// if (!healthModified) {
+		// healthModified = true;
+		// return this.health * healthModifier;
+		// } else
+		return this.health;
 	}
 
 	public float getSpeed() {
@@ -115,8 +117,9 @@ public class BaseShip extends CollidableComponent {
 
 		if (projectileInterval < 0) {
 			Projectile projectile = new Projectile(getSpriteBatch(),
-					Assets.laserGreen, getOrigoX() - Assets.laserGreen.getWidth()
-							* 0.5f * MyGame.scaleX, getOrigoY()
+					Assets.laserGreen, getOrigoX()
+							- Assets.laserGreen.getWidth() * 0.5f
+							* MyGame.scaleX, getOrigoY()
 							- Assets.laserGreen.getHeight() * 0.5f
 							* MyGame.scaleY, this.getEntityManager(),
 					isFacingDown, isPlayer);
@@ -128,8 +131,8 @@ public class BaseShip extends CollidableComponent {
 	public void dispose() {
 		super.dispose();
 	}
-	
-	public void disposeAnimation(){
+
+	public void disposeAnimation() {
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
 				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
 				Assets.explosionSound);
