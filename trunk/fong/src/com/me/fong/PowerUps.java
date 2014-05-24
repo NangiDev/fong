@@ -5,7 +5,7 @@ public class PowerUps {
 	public static float getFireBehavior(EnumPowerUp powerUp){
 		
 		if(powerUp == EnumPowerUp.FastFire)
-			return 0.7f;
+			return 0.6f;
 		else
 			return 1.0f;
 	}

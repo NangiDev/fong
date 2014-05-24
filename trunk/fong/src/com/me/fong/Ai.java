@@ -20,8 +20,8 @@ public class Ai extends BaseShip {
 		aiC = new AiControllers(this);
 		this.controllerType = controllerType;
 	}
-	
-	public void updateAiController(){
+
+	public void updateAiController() {
 		aiC.updateAiC();
 	}
 
@@ -45,9 +45,12 @@ public class Ai extends BaseShip {
 				&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
 			setHealth(getHealth() - 1);
 			if (getHealth() <= 0) {
-				PowerUpPickup p = new PowerUpPickup(getSpriteBatch(),
-						Assets.pill_green, getOrigoX(), getOrigoY(),
-						getEntityManager(), false, getPowerUp());
+				int rand = MathUtils.random(0, 9);
+				if (rand == 0) {
+					PowerUpPickup p = new PowerUpPickup(getSpriteBatch(),
+							Assets.pill_green, getOrigoX(), getOrigoY(),
+							getEntityManager(), false, getPowerUp());
+				}
 				dispose();
 				MyGame.score += 100;
 			}
@@ -60,7 +63,7 @@ public class Ai extends BaseShip {
 
 	public void randomizePowerUps() {
 		int powerUpId = MathUtils.random(1, 3);
-		//System.out.println("Level: " + level);
+		// System.out.println("Level: " + level);
 		switch (powerUpId) {
 		case 1:
 			powerUp = EnumPowerUp.FastFire;
@@ -76,9 +79,9 @@ public class Ai extends BaseShip {
 			if (level == 3) {
 				setTexture(Assets.enemyBlack3);
 			}
-			/*if (level == 4) {
-				randomizeColor(powerUp);
-			}*/
+			/*
+			 * if (level == 4) { randomizeColor(powerUp); }
+			 */
 			break;
 		case 2:
 			powerUp = EnumPowerUp.FastMovement;
@@ -94,9 +97,9 @@ public class Ai extends BaseShip {
 			if (level == 3) {
 				setTexture(Assets.enemyBlack2);
 			}
-			/*if (level == 4) {
-				randomizeColor(powerUp);
-			}*/
+			/*
+			 * if (level == 4) { randomizeColor(powerUp); }
+			 */
 			break;
 		case 3:
 			powerUp = EnumPowerUp.Shield;
@@ -112,16 +115,16 @@ public class Ai extends BaseShip {
 			if (level == 3) {
 				setTexture(Assets.enemyBlack4);
 			}
-			/*if (level == 4) {
-				randomizeColor(powerUp);
-			}*/
+			/*
+			 * if (level == 4) { randomizeColor(powerUp); }
+			 */
 			break;
 		}
 	}
 
 	public void randomizeColor(EnumPowerUp powerup) {
 		int colorInt = MathUtils.random(0, 3);
-		//System.out.println("Randomize color");
+		// System.out.println("Randomize color");
 		switch (powerup) {
 		case FastFire:
 			if (colorInt == 0) {
