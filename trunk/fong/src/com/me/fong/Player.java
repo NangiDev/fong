@@ -4,24 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player extends BaseShip {
 
 	private boolean invincible = false;
 	private float invincibleTime;
+	private static float origoX;
+	private static float origoY;
 
 	public Player(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting) {
 		super(batch, texture, y, y, entityManager, ignoreLighting, false);
 		setSpeed(800);
 		setHealth(2);
-		//setPowerUp(EnumPowerUp.None);
 		setIsPlayer(true);
 	}
 
 	@Override
 	public void onTick(float delta) {
-		float oldPos = getX();
+		float oldPosX = getX();
+		origoX = getOrigoX();
+		origoY = getOrigoY();
 
 		if (Gdx.input.isTouched()
 				&& Gdx.input.getY() > MyGame.screenHeight * 0.1f
@@ -48,7 +52,7 @@ public class Player extends BaseShip {
 			}
 		}
 
-		MyGame.backgroundStrafe -= (getX() - oldPos) * 0.5f;
+		MyGame.backgroundStrafe -= (getX() - oldPosX) * 0.5f;
 
 		if (getX() < 0)
 			setX(0);
@@ -66,7 +70,7 @@ public class Player extends BaseShip {
 			ignoreDraw = false;
 		}
 
-		//System.out.println(getHealth());
+		// System.out.println(getHealth());
 	}
 
 	@Override
@@ -82,14 +86,14 @@ public class Player extends BaseShip {
 		if (!invincible) {
 			if (o instanceof Projectile
 					&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
-				//setHealth(getHealth() - 1);
+				// setHealth(getHealth() - 1);
 				invincible = true;
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
 					dispose();
 			}
 			if (o instanceof Ai || o instanceof Meteor) {
-				//setHealth(getHealth() - 1);
+				// setHealth(getHealth() - 1);
 				invincible = true;
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
@@ -100,8 +104,6 @@ public class Player extends BaseShip {
 
 	public void updateTexture() {
 		switch (powerUp) {
-		/*ase None:
-			break;*/
 		case FastFire:
 			setTexture(Assets.playerShip1_red);
 			break;
@@ -123,5 +125,9 @@ public class Player extends BaseShip {
 	public void dispose() {
 		super.dispose();
 		getEntityManager().game.switchToScreen(GameState.GameOver);
+	}
+
+	public static Vector2 getPlayerPos() {
+		return new Vector2(origoX, origoY);
 	}
 }

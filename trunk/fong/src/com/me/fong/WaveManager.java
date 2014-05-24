@@ -94,7 +94,6 @@ public class WaveManager {
 	private EnumAiControllers randomizeBehavior() {
 		EnumAiControllers e = null;
 		key = MathUtils.random(0, 9);
-		//key = 8;
 		if(levelCount <= 0){
 			waveOrder.add(key);
 		}
@@ -140,11 +139,11 @@ public class WaveManager {
 			e = EnumAiControllers.None;
 			break;
 		case 8:
-			formation = "000010000"; 
+			formation = "000010000" +  "000000100" +  "001000000" +  "000000001" +  "100000000"; 
 			e = EnumAiControllers.homingHunting;
 			break;
 		case 9:
-			formation = "000010000" + "000010000" + "000010000" + "000010000" + "000010000";
+			formation = "010000010" + "001000001" + "010000010" + "100000100";
 			e = EnumAiControllers.homingHunting;
 			break;
 		}
