@@ -29,7 +29,7 @@ public class Ai extends BaseShip {
 	public void onTick(float delta) {
 		aiC.controller(controllerType, delta);
 		//System.out.println(getHealth());
-		if (getY() < 0) {
+		if (getY() + getTexture().getHeight() < 0) {
 			this.dispose();
 		}
 	}

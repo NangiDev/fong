@@ -17,7 +17,7 @@ public class DrawComponent extends Entity {
 	}
 
 	public void draw() {
-		if (!ignoreDraw) {
+		if (!ignoreDraw && getY() < MyGame.screenHeight) {
 			batch.draw(texture, getX(), getY(), texture.getWidth()
 					* MyGame.scaleX, texture.getHeight() * MyGame.scaleY);
 			
