@@ -8,6 +8,7 @@ public class Projectile extends CollidableComponent {
 	private boolean orientation;
 	private boolean parentIsPlayer;
 	private Animation disposeAnimation;
+	private int speed;
 
 	public Projectile(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean orientation,
@@ -15,6 +16,10 @@ public class Projectile extends CollidableComponent {
 		super(batch, texture, x, y, entityManager, true);
 		this.orientation = orientation;
 		this.parentIsPlayer = parentIsPlayer;
+		if(parentIsPlayer)
+			speed = 1000;
+		else
+			speed = 700;
 		if (MyGame.soundOn)
 			Assets.laserSound.play(0.5f);
 		entityManager.addEntity(this);
@@ -23,9 +28,9 @@ public class Projectile extends CollidableComponent {
 	@Override
 	public void onTick(float delta) {
 		if (orientation)
-			setY(getY() - 1000 * delta * MyGame.scaleY);
+			setY(getY() - speed * delta * MyGame.scaleY);
 		else
-			setY(getY() + 1000 * delta * MyGame.scaleY);
+			setY(getY() + speed * delta * MyGame.scaleY);
 
 		if (getY() > MyGame.screenHeight || getY() < 0
 				|| getX() > MyGame.screenWidth || getX() < 0) {

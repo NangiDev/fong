@@ -19,9 +19,9 @@ public class PowerUps {
 	
 	public static float getHealthBehavior(EnumPowerUp powerUp){
 		if(powerUp == EnumPowerUp.Shield){
-			return 2.0f;
+			return 1.0f;
 		}
 		else
-			return 1.0f;
+			return 0.0f;
 	}
 }

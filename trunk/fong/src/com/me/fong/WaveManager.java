@@ -68,6 +68,7 @@ public class WaveManager {
 				false, aiC);
 		ai.setLevel(levelCount);
 		ai.randomizePowerUps();
+		
 
 		for (int y = 0; y < formation.length() / 9.0f; y++) {
 			for (int x = 0; x < 9.0f; x++) {

@@ -27,7 +27,7 @@ public class BaseShip extends CollidableComponent {
 		this.healthModifier = 1;
 		this.fireRate = 40;
 		this.fireRateModifier = 1;
-		this.speed = 300;
+		this.speed = 200;
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
 		this.healthModified = false;
@@ -37,12 +37,11 @@ public class BaseShip extends CollidableComponent {
 	public void tick(float delta) {
 		super.tick(delta);
 		projectileInterval -= delta * 100;
-		updatePowerUps();
 		if(getHealth() <= 0){
 			disposeAnimation();
 		}
-		
-		fireProjectile();
+		if(Player.getPlayerPos().x >= getX() && Player.getPlayerPos().x <= getX() + getTexture().getWidth())
+			fireProjectile();
 	}
 
 	@Override
@@ -56,7 +55,8 @@ public class BaseShip extends CollidableComponent {
 	protected void updatePowerUps() {
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
 		speedModifier = PowerUps.getMovementBehavior(powerUp);
-		healthModifier = PowerUps.getHealthBehavior(powerUp);
+		health += PowerUps.getHealthBehavior(powerUp);
+		
 	}
 
 	public void setAlive(Boolean alive) {
