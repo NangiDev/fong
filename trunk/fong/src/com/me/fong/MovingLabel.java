@@ -25,6 +25,7 @@ public class MovingLabel extends Ai{
 		aiC = new AiControllers(this);
 		this.controllerType = controllerType;
 		this.label = new Label(text, game.mediumlabelStyle);
+		setSpeed(200);
 		label.setAlignment(Align.center);
 		label.setWidth(MyGame.screenWidth);
 		label.setWrap(true);

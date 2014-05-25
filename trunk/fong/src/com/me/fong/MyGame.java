@@ -30,7 +30,7 @@ public class MyGame extends Game {
 	public static float scaleX;
 	public static float scaleY;
 	public static int score = 0;
-	public static float difficulty = 1;
+	public static float difficulty = 1.0f;
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
 
@@ -314,6 +314,6 @@ public class MyGame extends Game {
 		if (backgroundStrafe < -(Assets.backgroundBlue.getWidth() * scaleX))
 			backgroundStrafe = 0;
 
-		backgroundSpeed += 1500 * delta * scaleY;
+		backgroundSpeed += 750 * delta * scaleY;
 	}
 }
