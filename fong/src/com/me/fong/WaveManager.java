@@ -44,7 +44,7 @@ public class WaveManager {
 			waveStartTimer = System.nanoTime();
 		} else {
 			waveStartTimerDiff = (System.nanoTime() - waveStartTimer) / 1000000;
-			if (waveStartTimerDiff > waveDelay) {
+			if (waveStartTimerDiff > waveDelay * 1.0f / MyGame.difficulty) {
 				waveStart = true;
 				waveStartTimer = 0;
 				waveStartTimerDiff = 0;
@@ -68,7 +68,7 @@ public class WaveManager {
 		enemies.clear();
 		ai = new Ai(game.batch, Assets.enemyBlue4, 0, 0, game.entityManager,
 				false, aiC);
-		ai.setLevel(waveNumber + 1 );
+		ai.setLevel(levelCount);
 		ai.randomizePowerUps();
 		
 
