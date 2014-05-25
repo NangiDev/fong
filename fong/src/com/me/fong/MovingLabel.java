@@ -1,10 +1,7 @@
 package com.me.fong;
 
-import javax.swing.GroupLayout.Alignment;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -21,7 +18,7 @@ public class MovingLabel extends Ai{
 			EnumAiControllers controllerType) {
 		super(batch, texture, x, y, entityManager, ignoreLighting, controllerType);
 
-		setPowerUp(EnumPowerUp.FastMovement);
+		setPowerUp(EnumPowerUp.Shield);
 		aiC = new AiControllers(this);
 		this.controllerType = controllerType;
 		this.label = new Label(text, game.mediumlabelStyle);

@@ -25,6 +25,7 @@ public class AiControllers {
 	}
 
 	public void controller(EnumAiControllers controller, float delta) {
+		ai.updatePowerUps();
 		switch (controller) {
 		case None:
 			ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);

@@ -37,7 +37,7 @@ public class Ai extends BaseShip {
 	@Override
 	public void onCollision(Object o) {
 		
-		if (o instanceof Meteor || o instanceof Ai) {
+		if (o instanceof Meteor || o instanceof Ai || o instanceof PowerUpPickup) {
 			return;
 		}
 		super.onCollision(o);
@@ -124,7 +124,6 @@ public class Ai extends BaseShip {
 			
 		}
 		updatePowerUps();
-		
 	}
 
 	public void randomizeColor(EnumPowerUp powerup) {
