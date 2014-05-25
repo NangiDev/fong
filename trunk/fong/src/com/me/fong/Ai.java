@@ -53,7 +53,7 @@ public class Ai extends BaseShip {
 							getEntityManager(), false, getPowerUp());
 				}
 				dispose();
-				MyGame.score += 100;
+				MyGame.score += 200;
 			}
 		}
 		if (o instanceof Player && !((Player) o).getInvincible()) {

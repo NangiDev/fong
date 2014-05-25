@@ -18,7 +18,7 @@ public class Animation extends Shadable{
 		this.scaleMax = scaleMax;
 		this.scaleSpeed = scaleSpeed;
 		if(sound != null && MyGame.soundOn)
-			sound.play();
+			sound.play(0.2f);
 	}
 	
 	@Override

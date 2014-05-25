@@ -24,6 +24,7 @@ public class WaveManager {
 	private String formation = "";
 	private EnumAiControllers aiC;
 	private boolean slutanuro = true;
+	private boolean killWaveBonus = false;
 
 	private ArrayList<DrawComponent> enemies = new ArrayList<DrawComponent>();
 	private ArrayList<DrawComponent> ticks;
@@ -39,6 +40,13 @@ public class WaveManager {
 
 	public void tick(float delta) {
 		ticks = new ArrayList<DrawComponent>(enemies);
+		
+		for (DrawComponent e : enemies) {
+			if(e.getY() < Player.getPlayerPos().y)
+				killWaveBonus = false;
+			else 
+				killWaveBonus = true;
+		}
 		
 		if (Gdx.input.isKeyPressed(Keys.K)){
 			for (DrawComponent e1 : enemies) {
@@ -58,6 +66,9 @@ public class WaveManager {
 		// New Wave
 		if (waveStartTimer == 0 && enemies.size() == 0) {
 			waveNumber++;
+			if(killWaveBonus)
+				MyGame.score += 500;
+			
 			waveStart = false;
 			waveStartTimer = System.nanoTime();
 		} else {

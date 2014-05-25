@@ -45,7 +45,7 @@ public class EntityManager {
 		shaderManager.passLights();
 
 		for (int i = 0; i < ticks.size(); i++) {
-			if (!almighty) {
+			if (!almighty && ticks.get(i).getY() < MyGame.screenHeight && ticks.get(i).getY() > 0) {
 				for (int j = i + 1; j < ticks.size(); j++) {
 					if (ticks.get(i) instanceof CollidableComponent
 							&& ticks.get(j) instanceof CollidableComponent) {
@@ -62,11 +62,12 @@ public class EntityManager {
 					}
 				}
 			}
-			if (ticks.get(i) instanceof Shadable && MyGame.lightOn) {
+			
+			if (ticks.get(i) instanceof Shadable && MyGame.lightOn && ticks.get(i).getY() < MyGame.screenHeight) {
 				((Shadable) ticks.get(i)).bind();
 			}
 
-			if (ticks.get(i) instanceof DrawComponent) {
+			if (ticks.get(i) instanceof DrawComponent && ticks.get(i).getY() < MyGame.screenHeight) {
 				((DrawComponent) ticks.get(i)).draw();				
 			}
 
