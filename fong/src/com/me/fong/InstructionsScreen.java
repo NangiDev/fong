@@ -23,7 +23,8 @@ public class InstructionsScreen implements Screen {
 
 		this.instructionsText = "Your goal is to stay alive!\n\n"
 				+ "It is easier if you pick up power-ups\n\n"
-				+ "Gain points by surviving and kill as many foes as possible!";
+				+ "Gain points by surviving, collect power-ups and kill as many foes as possible!\n\n"
+				+ "Exterminate whole waves of foes gives extra credits!";
 		this.controlText = "Touch the Screen to control the ship!";
 
 		textLabel = new Label(instructionsText, game.smalllabelStyle);
@@ -127,7 +128,7 @@ public class InstructionsScreen implements Screen {
 
 		game.table.add().row().fill(true, false).expandX()
 				.padBottom(50.0f * MyGame.scaleY)
-				.padBottom(200.0f * MyGame.scaleY);
+				.padBottom(180.0f * MyGame.scaleY);
 		game.table.add(controlLabel).row().fill(true, false)
 				.padBottom(25.0f * MyGame.scaleY);
 		game.table.add(textLabel).row();

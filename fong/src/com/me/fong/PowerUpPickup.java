@@ -52,7 +52,9 @@ public class PowerUpPickup extends CollidableComponent{
 		
 		if (o instanceof Player) {
 			if(MyGame.soundOn)
-				Assets.powerUpSound.play(0.8f);
+				Assets.powerUpSound.play(0.2f);
+			
+			MyGame.score += 100;
 			dispose();
 		}
 	}

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -55,7 +56,7 @@ public class MyGame extends Game {
 	public EntityManager entityManager;
 	private SoundManager soundManager;
 
-	public Screen currentScreen;
+	public Screen previousScreen;
 	public GameScreen gameScreen;
 	private PauseScreen pauseScreen;
 	private OptionScreen optionScreen;
@@ -154,6 +155,12 @@ public class MyGame extends Game {
 
 	@Override
 	public void render() {
+		if(getScreen() != previousScreen && previousScreen != null){
+			Gdx.graphics.getGL20().glClearColor( 1, 0, 0, 1 );
+			Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+			previousScreen = getScreen();
+		}
+		
 		super.render();
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)){
 			System.exit(0);
@@ -240,6 +247,7 @@ public class MyGame extends Game {
 
 	// Call this function to switch screens
 	public void switchToScreen(GameState gameState) {
+		previousScreen = getScreen();
 		switch (gameState) {
 		case Game:
 			if (gameScreen == null)
@@ -289,7 +297,6 @@ public class MyGame extends Game {
 		default:
 			break;
 		}
-		currentScreen = getScreen();
 	}
 
 	// Call this in each screen class that wants same background as main.

@@ -19,7 +19,7 @@ public class MenuButton extends TextButton {
 			public void changed(ChangeEvent event, Actor actor) {
 				updateBooleanButton(toggleState());
 				if (MyGame.soundOn)
-					Assets.buttonSound.play();
+					Assets.buttonSound.play(0.2f);
 			}
 		});
 	}
@@ -47,9 +47,9 @@ public class MenuButton extends TextButton {
 				game.switchToScreen(gameState);
 				if (MyGame.soundOn) {
 					if (gameState == GameState.Pause)
-						Assets.pauseSound.play();
+						Assets.pauseSound.play(0.2f);
 					else
-						Assets.buttonSound.play();
+						Assets.buttonSound.play(0.2f);
 				}
 			}
 		});

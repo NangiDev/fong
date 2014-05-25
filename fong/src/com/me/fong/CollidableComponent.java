@@ -11,7 +11,6 @@ public class CollidableComponent extends Shadable{
 	private BoundingBox wings;
 	private BoundingBox front;
 	
-	
 	public CollidableComponent(SpriteBatch batch, Texture texture, float x, float y, EntityManager entityManager, boolean ignoreLighting){
 		super(batch, texture, x, y, entityManager, ignoreLighting);
 	}

@@ -62,7 +62,7 @@ public class BaseShip extends CollidableComponent {
 	protected void updatePowerUps() {
 		fireRateModifier = PowerUps.getFireBehavior(powerUp);
 		speedModifier = PowerUps.getMovementBehavior(powerUp);
-		health += PowerUps.getHealthBehavior(powerUp);
+		health = PowerUps.getHealthBehavior(powerUp);
 
 		// System.out.println("Firerate: " + getFireRate());
 		// System.out.println("Speed: " + getSpeed());
