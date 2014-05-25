@@ -18,6 +18,7 @@ public class BaseShip extends CollidableComponent {
 	private float projectileInterval = 0;
 	protected EnumPowerUp powerUp = EnumPowerUp.FastMovement;
 	private Animation disposeAnimation;
+	private float playerLeft, playerRight;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting,
@@ -27,7 +28,7 @@ public class BaseShip extends CollidableComponent {
 		this.healthModifier = 1;
 		this.fireRate = 40;
 		this.fireRateModifier = 1;
-		this.speed = 150;
+		this.speed = 100;
 		this.speedModifier = 1;
 		this.isFacingDown = isFacingDown;
 		this.healthModified = false;
@@ -37,11 +38,15 @@ public class BaseShip extends CollidableComponent {
 	public void tick(float delta) {
 		super.tick(delta);
 		projectileInterval -= delta * 100;
+
 		if (getHealth() <= 0) {
 			disposeAnimation();
 		}
-		if (Player.getPlayerPos().x >= getX()
-				&& Player.getPlayerPos().x <= getX() + getTexture().getWidth()) {
+
+		playerLeft = Player.getPlayerPos().x - getTexture().getWidth();
+		playerRight = Player.getPlayerPos().x + getTexture().getWidth();
+
+		if (getOrigoX() >= playerLeft && getOrigoX() <= playerRight) {
 			fireProjectile();
 		}
 	}
@@ -59,6 +64,9 @@ public class BaseShip extends CollidableComponent {
 		speedModifier = PowerUps.getMovementBehavior(powerUp);
 		health += PowerUps.getHealthBehavior(powerUp);
 
+		// System.out.println("Firerate: " + getFireRate());
+		// System.out.println("Speed: " + getSpeed());
+		// System.out.println("Health: " + getHealth());
 	}
 
 	public void setAlive(Boolean alive) {
@@ -86,10 +94,6 @@ public class BaseShip extends CollidableComponent {
 	}
 
 	public float getHealth() {
-		// if (!healthModified) {
-		// healthModified = true;
-		// return this.health * healthModifier;
-		// } else
 		return this.health;
 	}
 
@@ -134,7 +138,7 @@ public class BaseShip extends CollidableComponent {
 
 	public void disposeAnimation() {
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
-				getOrigoX(), getY(), 2.5f, 3.0f, getEntityManager(),
+				getOrigoX(), getY(), 2.5f, 7.0f, getEntityManager(),
 				Assets.explosionSound);
 		getEntityManager().addEntity(disposeAnimation);
 	}
