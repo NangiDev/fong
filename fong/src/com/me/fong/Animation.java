@@ -19,7 +19,6 @@ public class Animation extends Shadable{
 		this.scaleSpeed = scaleSpeed;
 		if(sound != null && MyGame.soundOn)
 			sound.play();
-		entityManager.addToEndEntity(this);
 	}
 	
 	@Override

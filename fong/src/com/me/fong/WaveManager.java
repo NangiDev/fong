@@ -2,6 +2,8 @@ package com.me.fong;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
@@ -21,6 +23,7 @@ public class WaveManager {
 	private int waveDelay;
 	private String formation = "";
 	private EnumAiControllers aiC;
+	private boolean slutanuro = true;
 
 	private ArrayList<DrawComponent> enemies = new ArrayList<DrawComponent>();
 	private ArrayList<DrawComponent> ticks;
@@ -36,6 +39,21 @@ public class WaveManager {
 
 	public void tick(float delta) {
 		ticks = new ArrayList<DrawComponent>(enemies);
+		
+		if (Gdx.input.isKeyPressed(Keys.K)){
+			for (DrawComponent e1 : enemies) {
+				game.entityManager.removeEntity(e1);
+			}
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.L) && slutanuro && waveOrder.size >= 10){
+			levelCount++;
+			MyGame.difficulty += 0.25;
+			slutanuro = false;
+		}
+		if(!Gdx.input.isKeyPressed(Keys.L)){
+			slutanuro = true;
+		}
 
 		// New Wave
 		if (waveStartTimer == 0 && enemies.size() == 0) {

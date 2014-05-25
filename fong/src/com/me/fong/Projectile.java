@@ -55,11 +55,12 @@ public class Projectile extends CollidableComponent {
 		if (o instanceof Ai && !parentIsPlayer) {
 			return;
 		}
-		if (o instanceof Ai && !parentIsPlayer) {
+		if (o instanceof Ai && parentIsPlayer) {
 			disposeAnimation = new Animation(getSpriteBatch(),
-					Assets.laserRed2, getOrigoX(), getOrigoY()
+					Assets.laserGreen4, getOrigoX(), getOrigoY()
 							+ getTexture().getHeight() * 0.5f * MyGame.scaleY,
 					0.5f, 2.5f, getEntityManager(), Assets.laserSound);
+			getEntityManager().addToEndEntity(disposeAnimation);
 		}
 		dispose();
 	}
