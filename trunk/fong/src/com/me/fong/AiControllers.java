@@ -48,7 +48,7 @@ public class AiControllers {
 			break;
 		case Round:
 			midPoint = new Vector2(MyGame.screenWidth * 0.5f,
-					MyGame.screenHeight * 0.5f);
+					MyGame.screenHeight * 0.75f);
 			currentPos = new Vector2(ai.getOrigoX(), ai.getOrigoY());
 			dir = new Vector2(midPoint.x - currentPos.x, midPoint.y
 					- currentPos.y);
@@ -59,8 +59,8 @@ public class AiControllers {
 			else
 				dir.rotate(-89);
 
-			if ((!startCircle && ai.getOrigoY() >= MyGame.screenHeight * 0.5f)
-					|| (endCircle && ai.getOrigoY() <= MyGame.screenHeight * 0.5f)) {
+			if ((!startCircle && ai.getOrigoY() >= MyGame.screenHeight * 0.75f)
+					|| (endCircle && ai.getOrigoY() <= MyGame.screenHeight * 0.75f)) {
 				ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);
 			} else {
 				startCircle = true;
