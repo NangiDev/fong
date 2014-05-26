@@ -52,6 +52,10 @@ public class Ai extends BaseShip {
 							Assets.pill_green, getOrigoX(), getOrigoY(),
 							getEntityManager(), false, getPowerUp());
 				}
+				MovingLabel points = new MovingLabel("200", getSpriteBatch(), getEntityManager().game, getTexture(), getOrigoX()-MyGame.screenWidth*0.5f, getY(), getEntityManager(), true, EnumAiControllers.None);
+				points.setLabelStyle(getEntityManager().game.smalllabelStyle);
+				points.setLifeTime(500.0f);
+				getEntityManager().addEntity(points);
 				dispose();
 				MyGame.score += 200;
 			}

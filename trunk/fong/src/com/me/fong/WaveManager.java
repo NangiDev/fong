@@ -66,8 +66,13 @@ public class WaveManager {
 		// New Wave
 		if (waveStartTimer <= 0 && enemies.size() == 0) {
 			waveNumber++;
-			if(killWaveBonus)
+			if(killWaveBonus){
 				MyGame.score += 500;
+				MovingLabel points = new MovingLabel("Wavepoints\n\n500", game.batch, game, Assets.buttonYellow, 0.0f, MyGame.screenHeight*0.7f, game.entityManager, true, EnumAiControllers.None);
+				points.setLabelStyle(game.smalllabelStyle);
+				points.setLifeTime(800.0f);
+				game.entityManager.addEntity(points);
+			}
 			
 			waveStart = false;
 			waveStartTimer = System.nanoTime();
@@ -124,7 +129,7 @@ public class WaveManager {
 				}
 			}
 		} else {
-			MovingLabel invAi = new MovingLabel("Level\n"+ previousLevel +"\ncomplete", game.batch, game, Assets.buttonYellow, 0, MyGame.screenHeight, game.entityManager, true, EnumAiControllers.None);
+			MovingLabel invAi = new MovingLabel("Level\n"+ previousLevel +"\ncomplete\n\n1000 points", game.batch, game, Assets.buttonYellow, 0, MyGame.screenHeight, game.entityManager, true, EnumAiControllers.None);
 			game.entityManager.addEntity(invAi);
 			enemies.add(invAi);
 			System.out.println("Level "+ previousLevel +" complete!");
@@ -144,6 +149,7 @@ public class WaveManager {
 		if ((waveNumber % 10) == 0) {
 			waveNumber = 0;
 			levelCount++;
+			MyGame.score += 1000;
 			MyGame.difficulty += 0.25;
 		}
 
