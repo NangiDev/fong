@@ -64,7 +64,7 @@ public class WaveManager {
 		}
 
 		// New Wave
-		if (waveStartTimer == 0 && enemies.size() == 0) {
+		if (waveStartTimer <= 0 && enemies.size() == 0) {
 			waveNumber++;
 			if(killWaveBonus)
 				MyGame.score += 500;

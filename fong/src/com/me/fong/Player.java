@@ -19,6 +19,7 @@ public class Player extends BaseShip {
 		setSpeed(800);
 		setHealth(1.0f);
 		setIsPlayer(true);
+		setSpread(1);
 	}
 
 	@Override
@@ -79,6 +80,8 @@ public class Player extends BaseShip {
 		if (o instanceof PowerUpPickup) {
 			PowerUpPickup p = (PowerUpPickup) o;
 			powerUp = p.getPowerUp();
+			if(powerUp == EnumPowerUp.FastFire)
+				setSpread(getSpread() + 1);
 			updatePowerUps();
 			updateTexture();
 		}
