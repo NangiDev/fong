@@ -33,6 +33,8 @@ public class Assets {
 			.internal("Explosion.mp3"));
 	public static final Sound powerUpSound = Gdx.audio.newSound(Gdx.files
 			.internal("PowerUp.mp3"));
+	public static final Sound laserDeflectSound = Gdx.audio.newSound(Gdx.files
+			.internal("deflect.mp3"));
 	
 	// Menu headers
 		public static final Texture buttonYellow = new Texture(
@@ -286,5 +288,14 @@ public class Assets {
 		
 
 		NORMALS_BY_NAME = Collections.unmodifiableMap(NormasByName);
+	}
+	
+	public static void setUpSoundPrios(){
+		buttonSound.setPriority(1, 5);
+		pauseSound.setPriority(2, 4);
+		explosionSound.setPriority(3, 3);
+		powerUpSound.setPriority(4, 2);
+		laserDeflectSound.setPriority(5, 1);
+		laserSound.setPriority(6, 0);
 	}
 }
