@@ -26,6 +26,7 @@ public class Player extends BaseShip {
 		setHealth(1.0f);
 		setIsPlayer(true);
 		setSpread(1);
+		
 	}
 
 	@Override
@@ -113,8 +114,8 @@ public class Player extends BaseShip {
 				fireLevel++;
 				updateFireLevel();
 			} else if (powerUp == EnumPowerUp.Shield) {
-				if (getHealth() < 4.0f) {
-					setHealth(getHealth() + 1);
+				if (healthBars < 3) {
+					
 					healthBars += 1;
 					lifeHasChanged = true;
 				}
@@ -126,12 +127,14 @@ public class Player extends BaseShip {
 		if (!invincible) {
 			if (o instanceof Projectile
 					&& ((Projectile) o).getProjectileParent() != getIsPlayer()) {
-				setHealth(getHealth() - 1);
+				healthBars -= 1;
+				lifeHasChanged = true;
 				invincible = true;
 				invincibleTime = System.nanoTime();
-				if (getHealth() <= 0)
+				if (healthBars < 0){
+					disposeAnimation();
 					dispose();
-
+				}
 				if (fireLevel > 1) {
 					fireLevel = fireLevel - 2;
 				} else {
@@ -140,12 +143,14 @@ public class Player extends BaseShip {
 				updateFireLevel();
 			}
 			if (o instanceof Ai || o instanceof Meteor) {
-				setHealth(getHealth() - 1);
+				healthBars -= 1;
+				lifeHasChanged = true;
 				invincible = true;
 				invincibleTime = System.nanoTime();
-				if (getHealth() <= 0)
+				if (healthBars < 0){
+					disposeAnimation();
 					dispose();
-
+				}
 				if (fireLevel > 1) {
 					fireLevel = fireLevel - 2;
 				} else {
@@ -158,10 +163,17 @@ public class Player extends BaseShip {
 
 	public void updateFireLevel() {
 		if (fireLevel % 2 == 0) {
-			setSpread(getSpread() + 1);
+			setSpread(fireLevel/2 + 1);
+			System.out.println("Spread: " + getSpread());
 		} else {
-			setFireRate(getFireRate() * 0.75f);
+			int tempFireLevel;
+			if(fireLevel == 1)
+				tempFireLevel = 1;
+			else
+				tempFireLevel = fireLevel - 1;
+			setFireRate(15 + 25 * (1.0f/((float)tempFireLevel * 1.2f)));
 		}
+		System.out.println("Firerate: " + getFireRate());
 	}
 
 	public void updateTexture() {
@@ -186,6 +198,9 @@ public class Player extends BaseShip {
 	@Override
 	public void dispose() {
 		super.dispose();
+		MyGame.difficulty = 1.0f;
+		fireLevel = 0;
+		healthBars = 0;
 		getEntityManager().game.switchToScreen(GameState.GameOver);
 	}
 

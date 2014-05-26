@@ -15,17 +15,18 @@ public class AiControllers {
 	private float oldTime = 1;
 
 	public AiControllers(Ai ai) {
-		this.ai = ai;
-		updateAiC();
+		updateAiC(ai);
 	}
 
-	public void updateAiC() {
+	public void updateAiC(Ai ai) {
+		this.ai = ai;
 		strafe = ai.getSpeed() * 2;
 		startX = ai.getOrigoX();
+		
 	}
 
 	public void controller(EnumAiControllers controller, float delta) {
-		ai.updatePowerUps();
+		//ai.updatePowerUps();
 		switch (controller) {
 		case None:
 			ai.setY(ai.getY() - ai.getSpeed() * delta * MyGame.scaleY);

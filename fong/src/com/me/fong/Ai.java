@@ -17,16 +17,19 @@ public class Ai extends BaseShip {
 		setHealth(1.0f);
 		setIsPlayer(false);
 		setFireRate(100);
-		aiC = new AiControllers(this);
+		
 		this.controllerType = controllerType;
+		
 	}
 
 	public void updateAiController() {
-		aiC.updateAiC();
+		aiC.updateAiC(this);
 	}
 
 	@Override
 	public void onTick(float delta) {
+		if(aiC == null)
+			aiC = new AiControllers(this);
 		aiC.controller(controllerType, delta);
 		
 		if (getY() + getTexture().getHeight() < 0) {
@@ -47,15 +50,16 @@ public class Ai extends BaseShip {
 			
 			if (getHealth() <= 0) {
 				int rand = MathUtils.random(0, 9);
-				if (rand == 0) {
-					PowerUpPickup p = new PowerUpPickup(getSpriteBatch(),
-							Assets.pill_green, getOrigoX(), getOrigoY(),
-							getEntityManager(), false, getPowerUp());
-				}
+				//if (rand == 0) {
+					//PowerUpPickup p = new PowerUpPickup(getSpriteBatch(),
+						//	Assets.pill_green, getOrigoX(), getOrigoY(),
+							//getEntityManager(), false, getPowerUp());
+				//}
 				MovingLabel points = new MovingLabel("200", getSpriteBatch(), getEntityManager().game, getTexture(), getOrigoX()-MyGame.screenWidth*0.5f, getY(), getEntityManager(), true, EnumAiControllers.None);
 				points.setLabelStyle(getEntityManager().game.smalllabelStyle);
 				points.setLifeTime(500.0f);
 				getEntityManager().addEntity(points);
+				disposeAnimation();
 				dispose();
 				MyGame.score += 200;
 			}
