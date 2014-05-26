@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class MovingLabel extends Ai{
@@ -12,6 +13,9 @@ public class MovingLabel extends Ai{
 	private EnumAiControllers controllerType;
 	private Label label;
 	private MyGame game;
+	private boolean selfDying = false;
+	private float startTime;
+	private float lifeTime = 0;
 
 	public MovingLabel(String text, SpriteBatch batch, MyGame game, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting,
@@ -27,6 +31,7 @@ public class MovingLabel extends Ai{
 		label.setWidth(MyGame.screenWidth);
 		label.setWrap(true);
 		this.game = game;
+		this.startTime = System.nanoTime();
 	}
 
 	@Override
@@ -48,6 +53,12 @@ public class MovingLabel extends Ai{
 		if (getY() < -MyGame.screenHeight*0.25f) {
 			this.dispose();
 		}
+		
+		if(selfDying){
+			if((System.nanoTime() - startTime)/1000000 > lifeTime){
+				this.dispose();
+			}
+		}
 	}
 	
 	@Override
@@ -58,5 +69,14 @@ public class MovingLabel extends Ai{
 	@Override
 	public BoundingBox getFront(){
 		return new BoundingBox();
+	}
+	
+	public void setLabelStyle(LabelStyle labelStyle){
+		label.setStyle(labelStyle);
+	}
+	
+	public void setLifeTime(float lifeTime){
+		selfDying = true;
+		this.lifeTime = lifeTime;		
 	}
 }

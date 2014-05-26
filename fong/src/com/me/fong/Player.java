@@ -1,5 +1,7 @@
 package com.me.fong;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,9 +12,12 @@ public class Player extends BaseShip {
 
 	private boolean invincible = false;
 	private float invincibleTime;
+	public boolean lifeHasChanged = false;
 	private static float origoX;
 	private static float origoY;
 	private static int fireLevel = 0;
+	public static int healthBars = 0;
+	private ArrayList<Shadable> lifebar = new ArrayList<Shadable>();
 
 	public Player(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting) {
@@ -26,8 +31,31 @@ public class Player extends BaseShip {
 	@Override
 	public void onTick(float delta) {
 		float oldPosX = getX();
+
 		origoX = getOrigoX();
 		origoY = getOrigoY();
+
+		if (lifeHasChanged) {
+			for (Shadable e : lifebar) {
+				if(getEntityManager().entityExists(e)){
+					getEntityManager().removeEntity(e);
+				}
+			}
+			lifebar.clear();
+			
+			for (int i = 0; i < Player.healthBars; i++) {
+				Shadable lifeBar = new Shadable(getSpriteBatch(), Assets.playerLife,
+						0, MyGame.screenHeight - Assets.playerLife.getHeight()
+								* 1.1f, getEntityManager(), true);
+				lifeBar.setX(MyGame.screenWidth * 0.5f
+						- lifeBar.getTexture().getWidth() + i
+						* lifeBar.getTexture().getWidth());
+				System.out.println("jek");
+				lifebar.add(lifeBar);
+				getEntityManager().addEntity(lifeBar);
+			}
+			lifeHasChanged = false;
+		}
 
 		if (Gdx.input.isTouched()
 				&& Gdx.input.getY() > MyGame.screenHeight * 0.1f
@@ -81,17 +109,18 @@ public class Player extends BaseShip {
 		if (o instanceof PowerUpPickup) {
 			PowerUpPickup p = (PowerUpPickup) o;
 			powerUp = p.getPowerUp();
-			if(powerUp == EnumPowerUp.FastFire){
+			if (powerUp == EnumPowerUp.FastFire) {
 				fireLevel++;
 				updateFireLevel();
-			}
-			else if(powerUp == EnumPowerUp.Shield){
-				if(getHealth() < 4.0f){
+			} else if (powerUp == EnumPowerUp.Shield) {
+				if (getHealth() < 4.0f) {
 					setHealth(getHealth() + 1);
+					healthBars += 1;
+					lifeHasChanged = true;
 				}
 			}
-			//updatePowerUps();
-			updateTexture();
+			// updatePowerUps();
+			// updateTexture();
 		}
 
 		if (!invincible) {
@@ -102,11 +131,10 @@ public class Player extends BaseShip {
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
 					dispose();
-				
-				if(fireLevel > 1){
+
+				if (fireLevel > 1) {
 					fireLevel = fireLevel - 2;
-				}
-				else{
+				} else {
 					fireLevel = 0;
 				}
 				updateFireLevel();
@@ -117,26 +145,25 @@ public class Player extends BaseShip {
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
 					dispose();
-				
-				if(fireLevel > 1){
-					fireLevel = fireLevel -  2;
-				}
-				else{
+
+				if (fireLevel > 1) {
+					fireLevel = fireLevel - 2;
+				} else {
 					fireLevel = 0;
 				}
 				updateFireLevel();
 			}
 		}
 	}
-	
-	public void updateFireLevel(){
-		if(fireLevel % 2 == 0){
-			setSpread(getSpread() + 1);			
-		}
-		else{
+
+	public void updateFireLevel() {
+		if (fireLevel % 2 == 0) {
+			setSpread(getSpread() + 1);
+		} else {
 			setFireRate(getFireRate() * 0.75f);
 		}
 	}
+
 	public void updateTexture() {
 		switch (powerUp) {
 		case FastFire:

@@ -27,7 +27,6 @@ public class EntityManager {
 		ticks = new ArrayList<Entity>(entities);
 		if (MyGame.lightOn)
 			shaderManager.switchToNormalShader(game.batch);
-		
 
 		if (Gdx.input.isKeyPressed(Keys.J) && slutanuro){
 			almighty = !almighty;

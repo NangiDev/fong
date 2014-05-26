@@ -34,7 +34,6 @@ public class Assets {
 	public static final Sound powerUpSound = Gdx.audio.newSound(Gdx.files
 			.internal("PowerUp.mp3"));
 	
-	
 	// Menu headers
 		public static final Texture buttonYellow = new Texture(
 				Gdx.files.internal("menu/buttonYellow.png"));
@@ -111,6 +110,8 @@ public class Assets {
 			Gdx.files.internal("Meteors/meteorExplosion.png"));
 
 	// Player
+	public static final Texture playerLife = new Texture(
+			Gdx.files.internal("menu/playerLife.png"));
 	public static final Texture playerShip1_blue = new Texture(
 			Gdx.files.internal("Player/playerShip1_blue.png"));
 	public static final Texture playerShip2_blue = new Texture(

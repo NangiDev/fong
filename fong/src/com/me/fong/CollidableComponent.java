@@ -28,8 +28,8 @@ public class CollidableComponent extends Shadable{
 	}
 	
 	public BoundingBox getWings(){
-		minimum = new Vector3(getX(), getY() + getTexture().getHeight() * 0.6f *MyGame.scaleY, 0);
-		maximum = new Vector3(getX() + getTexture().getWidth() * MyGame.scaleX, getY() + getTexture().getHeight() * 0.4f * MyGame.scaleY, 0.1f);
+		minimum = new Vector3(getX(), getY() + getTexture().getHeight() * 0.7f *MyGame.scaleY, 0);
+		maximum = new Vector3(getX() + getTexture().getWidth() * MyGame.scaleX, getY() + getTexture().getHeight() * 0.3f * MyGame.scaleY, 0.1f);
 		return new BoundingBox(minimum, maximum);
 	}
 	

@@ -8,7 +8,7 @@ public class World {
 	public World(MyGame myGame) {
 		this.game = myGame;
 		wm = new WaveManager(this.game);
-		player = new Player(game.batch, Assets.playerShip2_red,
+		player = new Player(game.batch, Assets.playerShip1_red,
 				MyGame.screenWidth * 0.5f, MyGame.screenHeight * 0.2f,
 				game.entityManager, false);
 		game.entityManager.addEntity(player);
