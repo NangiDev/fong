@@ -47,10 +47,10 @@ public class Player extends BaseShip {
 			for (int i = 0; i < Player.healthBars; i++) {
 				Shadable lifeBar = new Shadable(getSpriteBatch(), Assets.playerLife,
 						0, MyGame.screenHeight - Assets.playerLife.getHeight()
-								* 1.1f, getEntityManager(), true);
+								* 1.1f * MyGame.scaleY, getEntityManager(), true);
 				lifeBar.setX(MyGame.screenWidth * 0.5f
-						- lifeBar.getTexture().getWidth() + i
-						* lifeBar.getTexture().getWidth());
+						- lifeBar.getTexture().getWidth() * MyGame.scaleX + i
+						* lifeBar.getTexture().getWidth() * MyGame.scaleX);
 				System.out.println("jek");
 				lifebar.add(lifeBar);
 				getEntityManager().addEntity(lifeBar);
