@@ -152,7 +152,7 @@ public class BaseShip extends CollidableComponent {
 						isFacingDown, isPlayer, new Vector2(0, 1));
 			}
 			if (MyGame.soundOn)
-				Assets.laserSound.play(0.2f);
+				Assets.laserSound.play(0.1f);
 			
 			/*Projectile projectile = new Projectile(getSpriteBatch(),
 					Assets.laserGreen, getOrigoX()

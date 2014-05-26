@@ -82,6 +82,7 @@ public class MyGame extends Game {
 		readFromSavefile();
 		entityManager = new EntityManager(this);
 		soundManager = new SoundManager();
+		Assets.setUpSoundPrios();
 
 		Gdx.input.setCatchBackKey(true);
 		createFont();

@@ -63,6 +63,11 @@ public class Ai extends BaseShip {
 				dispose();
 				MyGame.score += 200;
 			}
+			else{
+				if(MyGame.soundOn)
+					Assets.laserDeflectSound.play(0.4f);
+				
+			}
 		}
 		if (o instanceof Player && !((Player) o).getInvincible()) {
 			disposeAnimation();
