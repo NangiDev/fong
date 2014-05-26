@@ -68,10 +68,10 @@ public class WaveManager {
 		// New Wave
 		if (waveStartTimer <= 0 && enemies.size() == 0) {
 			if(waveNumber == powerUpDrop){
-				PowerUpPickup p = new PowerUpPickup(game.batch, Assets.pill_green, MathUtils.random(Assets.pill_green.getWidth(), MyGame.screenWidth - Assets.pill_green.getWidth()), MyGame.screenHeight, game.entityManager, false, EnumPowerUp.FastFire);
+				PowerUpPickup p = new PowerUpPickup(game.batch, Assets.pill_green, MathUtils.random(Assets.pill_green.getWidth() * MyGame.scaleX, MyGame.screenWidth - Assets.pill_green.getWidth() * MyGame.scaleX), MyGame.screenHeight, game.entityManager, false, EnumPowerUp.FastFire);
 			}
 			if(waveNumber%2 == 1){
-				PowerUpPickup p = new PowerUpPickup(game.batch, Assets.pill_green, MathUtils.random(Assets.pill_green.getWidth(), MyGame.screenWidth - Assets.pill_green.getWidth()), MyGame.screenHeight, game.entityManager, false, EnumPowerUp.Shield);
+				PowerUpPickup p = new PowerUpPickup(game.batch, Assets.pill_green, MathUtils.random(Assets.pill_green.getWidth() * MyGame.scaleX, MyGame.screenWidth - Assets.pill_green.getWidth() * MyGame.scaleX), MyGame.screenHeight, game.entityManager, false, EnumPowerUp.Shield);
 			}
 				
 			waveNumber++;
