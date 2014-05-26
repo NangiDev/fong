@@ -12,6 +12,7 @@ public class Player extends BaseShip {
 	private float invincibleTime;
 	private static float origoX;
 	private static float origoY;
+	private static int fireLevel = 0;
 
 	public Player(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting) {
@@ -80,9 +81,16 @@ public class Player extends BaseShip {
 		if (o instanceof PowerUpPickup) {
 			PowerUpPickup p = (PowerUpPickup) o;
 			powerUp = p.getPowerUp();
-			if(powerUp == EnumPowerUp.FastFire)
-				setSpread(getSpread() + 1);
-			updatePowerUps();
+			if(powerUp == EnumPowerUp.FastFire){
+				fireLevel++;
+				updateFireLevel();
+			}
+			else if(powerUp == EnumPowerUp.Shield){
+				if(getHealth() < 4.0f){
+					setHealth(getHealth() + 1);
+				}
+			}
+			//updatePowerUps();
 			updateTexture();
 		}
 
@@ -94,6 +102,14 @@ public class Player extends BaseShip {
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
 					dispose();
+				
+				if(fireLevel > 1){
+					fireLevel = fireLevel - 2;
+				}
+				else{
+					fireLevel = 0;
+				}
+				updateFireLevel();
 			}
 			if (o instanceof Ai || o instanceof Meteor) {
 				setHealth(getHealth() - 1);
@@ -101,10 +117,26 @@ public class Player extends BaseShip {
 				invincibleTime = System.nanoTime();
 				if (getHealth() <= 0)
 					dispose();
+				
+				if(fireLevel > 1){
+					fireLevel = fireLevel -  2;
+				}
+				else{
+					fireLevel = 0;
+				}
+				updateFireLevel();
 			}
 		}
 	}
-
+	
+	public void updateFireLevel(){
+		if(fireLevel % 2 == 0){
+			setSpread(getSpread() + 1);			
+		}
+		else{
+			setFireRate(getFireRate() * 0.75f);
+		}
+	}
 	public void updateTexture() {
 		switch (powerUp) {
 		case FastFire:
