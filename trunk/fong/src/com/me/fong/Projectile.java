@@ -24,8 +24,7 @@ public class Projectile extends CollidableComponent {
 		else
 			speed = 700;
 		
-		if (MyGame.soundOn)
-			Assets.laserSound.play(0.2f);
+		
 		entityManager.addEntity(this);
 	}
 

@@ -25,6 +25,7 @@ public class WaveManager {
 	private EnumAiControllers aiC;
 	private boolean slutanuro = true;
 	private boolean killWaveBonus = false;
+	private int powerUpDrop;
 
 	private ArrayList<DrawComponent> enemies = new ArrayList<DrawComponent>();
 	private ArrayList<DrawComponent> ticks;
@@ -36,6 +37,7 @@ public class WaveManager {
 		this.waveNumber = 0;
 		this.waveStart = true;
 		this.waveDelay = 1500;
+		powerUpDrop = MathUtils.random(0,3);
 	}
 
 	public void tick(float delta) {
@@ -54,7 +56,7 @@ public class WaveManager {
 			}
 		}
 		
-		if (Gdx.input.isKeyPressed(Keys.L) && slutanuro && waveOrder.size >= 10){
+		if (Gdx.input.isKeyPressed(Keys.L) && slutanuro && waveOrder.size >= 5){
 			levelCount++;
 			MyGame.difficulty += 0.25;
 			slutanuro = false;
@@ -65,6 +67,13 @@ public class WaveManager {
 
 		// New Wave
 		if (waveStartTimer <= 0 && enemies.size() == 0) {
+			if(waveNumber == powerUpDrop){
+				PowerUpPickup p = new PowerUpPickup(game.batch, Assets.pill_green, MathUtils.random(10.0f, MyGame.screenWidth - 10.0f), MyGame.screenHeight, game.entityManager, false, EnumPowerUp.FastFire);
+			}
+			if(waveNumber%2 == 1){
+				PowerUpPickup p = new PowerUpPickup(game.batch, Assets.pill_green, MathUtils.random(10.0f, MyGame.screenWidth - 10.0f), MyGame.screenHeight, game.entityManager, false, EnumPowerUp.Shield);
+			}
+				
 			waveNumber++;
 			if(killWaveBonus){
 				MyGame.score += 500;
@@ -114,10 +123,11 @@ public class WaveManager {
 						Ai temp = new Ai(game.batch, ai.getTexture(), 0, 0,
 								game.entityManager, false, aiC);
 						temp.setPowerUp(ai.getPowerUp());
+						temp.updatePowerUps();
 						temp.setX(x * (MyGame.screenWidth / 9.0f));
 						temp.setY(MyGame.screenHeight + y
 								* (MyGame.screenHeight / 9.0f));
-						temp.updateAiController();
+						//temp.updateAiController();
 						temp.setHealth(ai.getHealth());
 						if (levelCount >= 4) {
 							temp.randomizeColor(temp.getPowerUp());
@@ -129,7 +139,7 @@ public class WaveManager {
 				}
 			}
 		} else {
-			MovingLabel invAi = new MovingLabel("Level\n"+ previousLevel +"\ncomplete\n\n1000 points", game.batch, game, Assets.buttonYellow, 0, MyGame.screenHeight, game.entityManager, true, EnumAiControllers.None);
+			MovingLabel invAi = new MovingLabel("Level\n"+ (previousLevel + 1) +"\ncomplete\n\n800 points", game.batch, game, Assets.buttonYellow, 0, MyGame.screenHeight, game.entityManager, true, EnumAiControllers.None);
 			game.entityManager.addEntity(invAi);
 			enemies.add(invAi);
 			System.out.println("Level "+ previousLevel +" complete!");
@@ -146,11 +156,12 @@ public class WaveManager {
 		} else {
 			key = waveOrder.get(waveNumber - 1);
 		}
-		if ((waveNumber % 10) == 0) {
+		if ((waveNumber % 5) == 0) {
 			waveNumber = 0;
 			levelCount++;
-			MyGame.score += 1000;
+			MyGame.score += 800;
 			MyGame.difficulty += 0.25;
+			powerUpDrop = MathUtils.random(0,3);
 		}
 
 		switch (key) {
