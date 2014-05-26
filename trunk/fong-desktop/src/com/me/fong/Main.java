@@ -11,9 +11,11 @@ public class Main {
 
 		cfg.title = "Föng";
 		cfg.width = 600;
-		cfg.height = 960;
+		cfg.height = 960 ;
 		cfg.resizable = false;
-		//cfg.addIcon("icon.png", FileType.Internal);
+		cfg.addIcon("icon128.png", FileType.Internal);
+		cfg.addIcon("icon32.png", FileType.Internal);
+		cfg.addIcon("icon16.png", FileType.Internal);
 		
 		
 		new LwjglApplication(new MyGame(), cfg);
