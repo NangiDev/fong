@@ -3,6 +3,7 @@ package com.me.fong;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 public class BaseShip extends CollidableComponent {
 	private boolean alive;
@@ -19,6 +20,7 @@ public class BaseShip extends CollidableComponent {
 	protected EnumPowerUp powerUp = EnumPowerUp.FastMovement;
 	private Animation disposeAnimation;
 	private float playerLeft, playerRight;
+	private int spread = 1;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting,
@@ -68,6 +70,10 @@ public class BaseShip extends CollidableComponent {
 		// System.out.println("Speed: " + getSpeed());
 		// System.out.println("Health: " + getHealth());
 	}
+	
+	public void setSpread(int spread){
+		this.spread = spread;
+	}
 
 	public void setAlive(Boolean alive) {
 		this.alive = alive;
@@ -93,6 +99,10 @@ public class BaseShip extends CollidableComponent {
 		this.fireRate = fireRate;
 	}
 
+	public int getSpread(){
+		return this.spread;
+	}
+	
 	public float getHealth() {
 		return this.health;
 	}
@@ -120,13 +130,49 @@ public class BaseShip extends CollidableComponent {
 	public void fireProjectile() {
 
 		if (projectileInterval < 0) {
-			Projectile projectile = new Projectile(getSpriteBatch(),
+			if(spread > 1){
+				for (int i = 0; i < spread; i++) {
+					Projectile projectile = new Projectile(getSpriteBatch(),
+							Assets.laserGreen, getOrigoX()
+									- Assets.laserGreen.getWidth() * 0.5f
+									* MyGame.scaleX, getOrigoY()
+									- Assets.laserGreen.getHeight() * 0.5f
+									* MyGame.scaleY, this.getEntityManager(),
+							isFacingDown, isPlayer, new Vector2(-0.2f + i
+									* (0.4f / (float) (spread - 1)), 1));
+				}
+			}
+			else{
+				Projectile projectile = new Projectile(getSpriteBatch(),
+						Assets.laserGreen, getOrigoX()
+								- Assets.laserGreen.getWidth() * 0.5f
+								* MyGame.scaleX, getOrigoY()
+								- Assets.laserGreen.getHeight() * 0.5f
+								* MyGame.scaleY, this.getEntityManager(),
+						isFacingDown, isPlayer, new Vector2(0, 1));
+			}
+			
+			/*Projectile projectile = new Projectile(getSpriteBatch(),
 					Assets.laserGreen, getOrigoX()
 							- Assets.laserGreen.getWidth() * 0.5f
 							* MyGame.scaleX, getOrigoY()
 							- Assets.laserGreen.getHeight() * 0.5f
 							* MyGame.scaleY, this.getEntityManager(),
-					isFacingDown, isPlayer);
+					isFacingDown, isPlayer, new Vector2(-0.2f,1));*/
+			/*Projectile projectile2 = new Projectile(getSpriteBatch(),
+					Assets.laserGreen, getOrigoX()
+							- Assets.laserGreen.getWidth() * 0.5f
+							* MyGame.scaleX, getOrigoY()
+							- Assets.laserGreen.getHeight() * 0.5f
+							* MyGame.scaleY, this.getEntityManager(),
+					isFacingDown, isPlayer, new Vector2(0,1));*/
+			/*Projectile projectile3 = new Projectile(getSpriteBatch(),
+					Assets.laserGreen, getOrigoX()
+							- Assets.laserGreen.getWidth() * 0.5f
+							* MyGame.scaleX, getOrigoY()
+							- Assets.laserGreen.getHeight() * 0.5f
+							* MyGame.scaleY, this.getEntityManager(),
+					isFacingDown, isPlayer, new Vector2(0.2f,1));*/
 			projectileInterval = getFireRate();
 		}
 	}

@@ -2,6 +2,7 @@ package com.me.fong;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Projectile extends CollidableComponent {
 
@@ -9,17 +10,20 @@ public class Projectile extends CollidableComponent {
 	private boolean parentIsPlayer;
 	private Animation disposeAnimation;
 	private int speed;
+	private Vector2 direction;
 
 	public Projectile(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean orientation,
-			boolean parentIsPlayer) {
+			boolean parentIsPlayer, Vector2 direction) {
 		super(batch, texture, x, y, entityManager, true);
 		this.orientation = orientation;
 		this.parentIsPlayer = parentIsPlayer;
+		this.direction = direction;
 		if(parentIsPlayer)
 			speed = 1000;
 		else
 			speed = 700;
+		
 		if (MyGame.soundOn)
 			Assets.laserSound.play(0.2f);
 		entityManager.addEntity(this);
@@ -27,10 +31,14 @@ public class Projectile extends CollidableComponent {
 
 	@Override
 	public void onTick(float delta) {
-		if (orientation)
-			setY(getY() - speed * delta * MyGame.scaleY);
-		else
-			setY(getY() + speed * delta * MyGame.scaleY);
+		if (orientation){
+			setY(getY() - speed * delta * MyGame.scaleY * direction.y);
+			setX(getX() - speed * delta * MyGame.scaleX * direction.x);
+		}
+		else{
+			setY(getY() + speed * delta * MyGame.scaleY* direction.y);
+			setX(getX() + speed * delta * MyGame.scaleX * direction.x);
+		}
 
 		if (getY() > MyGame.screenHeight || getY() < 0
 				|| getX() > MyGame.screenWidth || getX() < 0) {
