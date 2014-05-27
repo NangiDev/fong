@@ -107,7 +107,7 @@ public class ShaderManager {
 					"   	vec4 c =  Ld * (max(dot(N, Vl),0.0)) +  pow(max(dot(rL, Ve), 0.0), f);\n" +
 					"		finalColor += c.rgb;\n" +
 					"	}\n" +
-					"	gl_FragColor = vColor * vec4(finalColor, Cd.a) + ambient * spec * Cd ;\n" +
+					"	gl_FragColor = vec4(finalColor, Cd.a) + ambient * spec * Cd ;\n" +
 					"}");
 	
 	private ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
@@ -170,14 +170,14 @@ public class ShaderManager {
 			lightColors[j][2] = 0.0f;
 			lightColors[j][0] = 0.0f;	
 		}*/
-		
+		normalShader.begin();
 		normalShader.setUniformi("nLights", i);
 		//System.out.println("nLights: " + i);
 		for(int j = 0; j < i; j++){
 			normalShader.setUniformf("lightPositions[" + j + "]", lightPositions[j][0],lightPositions[j][1], lightPositions[j][2], lightPositions[j][3]);
 			normalShader.setUniformf("lightColors[" + j +"]", lightColors[j][0],lightColors[j][1], lightColors[j][2], lightPositions[j][3]);
 		}
-		
+		normalShader.end();
 	}
 	
 	public void shaderCompiled(ShaderProgram shader){
