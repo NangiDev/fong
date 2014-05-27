@@ -3,6 +3,7 @@ package com.me.fong;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FileTextureData;
+import com.badlogic.gdx.math.Vector2;
 
 public class Shadable extends DrawComponent{
 	
@@ -21,6 +22,7 @@ public class Shadable extends DrawComponent{
 		}
 		else{
 			((EntityManager)getEntityManager()).shaderManager.switchToNormalShader(getSpriteBatch());
+			
 			normalTexture.bind(1);
 			getTexture().bind(0);
 		}
