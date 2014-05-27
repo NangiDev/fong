@@ -31,6 +31,7 @@ public class GameScreen implements Screen {
 		update(delta);
 		draw(delta);
 		game.batch.end();
+		
 	}
 
 	public void update(float delta) {
