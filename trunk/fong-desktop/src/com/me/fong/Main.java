@@ -17,7 +17,6 @@ public class Main {
 		cfg.addIcon("icon32.png", FileType.Internal);
 		cfg.addIcon("icon16.png", FileType.Internal);
 		
-		
 		new LwjglApplication(new MyGame(), cfg);
 	}
 }

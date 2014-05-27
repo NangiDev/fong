@@ -63,7 +63,7 @@ public class ShaderManager {
 					"	vec4 c = Ca*La;\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
 					"		vec4 Ld = lightColors[i];\n" +
-					"   	vec4 Vl = vec4(normalize(lightPositions[i] + position));" +
+					"   	vec4 Vl = vec4(normalize(lightPositions[i] - position));" +
 					"   	vec4 rL = reflect(Vl,N);\n" +
 					"		vec4 Ve = normalize(position);\n" +
 					"   	c +=  Cd*Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f);\n" +
@@ -80,7 +80,7 @@ public class ShaderManager {
 		
 		shaderCompiled(normalShader);
 		
-		sun = new LightSource(0.0f, 0.0f, this);
+		sun = new LightSource(100.0f, 100.0f, this);
 		//LightSource sun2 = new LightSource(0.5f, 1.0f, this);
 		sun.setSunLight();
 		//sun2.setBlueLaserLight();
