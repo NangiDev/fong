@@ -23,12 +23,12 @@ public class ShaderManager {
 					" \n" + 
 					"varying vec4 vColor;\n" +
 					"varying vec2 vTexCoord;\n" +
-					"varying vec4 position;\n" + 
+					"//varying vec4 position;\n" + 
 					"void main() {\n" +  
 					"	vColor = "+ShaderProgram.COLOR_ATTRIBUTE+";\n" +
 					"	vTexCoord = "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n" +
 					"	gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" +
-					"   position = gl_Position;\n"+ 
+					"   //position = gl_Position;\n"+ 
 					"}",
 					//FragmentShader
 					//GL ES specific stuff
@@ -39,7 +39,7 @@ public class ShaderManager {
 					+ "#define LOWP \n" //
 					+ "#endif\n" + //
 					"//attributes from vertex shader\n" + 
-					"varying vec4 position;\n" +
+					"//varying vec4 position;\n" +
 					"varying LOWP vec4 vColor;\n" + 
 					"varying vec2 vTexCoord;\n" + 
 					"\n" + 
@@ -57,6 +57,10 @@ public class ShaderManager {
 					"uniform int nLights;" +
 					"\n" + 
 					"void main() {\n" + 
+					"	vec4 position = vec4(gl_FragCoord.x/Resolution.x, gl_FragCoord.y/Resolution.y, gl_FragCoord.z, gl_FragCoord.w);\n" +
+					"	//position.x = position.x * 2.0 - 1.0;\n" +
+					"	//position.y = position.y * 2.0 - 1.0;\n" +
+					"	//position.z = position.z * 2.0 - 1.0;\n" +
 					"	vec4 Ca = AmbientColor;\n" +
 					"	vec4 La = vec4(0.2, 0.2, 0.2, 0.0);\n" +
 					"	vec4 Cs = vec4(0.8, 0.8, 0.8, 0.0);\n" +	
@@ -67,8 +71,10 @@ public class ShaderManager {
 					"	float f = 50.0;\n" +
 					"	vec4 c = Ca*La;\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
+					"		//vec4 Ls = lightColors[i];\n" +
+					"		//vec4 Ld = vec4(1.0, 1.0, 1.0, 0.0);\n" + 
 					"		vec4 Ld = lightColors[i];\n" +
-					"   	vec4 Vl = vec4(normalize(lightPositions[i] - position));" +
+					"   	vec4 Vl = vec4(normalize(lightPositions[i] + position));" +
 					"   	vec4 rL = reflect(Vl,N);\n" +
 					"		vec4 Ve = normalize(position);\n" +
 					"   	c +=  Cd*Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f);\n" +
@@ -85,8 +91,9 @@ public class ShaderManager {
 		
 		shaderCompiled(normalShader);
 		
-		sun = new LightSource(100.0f, 100.0f, this);
-		//LightSource sun2 = new LightSource(0.5f, 1.0f, this);
+		//sun = new LightSource(MyGame.screenWidth, MyGame.screenHeight, this);
+		sun = new LightSource(0, MyGame.screenHeight, this);
+		//LightSource sun2 = new LightSource(MyGame.screenWidth/2, MyGame.screenHeight/2, this);
 		sun.setSunLight();
 		//sun2.setBlueLaserLight();
 		
@@ -133,8 +140,9 @@ public class ShaderManager {
 		float[][] lightPositions = new float[10][4];
 		float[][] lightColors = new float[10][4];
 		int i;
-		for(i = 0; i < lights.size() && i < 10; i++){
+		for(i = 0; i < lights.size() && i < 1; i++){
 			LightSource light = lights.get(i);
+			//light.updateLight();
 			lightPositions[i][0] = light.getPos().x;
 			lightPositions[i][1] = light.getPos().y;
 			lightPositions[i][2] = light.getPos().z;
@@ -164,8 +172,8 @@ public class ShaderManager {
 		for(int j = 0; j < i; j++){
 			normalShader.setUniformf("lightPositions[" + j + "]", lightPositions[j][0],lightPositions[j][1], lightPositions[j][2], lightPositions[j][3]);
 			normalShader.setUniformf("lightColors[" + j +"]", lightColors[j][0],lightColors[j][1], lightColors[j][2], lightPositions[j][3]);
-			System.out.println("LightPos: "+lightPositions[j][0]);
-			System.out.println("LightCol: "+lightColors[j][0]);
+			//System.out.println("LightPos: "+lightPositions[j][0]);
+			//System.out.println("LightCol: "+lightColors[j][0]);
 		}
 		normalShader.end();
 	}
