@@ -11,6 +11,7 @@ public class Projectile extends CollidableComponent {
 	private Animation disposeAnimation;
 	private int speed;
 	private Vector2 direction;
+	private LightSource lightSource;
 
 	public Projectile(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean orientation,
@@ -24,7 +25,8 @@ public class Projectile extends CollidableComponent {
 		else
 			speed = 700;
 		
-		
+		lightSource = new LightSource(x, y,getEntityManager().shaderManager);
+		lightSource.setGreenLaserLight();
 		entityManager.addEntity(this);
 	}
 
@@ -43,10 +45,12 @@ public class Projectile extends CollidableComponent {
 				|| getX() > MyGame.screenWidth || getX() < 0) {
 			this.dispose();
 		}
+		lightSource.setPos(getX(), getY());
 	}
 
 	@Override
 	public void dispose() {
+		lightSource.dispose();
 		super.dispose();
 	}
 

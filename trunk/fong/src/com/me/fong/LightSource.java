@@ -1,23 +1,29 @@
 package com.me.fong;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 
-public class LightSource{
+public class LightSource implements Comparable<LightSource>{
 	
 	public static final float defaultLightZ = 0.5f;
 	private Vector3 pos;
 	private Vector3 color;
 	private Vector3 fallOff;
 	private float intensity;
+	private float distanceToSprite;
+	private ShaderManager shaderManager;
 		
 	public LightSource(float x, float y, ShaderManager shaderManager){
 		pos = new Vector3(x, y, defaultLightZ);
 		setDefaultLight();
-		shaderManager.addLight(this);
+		this.shaderManager = shaderManager;
+		this.shaderManager.addLight(this);
+		
 	}
 	
-	public void passToGPU(){
-		
+	
+	public void setDistance(Vector2 spritePos){
+		distanceToSprite = spritePos.dst(new Vector2(pos.x, pos.y));
 	}
 	public void setDefaultLight(){
 		color = new Vector3(1.0f, 1.0f, 1.0f);
@@ -79,5 +85,18 @@ public class LightSource{
 	
 	public void setIntensity(float intensity){
 		this.intensity = intensity;
+	}
+
+	public void dispose(){
+		shaderManager.removeLight(this);
+	}
+	
+	@Override
+	public int compareTo(LightSource l) {
+		if(this.distanceToSprite > l.distanceToSprite)
+			return -1;
+		if(this.distanceToSprite < l.distanceToSprite)
+			return 1;
+		return 0;
 	}
 }

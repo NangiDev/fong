@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 
 public class EntityManager {
 
@@ -41,7 +42,7 @@ public class EntityManager {
 			slutanuro = true;
 		}
 
-		shaderManager.passLights();
+		//shaderManager.passLights();
 
 		for (int i = 0; i < ticks.size(); i++) {
 			if (!almighty && ticks.get(i).getY() < MyGame.screenHeight && ticks.get(i).getY() > 0) {
@@ -63,6 +64,10 @@ public class EntityManager {
 			}
 			
 			if (ticks.get(i) instanceof Shadable && MyGame.lightOn && ticks.get(i).getY() < MyGame.screenHeight) {
+				shaderManager.switchToNormalShader(game.batch);
+				shaderManager.sortLightsByDistance(new Vector2(((Shadable)ticks.get(i)).getX(),((Shadable)ticks.get(i)).getY()));
+				shaderManager.passLights();
+				shaderManager.switchToDefaultShader(game.batch);
 				((Shadable) ticks.get(i)).bind();
 			}
 

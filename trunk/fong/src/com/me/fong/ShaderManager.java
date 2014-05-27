@@ -1,7 +1,12 @@
 package com.me.fong;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -73,7 +78,7 @@ public class ShaderManager {
 	
 	private ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
 	
-	private Array<LightSource> lights = new Array<LightSource>();
+	private ArrayList<LightSource> lights = new ArrayList<LightSource>();
 	private LightSource sun;
 	
 	public ShaderManager(){
@@ -95,19 +100,41 @@ public class ShaderManager {
 		
 	}
 	
+	public void sortLightsByDistance(Vector2 spritePos){
+		for(LightSource light: lights)
+			light.setDistance(spritePos);
+		sortLights();
+		int index = lights.indexOf(sun);
+		lights.remove(index);
+		lights.add(0, sun);
+	}
+	
+	private void sortLights(){
+		Collections.sort(lights, new Comparator<LightSource>(){
+			@Override
+			public int compare(LightSource l1, LightSource l2){
+				return l1.compareTo(l2);
+			}
+		});
+	}
+	
 	public void addLight(LightSource light){
 		lights.add(light);
 	}
+	public void removeLight(LightSource light){
+		lights.remove(light);
+	}
 	
-	public Array<LightSource> getLightList(){
+	public ArrayList<LightSource> getLightList(){
 		return lights;
 	}
 	
 	public void passLights(){
 		float[][] lightPositions = new float[10][4];
 		float[][] lightColors = new float[10][4];
-		int i = 0;
-		for(LightSource light : lights){
+		int i;
+		for(i = 0; i < lights.size() && i < 10; i++){
+			LightSource light = lights.get(i);
 			lightPositions[i][0] = light.getPos().x;
 			lightPositions[i][1] = light.getPos().y;
 			lightPositions[i][2] = light.getPos().z;
@@ -116,7 +143,7 @@ public class ShaderManager {
 			lightColors[i][1] = light.getColor().y;
 			lightColors[i][2] = light.getColor().z;
 			lightColors[i][3] = light.getIntensity();
-			i++;
+			
 			/*normalShader.setUniformf("LightColor", light.getColor().x, light.getColor().y, light.getColor().z, light.getIntensity());
 			normalShader.setUniformf("Falloff", light.getFallOff());
 			normalShader.setUniformf("LightPos", light.getPos());*/
@@ -137,8 +164,8 @@ public class ShaderManager {
 		for(int j = 0; j < i; j++){
 			normalShader.setUniformf("lightPositions[" + j + "]", lightPositions[j][0],lightPositions[j][1], lightPositions[j][2], lightPositions[j][3]);
 			normalShader.setUniformf("lightColors[" + j +"]", lightColors[j][0],lightColors[j][1], lightColors[j][2], lightPositions[j][3]);
-			//System.out.println("LightPos: "+lightPositions[j]);
-			//System.out.println("LightCol: "+lightColors[j]);
+			System.out.println("LightPos: "+lightPositions[j][0]);
+			System.out.println("LightCol: "+lightColors[j][0]);
 		}
 		normalShader.end();
 	}
