@@ -58,28 +58,30 @@ public class ShaderManager {
 					"\n" + 
 					"void main() {\n" + 
 					"	vec4 position = vec4(gl_FragCoord.x/Resolution.x, gl_FragCoord.y/Resolution.y, gl_FragCoord.z, gl_FragCoord.w);\n" +
-					"	//position.x = position.x * 2.0 - 1.0;\n" +
-					"	//position.y = position.y * 2.0 - 1.0;\n" +
-					"	//position.z = position.z * 2.0 - 1.0;\n" +
-					"	vec4 Ca = AmbientColor;\n" +
-					"	vec4 La = vec4(0.2, 0.2, 0.2, 0.0);\n" +
-					"	vec4 Cs = vec4(0.8, 0.8, 0.8, 0.0);\n" +	
+					"	position.x = position.x * 2.0 - 1.0;\n" +
+					"	position.y = position.y * 2.0 - 1.0;\n" +
+					"	position.z = position.z * 2.0 - 1.0;\n" +
+					"	vec3 Ca = AmbientColor.rgb;\n" +
+					"	vec3 La = vec3(0.2, 0.2, 0.2);\n" +
+					"	vec3 Cs = vec3(0.2, 0.2, 0.2);\n" +	
 					"	vec4 Cd = texture2D(u_texture, vTexCoord);\n" +	
-					"	vec4 Ls = vec4(3.0, 3.0, 3.0, 0.0);\n" +
-					"	vec4 NormalMap = texture2D(u_normals, vTexCoord);\n" +
-					"	vec4 N = normalize(NormalMap);\n" +
+					"	//vec3 Ls = vec3(3.0, 3.0, 3.0);\n" +
+					"	//vec4 NormalMap = texture2D(u_normals, vTexCoord);\n" +
+					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb * 2.0 - vec3(1.0);\n"+
+					"	vec3 N = normalize(NormalMap.rgb);\n" +
 					"	float f = 50.0;\n" +
-					"	vec4 c = Ca*La;\n" +
+					"	vec3 c = Ca*La;\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
-					"		//vec4 Ls = lightColors[i];\n" +
+					"		vec4 Ls = lightColors[i];\n" +
 					"		//vec4 Ld = vec4(1.0, 1.0, 1.0, 0.0);\n" + 
-					"		vec4 Ld = lightColors[i];\n" +
-					"   	vec4 Vl = vec4(normalize(lightPositions[i] + position));" +
-					"   	vec4 rL = reflect(Vl,N);\n" +
-					"		vec4 Ve = normalize(position);\n" +
-					"   	c +=  Cd*Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f);\n" +
+					"		vec3 Ld = vec3(1.0, 1.0, 1.0);//lightColors[i].rgb;\n" +
+					"   	vec3 Vl = vec3(normalize(lightPositions[i].xyz - position.xyz));" +
+					"   	vec3 rL = reflect(Vl,N);\n" +
+					"		vec3 eyePos = vec3(0.5, 0.5, 3);" +
+					"		vec3 Ve = normalize(eyePos - position.rgb);\n" +
+					"   	c +=  Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f);\n" +
 					"	}\n" +
-					"	gl_FragColor = vec4(c.rgb, Cd.a);\n" +
+					"	gl_FragColor = vec4(c, Cd.a);\n" +
 					"}");
 	
 	private ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
@@ -91,8 +93,8 @@ public class ShaderManager {
 		
 		shaderCompiled(normalShader);
 		
-		//sun = new LightSource(MyGame.screenWidth, MyGame.screenHeight, this);
-		sun = new LightSource(0, MyGame.screenHeight, this);
+		sun = new LightSource(MyGame.screenWidth, MyGame.screenHeight, this);
+		//sun = new LightSource(1.0f,1.0f, this);
 		//LightSource sun2 = new LightSource(MyGame.screenWidth/2, MyGame.screenHeight/2, this);
 		sun.setSunLight();
 		//sun2.setBlueLaserLight();
@@ -140,7 +142,7 @@ public class ShaderManager {
 		float[][] lightPositions = new float[10][4];
 		float[][] lightColors = new float[10][4];
 		int i;
-		for(i = 0; i < lights.size() && i < 1; i++){
+		for(i = 0; i < lights.size() && i < 10; i++){
 			LightSource light = lights.get(i);
 			//light.updateLight();
 			lightPositions[i][0] = light.getPos().x;

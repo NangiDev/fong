@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class LightSource implements Comparable<LightSource>{
 	
-	public static final float defaultLightZ = 1.0f;
+	public static final float defaultLightZ = 0.5f;
 	private Vector3 pos;
 	private Vector3 color;
 	private Vector3 fallOff;
@@ -99,7 +99,7 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	
 	public void setPos(float x, float y){
-		this.pos = new Vector3(x, y, defaultLightZ);
+		this.pos = new Vector3(1.0f/MyGame.scaleX*x, 1.0f/MyGame.scaleY*y, defaultLightZ);
 	}
 	
 	public void setColor(Vector3 color){
