@@ -136,7 +136,7 @@ public class Player extends BaseShip {
 					dispose();
 				}
 				if (fireLevel > 1) {
-					fireLevel = fireLevel - 2;
+					fireLevel = fireLevel - 1;
 				} else {
 					fireLevel = 0;
 				}
@@ -152,7 +152,7 @@ public class Player extends BaseShip {
 					dispose();
 				}
 				if (fireLevel > 1) {
-					fireLevel = fireLevel - 2;
+					fireLevel = fireLevel - 1;
 				} else {
 					fireLevel = 0;
 				}
