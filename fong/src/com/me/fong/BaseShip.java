@@ -22,6 +22,7 @@ public class BaseShip extends CollidableComponent {
 	private float playerLeft, playerRight;
 	private int spread = 1;
 	private float projectileDirection = 0;
+	private Texture laserTexture;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting,
@@ -122,6 +123,10 @@ public class BaseShip extends CollidableComponent {
 
 	public void setIsPlayer(boolean isPlayer) {
 		this.isPlayer = isPlayer;
+		if(isPlayer)
+			laserTexture = Assets.laserGreen;
+		else
+			laserTexture = Assets.laserRed;
 	}
 
 	public boolean getIsPlayer() {
@@ -139,10 +144,10 @@ public class BaseShip extends CollidableComponent {
 			if(spread > 1){
 				for (int i = 0; i < spread; i++) {
 					Projectile projectile = new Projectile(getSpriteBatch(),
-							Assets.laserGreen, getOrigoX()
-									- Assets.laserGreen.getWidth() * 0.5f
+							laserTexture, getOrigoX()
+									- laserTexture.getWidth() * 0.5f
 									* MyGame.scaleX, getOrigoY() + projectileDirection
-									- Assets.laserGreen.getHeight() * 0.5f
+									- laserTexture.getHeight() * 0.5f
 									* MyGame.scaleY, this.getEntityManager(),
 							isFacingDown, isPlayer, new Vector2(-0.2f + i
 									* (0.4f / (float) (spread - 1)), 1));
@@ -150,10 +155,10 @@ public class BaseShip extends CollidableComponent {
 			}
 			else{
 				Projectile projectile = new Projectile(getSpriteBatch(),
-						Assets.laserGreen, getOrigoX()
-								- Assets.laserGreen.getWidth() * 0.5f
+						laserTexture, getOrigoX()
+								- laserTexture.getWidth() * 0.5f
 								* MyGame.scaleX, getOrigoY() + projectileDirection
-								- Assets.laserGreen.getHeight() * 0.5f
+								- laserTexture.getHeight() * 0.5f
 								* MyGame.scaleY, this.getEntityManager(),
 						isFacingDown, isPlayer, new Vector2(0, 1));
 			}
