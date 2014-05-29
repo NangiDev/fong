@@ -25,6 +25,7 @@ public class MyGame extends Game {
 	public static boolean musicOn = true;
 	public static boolean soundOn = true;
 	public static boolean lightOn = true;
+	public static boolean gameRunning = false;
 
 	public static float screenWidth;
 	public static float screenHeight;
@@ -51,7 +52,7 @@ public class MyGame extends Game {
 	public LabelStyle mediumlabelStyle;
 	public LabelStyle smalllabelStyle;
 	public ListStyle listStyle;
-
+	
 	public HighscoreManager highscoreManager;
 	public EntityManager entityManager;
 	private SoundManager soundManager;
@@ -254,46 +255,56 @@ public class MyGame extends Game {
 			if (gameScreen == null)
 				gameScreen = new GameScreen(this);
 			setScreen(gameScreen);
+			gameRunning = true;
+			entityManager.setDefaultSunPosition();
 			break;
 		case Pause:
 			if (pauseScreen == null)
 				pauseScreen = new PauseScreen(this);
 			setScreen(pauseScreen);
+			gameRunning = false;
 			break;
 		case Options:
 			if (optionScreen == null)
 				optionScreen = new OptionScreen(this);
 			setScreen(optionScreen);
+			gameRunning = false;
 			break;
 		case Loading:
 			if (loadingScreen == null)
 				loadingScreen = new LoadingScreen(this);
 			setScreen(loadingScreen);
+			gameRunning = false;
 			break;
 		case Credits:
 			if (creditsScreen == null)
 				creditsScreen = new CreditsScreen(this);
 			setScreen(creditsScreen);
+			gameRunning = false;
 			break;
 		case MainMenu:
 			if (mainMenuScreen == null)
 				mainMenuScreen = new MainMenuScreen(this);
 			setScreen(mainMenuScreen);
+			gameRunning = false;
 			break;
 		case GameOver:
 			if (gameOverScreen == null)
 				gameOverScreen = new GameOverScreen(this);
 			setScreen(gameOverScreen);
+			gameRunning = false;
 			break;
 		case Highscore:
 			if (highscoreScreen == null)
 				highscoreScreen = new HighscoreScreen(this);
 			setScreen(highscoreScreen);
+			gameRunning = false;
 			break;
 		case Instructions:
 			if (instructionsScreen == null)
 				instructionsScreen = new InstructionsScreen(this);
 			setScreen(instructionsScreen);
+			gameRunning = false;
 			break;
 		default:
 			break;

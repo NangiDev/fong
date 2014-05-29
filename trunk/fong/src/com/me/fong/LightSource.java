@@ -12,7 +12,6 @@ public class LightSource implements Comparable<LightSource>{
 	private float intensity;
 	private float distanceToSprite;
 	private ShaderManager shaderManager;
-	private float speedy, speedx = 0;
 	private float time;
 		
 	public LightSource(float x, float y, ShaderManager shaderManager){
@@ -26,7 +25,7 @@ public class LightSource implements Comparable<LightSource>{
 		setPos((float)(MyGame.screenWidth*(0.5f + Math.sin(time))), (float)(MyGame.screenHeight*(0.5f + Math.cos(time))), defaultLightZ);
 		time = time + 0.01f;
 		
-		System.out.println("Time: " + time);
+		//System.out.println("Time: " + time);
 	}
 	
 	public void setDistance(Vector2 spritePos){
@@ -53,7 +52,7 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	
 	public void setExplosionLight(){
-		color = new Vector3(0.005f, 0.0025f, 0.0f);
+		color = new Vector3(0.05f, 0.025f, 0.0f);
 		fallOff = new Vector3(.4f, 3f, 20f);
 		intensity = 5.0f;
 	}
