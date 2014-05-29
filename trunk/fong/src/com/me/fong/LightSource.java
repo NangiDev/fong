@@ -48,7 +48,8 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	
 	public void setSunLight(){
-		color = new Vector3(5.0f, 5.0f, 5.0f);
+		color = new Vector3(255.0f / 255.0f *5.0f,
+				255.0f / 255.0f*5.0f, 225.0f / 255.0f*5.0f);
 	}
 	
 	public Vector3 getPos(){
@@ -61,7 +62,7 @@ public class LightSource implements Comparable<LightSource>{
 	
 	
 	public void setPos(float x, float y, float z){
-		this.pos = new Vector3((1.0f/MyGame.screenWidth)*x, (1.0f/MyGame.screenWidth)*y, z);
+		this.pos = new Vector3((1.0f/MyGame.screenWidth)*x, (1.0f/MyGame.screenHeight)*y, z);
 	}
 	
 	public void setColor(Vector3 color){

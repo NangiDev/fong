@@ -37,6 +37,7 @@ public class MyGame extends Game {
 	public SpriteBatch batch;
 
 	private int backgroundSpeed = 100;
+	private Texture backgroundNormal;
 	public static float backgroundStrafe = 0;
 	private Preferences prefs;
 
@@ -313,9 +314,15 @@ public class MyGame extends Game {
 
 	// Call this in each screen class that wants same background as main.
 	public void drawBackground(float delta) {
+		entityManager.shaderManager.switchToNormalShader(batch);
+		
+		Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
+		Assets.backgroundBlue.bind(0);
+		
 		for (int x = -1; x < (screenWidth / (Assets.backgroundBlue.getWidth() * scaleX)+1); x++) {
 			for (int y = 0; y < (screenHeight
 					/ (Assets.backgroundBlue.getHeight() * scaleY) + 1); y++) {
+				
 				batch.draw(Assets.backgroundBlue,
 						x * Assets.backgroundBlue.getWidth() * scaleX + backgroundStrafe, y
 								* Assets.backgroundBlue.getHeight() * scaleY
@@ -324,6 +331,8 @@ public class MyGame extends Game {
 						Assets.backgroundBlue.getHeight() * scaleY);
 			}
 		}
+		
+		entityManager.shaderManager.switchToDefaultShader(batch);
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 		

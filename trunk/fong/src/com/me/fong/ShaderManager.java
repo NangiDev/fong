@@ -73,7 +73,7 @@ public class ShaderManager {
 					"   	vec3 Vl = lightPositions[i] - position;" +
 					"       float distSq = Vl.x*Vl.x + Vl.y*Vl.y + Vl.z*Vl.z;" +
 					"   	Vl = normalize(Vl);" +					
-					"   	vec3 rL = reflect(Vl,N);\n" +				
+					"   	vec3 rL = reflect(N, Vl);\n" +				
 					"   	c +=  1.0/distSq * (Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f));\n" +
 					"	}\n" +
 					"	gl_FragColor = vec4(c, Cd.a);\n" +

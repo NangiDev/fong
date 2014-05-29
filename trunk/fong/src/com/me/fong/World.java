@@ -1,5 +1,8 @@
 package com.me.fong;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 public class World {
 	private MyGame game;
 	private Player player;
@@ -8,6 +11,7 @@ public class World {
 	public World(MyGame myGame) {
 		this.game = myGame;
 		wm = new WaveManager(this.game);
+		
 		player = new Player(game.batch, Assets.playerShip1_red,
 				MyGame.screenWidth * 0.5f, MyGame.screenHeight * 0.2f,
 				game.entityManager, false);
