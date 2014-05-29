@@ -78,6 +78,11 @@ public class EntityManager {
 			ticks.get(i).tick(delta);
 		}
 		shaderManager.switchToDefaultShader(game.batch);
+		shaderManager.updateLightRotation();
+	}
+	
+	public void setDefaultSunPosition(){
+		shaderManager.setDefaultSunPosition();
 	}
 
 	public void addEntity(Entity e) {

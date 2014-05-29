@@ -69,7 +69,7 @@ public class ShaderManager {
 					"	//vec4 NormalMap = texture2D(u_normals, vTexCoord);\n" +
 					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb * 2.0 - vec3(1.0);\n"+
 					"	vec3 N = normalize(NormalMap);\n" +
-					"	float f = 50.0;\n" +
+					"	float f = 20.0;\n" +
 					"	vec3 c = Ca*La;\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
 					"		vec3 Ls = lightColors[i].rgb;\n" +
@@ -141,6 +141,15 @@ public class ShaderManager {
 		return lights;
 	}
 	
+	public void updateLightRotation(){
+		if(!MyGame.gameRunning)
+			sun.updateLight();
+	}
+	
+	public void setDefaultSunPosition(){
+		sun.setPos(0, MyGame.screenHeight, 2.0f);
+	}
+	
 	public void passLights(){
 		float[][] lightPositions = new float[10][4];
 		float[][] lightColors = new float[10][4];
@@ -207,9 +216,7 @@ public class ShaderManager {
 		batch.setShader(defaultShader);
 	}
 	
-	public String getlog(){
-		return defaultShader.getLog();
-	}
+
 	
 	public void clearLightSources(){
 		lights.clear();
