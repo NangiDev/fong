@@ -39,19 +39,21 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	
 	public void setRedLaserLight(){
-		color = new Vector3(1.0f, 0.0f, 0.0f);
+		//color = new Vector3(0.005f, 0.0025f, 0.0025f);
+		color = new Vector3(0.005f, 0.0f, 0.0f);
 		fallOff = new Vector3(.4f, 3f, 20f);
 		intensity = 5.0f;
 	}
 	
 	public void setGreenLaserLight(){
-		color = new Vector3(0.0025f, 0.005f, 0.0025f);
+		//color = new Vector3(0.0025f, 0.005f, 0.0025f);
+		color = new Vector3(0.0f, 0.005f, 0.0f);
 		fallOff = new Vector3(.4f, 3f, 20f);
 		intensity = 5.0f;
 	}
 	
-	public void setBlueLaserLight(){
-		color = new Vector3(0.0f, 0.0f, 1.0f);
+	public void setExplosionLight(){
+		color = new Vector3(0.005f, 0.0025f, 0.0f);
 		fallOff = new Vector3(.4f, 3f, 20f);
 		intensity = 5.0f;
 	}

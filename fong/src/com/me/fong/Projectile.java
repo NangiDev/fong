@@ -20,13 +20,17 @@ public class Projectile extends CollidableComponent {
 		this.orientation = orientation;
 		this.parentIsPlayer = parentIsPlayer;
 		this.direction = direction;
-		if(parentIsPlayer)
-			speed = 1000;
-		else
-			speed = 700;
-		
 		lightSource = new LightSource(x, y,getEntityManager().shaderManager);
-		lightSource.setGreenLaserLight();
+		
+		if(parentIsPlayer){
+			speed = 1000;
+			lightSource.setGreenLaserLight();
+		}
+		else{
+			speed = 700;
+			lightSource.setRedLaserLight();
+		}
+		
 		entityManager.addEntity(this);
 	}
 
