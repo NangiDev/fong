@@ -26,7 +26,7 @@ public class Player extends BaseShip {
 		setHealth(1.0f);
 		setIsPlayer(true);
 		setSpread(1);
-		
+		//updateFireLevel();
 	}
 
 	@Override
@@ -182,10 +182,10 @@ public class Player extends BaseShip {
 			setTexture(Assets.playerShip1_red);
 			break;
 		case FastMovement:
-			setTexture(Assets.playerShip2_red);
+			setTexture(Assets.playerShip1_red);
 			break;
 		case Shield:
-			setTexture(Assets.playerShip3_red);
+			setTexture(Assets.playerShip1_red);
 			break;
 		}
 		setNormal(getTexture());
