@@ -201,7 +201,9 @@ public class Player extends BaseShip {
 		MyGame.difficulty = 1.0f;
 		fireLevel = 0;
 		healthBars = 0;
+		getEntityManager().shaderManager.clearLightSources();
 		getEntityManager().game.switchToScreen(GameState.GameOver);
+		
 	}
 
 	public static Vector2 getPlayerPos() {
