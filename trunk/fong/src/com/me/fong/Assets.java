@@ -61,10 +61,14 @@ public class Assets {
 	// Lasers
 	public static final Texture laserGreen = new Texture(
 			Gdx.files.internal("Lasers/laserGreen.png"));
+	public static final Texture laserRed = new Texture(
+			Gdx.files.internal("Lasers/laserRed03.png"));
 
 	// Laser Collision
 	public static final Texture laserGreen4 = new Texture(
 			Gdx.files.internal("Lasers/Collision/laserGreen04.png"));
+	public static final Texture laserRed4 = new Texture(
+			Gdx.files.internal("Lasers/Collision/laserRed04.png"));
 
 	// Player
 	public static final Texture playerLife = new Texture(
