@@ -68,7 +68,7 @@ public class ShaderManager {
 					"	//vec3 Ls = vec3(3.0, 3.0, 3.0);\n" +
 					"	//vec4 NormalMap = texture2D(u_normals, vTexCoord);\n" +
 					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb * 2.0 - vec3(1.0);\n"+
-					"	vec3 N = normalize(NormalMap.rgb);\n" +
+					"	vec3 N = normalize(NormalMap);\n" +
 					"	float f = 50.0;\n" +
 					"	vec3 c = Ca*La;\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
@@ -200,6 +200,11 @@ public class ShaderManager {
 	
 	public String getlog(){
 		return defaultShader.getLog();
+	}
+	
+	public void clearLightSources(){
+		lights.clear();
+		lights.add(sun);
 	}
 
 }
