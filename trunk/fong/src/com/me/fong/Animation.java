@@ -19,7 +19,7 @@ public class Animation extends Shadable{
 		this.scaleMax = scaleMax;
 		this.scaleSpeed = scaleSpeed;
 		lightSource = new LightSource(x, y,getEntityManager().shaderManager);
-		lightSource.setRedLaserLight();
+		lightSource.setExplosionLight();
 		if(sound != null && MyGame.soundOn)
 			sound.play(0.2f);
 	}
