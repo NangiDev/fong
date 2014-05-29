@@ -74,7 +74,7 @@ public class Projectile extends CollidableComponent {
 			disposeAnimation = new Animation(getSpriteBatch(),
 					Assets.laserGreen4, getOrigoX(), getOrigoY()
 							+ getTexture().getHeight() * 0.5f * MyGame.scaleY,
-					0.5f, 2.5f, getEntityManager(), Assets.laserSound);
+					0.5f, 2.5f, getEntityManager(), Assets.laserSound, false);
 			getEntityManager().addToEndEntity(disposeAnimation);
 		}
 		dispose();
