@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class LightSource implements Comparable<LightSource>{
 	
-	public static final float defaultLightZ = 0.5f;
+	public static final float defaultLightZ = 2.0f;
 	private Vector3 pos;
 	private Vector3 color;
 	private Vector3 fallOff;
@@ -13,40 +13,20 @@ public class LightSource implements Comparable<LightSource>{
 	private float distanceToSprite;
 	private ShaderManager shaderManager;
 	private float speedy, speedx = 0;
+	private float time;
 		
 	public LightSource(float x, float y, ShaderManager shaderManager){
-		pos = new Vector3(x, y, defaultLightZ);
+		pos = new Vector3((1.0f/MyGame.screenWidth) * x, (1.0f/MyGame.screenHeight) * y, defaultLightZ);
 		setDefaultLight();
 		this.shaderManager = shaderManager;
 		this.shaderManager.addLight(this);
-		
+		time = 0.0f;
 	}
 	public void updateLight() {
-		if(getPos().x <= 0 && getPos().y <= 0){
-			speedy = 0.005f;
-			speedx = 0.0f;
-			System.out.println("LD");
-		}
+		setPos((float)(MyGame.screenWidth*(0.5f + Math.sin(time))), (float)(MyGame.screenHeight*(0.5f + Math.cos(time))), defaultLightZ);
+		time = time + 0.01f;
 		
-		if(getPos().x <= 0 && getPos().y >= 1){
-			speedy = 0.0f;
-			speedx = 0.005f;
-			System.out.println("LT");
-		}
-		
-		if(getPos().x >= 1 && getPos().y >= 1){
-			speedy = -0.005f;
-			speedx = 0.0f;
-			System.out.println("RT");
-		}
-		
-		if(getPos().x >= 1 && getPos().y <= 0){
-			speedy = 0.0f;
-			speedx = -0.005f;
-			System.out.println("RD");
-		}
-
-		setPos(getPos().x + speedx, getPos().y + speedy);
+		System.out.println("Time: " + time);
 	}
 	
 	public void setDistance(Vector2 spritePos){
@@ -65,7 +45,7 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	
 	public void setGreenLaserLight(){
-		color = new Vector3(0.0f, 1.0f, 0.0f);
+		color = new Vector3(0.0025f, 0.005f, 0.0025f);
 		fallOff = new Vector3(.4f, 3f, 20f);
 		intensity = 5.0f;
 	}
@@ -77,7 +57,7 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	
 	public void setSunLight(){
-		color = new Vector3(1.0f, 1.0f, 1.0f);
+		color = new Vector3(4.0f, 4.0f, 4.0f);
 		fallOff = new Vector3(100f, 100f, 100f);
 		intensity = 100.0f;
 	}
@@ -98,8 +78,8 @@ public class LightSource implements Comparable<LightSource>{
 		return intensity;
 	}
 	
-	public void setPos(float x, float y){
-		this.pos = new Vector3(1.0f/MyGame.scaleX*x, 1.0f/MyGame.scaleY*y, defaultLightZ);
+	public void setPos(float x, float y, float z){
+		this.pos = new Vector3((1.0f/MyGame.screenWidth)*x, (1.0f/MyGame.screenWidth)*y, z);
 	}
 	
 	public void setColor(Vector3 color){

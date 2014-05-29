@@ -45,7 +45,7 @@ public class Projectile extends CollidableComponent {
 				|| getX() > MyGame.screenWidth || getX() < 0) {
 			this.dispose();
 		}
-		lightSource.setPos(getX(), getY());
+		lightSource.setPos(getOrigoX(), getOrigoY(), 0.1f);
 	}
 
 	@Override

@@ -203,7 +203,6 @@ public class Player extends BaseShip {
 		healthBars = 0;
 		getEntityManager().shaderManager.clearLightSources();
 		getEntityManager().game.switchToScreen(GameState.GameOver);
-		
 	}
 
 	public static Vector2 getPlayerPos() {

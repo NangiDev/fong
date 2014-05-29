@@ -57,10 +57,10 @@ public class ShaderManager {
 					"uniform int nLights;" +
 					"\n" + 
 					"void main() {\n" + 
-					"	vec4 position = vec4(gl_FragCoord.x/Resolution.x, gl_FragCoord.y/Resolution.y, gl_FragCoord.z, gl_FragCoord.w);\n" +
-					"	position.x = position.x * 2.0 - 1.0;\n" +
-					"	position.y = position.y * 2.0 - 1.0;\n" +
-					"	position.z = position.z * 2.0 - 1.0;\n" +
+					"	vec3 position = vec3(gl_FragCoord.x/Resolution.x, gl_FragCoord.y/Resolution.y, 0.0);\n" +
+					"	//position.x = position.x * 2.0 - 1.0;\n" +
+					"	//position.y = position.y * 2.0 - 1.0;\n" +
+					"	//position.z = position.z * 2.0 - 1.0;\n" +
 					"	vec3 Ca = AmbientColor.rgb;\n" +
 					"	vec3 La = vec3(0.2, 0.2, 0.2);\n" +
 					"	vec3 Cs = vec3(0.2, 0.2, 0.2);\n" +	
@@ -72,14 +72,16 @@ public class ShaderManager {
 					"	float f = 50.0;\n" +
 					"	vec3 c = Ca*La;\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
-					"		vec4 Ls = lightColors[i];\n" +
+					"		vec3 Ls = lightColors[i].rgb;\n" +
 					"		//vec4 Ld = vec4(1.0, 1.0, 1.0, 0.0);\n" + 
-					"		vec3 Ld = vec3(1.0, 1.0, 1.0);//lightColors[i].rgb;\n" +
-					"   	vec3 Vl = vec3(normalize(lightPositions[i].xyz - position.xyz));" +
+					"		vec3 Ld = lightColors[i].rgb;\n" +
+					"   	vec3 Vl = lightPositions[i].xyz - position.xyz;" +
+					"       float distSq = Vl.x*Vl.x + Vl.y*Vl.y + Vl.z*Vl.z;" +
+					"   	Vl = normalize(Vl);" +					
 					"   	vec3 rL = reflect(Vl,N);\n" +
-					"		vec3 eyePos = vec3(0.5, 0.5, 3);" +
-					"		vec3 Ve = normalize(eyePos - position.rgb);\n" +
-					"   	c +=  Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f);\n" +
+					"		vec3 eyePos = vec3(0.5, 0.5, 1000.0);" +
+					"		vec3 Ve = normalize(eyePos - position.xyz);\n" +
+					"   	c +=  1/distSq * (Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f));\n" +
 					"	}\n" +
 					"	gl_FragColor = vec4(c, Cd.a);\n" +
 					"}");
@@ -93,7 +95,8 @@ public class ShaderManager {
 		
 		shaderCompiled(normalShader);
 		
-		sun = new LightSource(MyGame.screenWidth, MyGame.screenHeight, this);
+		//sun = new LightSource(MyGame.screenWidth, MyGame.screenHeight, this);
+		sun = new LightSource(0, MyGame.screenHeight, this);
 		//sun = new LightSource(1.0f,1.0f, this);
 		//LightSource sun2 = new LightSource(MyGame.screenWidth/2, MyGame.screenHeight/2, this);
 		sun.setSunLight();
@@ -142,6 +145,12 @@ public class ShaderManager {
 		float[][] lightPositions = new float[10][4];
 		float[][] lightColors = new float[10][4];
 		int i;
+		for(i=0;i<10;i++) {
+		  lightColors[i][0] = 0.0f;
+		  lightColors[i][1] = 0.0f;
+		  lightColors[i][2] = 0.0f;
+		  lightColors[i][3] = 0.0f;
+		}
 		for(i = 0; i < lights.size() && i < 10; i++){
 			LightSource light = lights.get(i);
 			//light.updateLight();

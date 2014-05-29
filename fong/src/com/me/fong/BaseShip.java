@@ -21,6 +21,7 @@ public class BaseShip extends CollidableComponent {
 	private Animation disposeAnimation;
 	private float playerLeft, playerRight;
 	private int spread = 1;
+	private float projectileDirection = 0;
 
 	public BaseShip(SpriteBatch batch, Texture texture, float x, float y,
 			EntityManager entityManager, boolean ignoreLighting,
@@ -128,6 +129,11 @@ public class BaseShip extends CollidableComponent {
 	}
 
 	public void fireProjectile() {
+		if(isPlayer){
+			projectileDirection = getTexture().getHeight()*0.4f;
+		}else{
+			projectileDirection = -getTexture().getHeight()*0.4f;
+		}
 
 		if (projectileInterval < 0) {
 			if(spread > 1){
@@ -135,7 +141,7 @@ public class BaseShip extends CollidableComponent {
 					Projectile projectile = new Projectile(getSpriteBatch(),
 							Assets.laserGreen, getOrigoX()
 									- Assets.laserGreen.getWidth() * 0.5f
-									* MyGame.scaleX, getOrigoY()
+									* MyGame.scaleX, getOrigoY() + projectileDirection
 									- Assets.laserGreen.getHeight() * 0.5f
 									* MyGame.scaleY, this.getEntityManager(),
 							isFacingDown, isPlayer, new Vector2(-0.2f + i
@@ -146,7 +152,7 @@ public class BaseShip extends CollidableComponent {
 				Projectile projectile = new Projectile(getSpriteBatch(),
 						Assets.laserGreen, getOrigoX()
 								- Assets.laserGreen.getWidth() * 0.5f
-								* MyGame.scaleX, getOrigoY()
+								* MyGame.scaleX, getOrigoY() + projectileDirection
 								- Assets.laserGreen.getHeight() * 0.5f
 								* MyGame.scaleY, this.getEntityManager(),
 						isFacingDown, isPlayer, new Vector2(0, 1));
