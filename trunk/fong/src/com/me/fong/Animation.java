@@ -11,18 +11,23 @@ public class Animation extends Shadable{
 	private float scaleVar, scaleMax, scaleSpeed;
 	private LightSource lightSource;
 
-	public Animation(SpriteBatch batch, Texture texture, float x, float y, float scaleMax, float scaleSpeed, EntityManager entityManager, Sound sound){
+	public Animation(SpriteBatch batch, Texture texture, float x, float y, float scaleMax, float scaleSpeed, EntityManager entityManager, Sound sound, boolean light){
 		super(batch, texture, x, y, entityManager, true);
 		this.batch = batch;
 		this.texture = texture;
 		this.scaleVar = 0.0f;
 		this.scaleMax = scaleMax;
 		this.scaleSpeed = scaleSpeed;
-		lightSource = new LightSource(x, y,getEntityManager().shaderManager);
-		lightSource.setExplosionLight();
+		if(light){
+			lightSource = new LightSource(x, y,getEntityManager().shaderManager);
+			lightSource.setExplosionLight();
+		}
+		else
+			lightSource = null;
 		if(sound != null && MyGame.soundOn)
 			sound.play(0.2f);
 	}
+	
 	
 	@Override
 	public void draw(){
@@ -31,11 +36,13 @@ public class Animation extends Shadable{
 	
 	@Override
 	public void onTick(float delta){
-		lightSource.setPos(getOrigoX(), getOrigoY(), 0.2f);
+		if(lightSource != null)
+			lightSource.setPos(getOrigoX(), getOrigoY(), 0.2f);
 		scaleVar += delta*scaleSpeed;
 		if(scaleVar > scaleMax || scaleVar < -scaleMax){
 			dispose();
-			lightSource.dispose();
+			if(lightSource != null)
+				lightSource.dispose();
 		}
 	}
 }

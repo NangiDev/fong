@@ -49,39 +49,32 @@ public class ShaderManager {
 					"\n" + 
 					"//values used for shading algorithm...\n" + 
 					"uniform vec2 Resolution;         //resolution of screen\n" + 
-					"uniform vec3 LightPos;           //light position, normalized\n" + 
 					"uniform LOWP vec4 LightColor;    //light RGBA -- alpha is intensity\n" + 
 					"uniform LOWP vec4 AmbientColor;  //ambient RGBA -- alpha is intensity \n" + 
-					"uniform vec4 lightPositions[10];\n" +
-					"uniform vec4 lightColors[10];" +
+					"uniform vec3 lightPositions[10];\n" +
+					"uniform vec3 lightColors[10];" +
 					"uniform int nLights;" +
 					"\n" + 
 					"void main() {\n" + 
 					"	vec3 position = vec3(gl_FragCoord.x/Resolution.x, gl_FragCoord.y/Resolution.y, 0.0);\n" +
-					"	//position.x = position.x * 2.0 - 1.0;\n" +
-					"	//position.y = position.y * 2.0 - 1.0;\n" +
-					"	//position.z = position.z * 2.0 - 1.0;\n" +
 					"	vec3 Ca = AmbientColor.rgb;\n" +
 					"	vec3 La = vec3(0.2, 0.2, 0.2);\n" +
 					"	vec3 Cs = vec3(0.2, 0.2, 0.2);\n" +	
 					"	vec4 Cd = texture2D(u_texture, vTexCoord);\n" +	
-					"	//vec3 Ls = vec3(3.0, 3.0, 3.0);\n" +
-					"	//vec4 NormalMap = texture2D(u_normals, vTexCoord);\n" +
 					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb * 2.0 - vec3(1.0);\n"+
 					"	vec3 N = normalize(NormalMap);\n" +
 					"	float f = 20.0;\n" +
 					"	vec3 c = Ca*La;\n" +
+					"	vec3 eyePos = vec3(0.5, 0.5, 1000.0);" +
+					"	vec3 Ve = normalize(eyePos - position);\n" +
 					"   for(int i = 0; i<nLights; i++){\n"	+
-					"		vec3 Ls = lightColors[i].rgb;\n" +
-					"		//vec4 Ld = vec4(1.0, 1.0, 1.0, 0.0);\n" + 
-					"		vec3 Ld = lightColors[i].rgb;\n" +
-					"   	vec3 Vl = lightPositions[i].xyz - position.xyz;" +
+					"		vec3 Ls = lightColors[i];\n" +
+					"		vec3 Ld = lightColors[i];\n" +
+					"   	vec3 Vl = lightPositions[i] - position;" +
 					"       float distSq = Vl.x*Vl.x + Vl.y*Vl.y + Vl.z*Vl.z;" +
 					"   	Vl = normalize(Vl);" +					
-					"   	vec3 rL = reflect(Vl,N);\n" +
-					"		vec3 eyePos = vec3(0.5, 0.5, 1000.0);" +
-					"		vec3 Ve = normalize(eyePos - position.xyz);\n" +
-					"   	c +=  1/distSq * (Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f));\n" +
+					"   	vec3 rL = reflect(Vl,N);\n" +				
+					"   	c +=  1.0/distSq * (Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f));\n" +
 					"	}\n" +
 					"	gl_FragColor = vec4(c, Cd.a);\n" +
 					"}");
@@ -151,14 +144,13 @@ public class ShaderManager {
 	}
 	
 	public void passLights(){
-		float[][] lightPositions = new float[10][4];
-		float[][] lightColors = new float[10][4];
+		float[][] lightPositions = new float[10][3];
+		float[][] lightColors = new float[10][3];
 		int i;
 		for(i=0;i<10;i++) {
 		  lightColors[i][0] = 0.0f;
 		  lightColors[i][1] = 0.0f;
 		  lightColors[i][2] = 0.0f;
-		  lightColors[i][3] = 0.0f;
 		}
 		for(i = 0; i < lights.size() && i < 10; i++){
 			LightSource light = lights.get(i);
@@ -166,11 +158,9 @@ public class ShaderManager {
 			lightPositions[i][0] = light.getPos().x;
 			lightPositions[i][1] = light.getPos().y;
 			lightPositions[i][2] = light.getPos().z;
-			lightPositions[i][3] = 0.0f;
 			lightColors[i][0] = light.getColor().x;
 			lightColors[i][1] = light.getColor().y;
 			lightColors[i][2] = light.getColor().z;
-			lightColors[i][3] = light.getIntensity();
 			
 			/*normalShader.setUniformf("LightColor", light.getColor().x, light.getColor().y, light.getColor().z, light.getIntensity());
 			normalShader.setUniformf("Falloff", light.getFallOff());
@@ -190,8 +180,8 @@ public class ShaderManager {
 		normalShader.setUniformi("nLights", i);
 		//System.out.println("nLights: " + i);
 		for(int j = 0; j < i; j++){
-			normalShader.setUniformf("lightPositions[" + j + "]", lightPositions[j][0],lightPositions[j][1], lightPositions[j][2], lightPositions[j][3]);
-			normalShader.setUniformf("lightColors[" + j +"]", lightColors[j][0],lightColors[j][1], lightColors[j][2], lightPositions[j][3]);
+			normalShader.setUniformf("lightPositions[" + j + "]", lightPositions[j][0],lightPositions[j][1], lightPositions[j][2]);
+			normalShader.setUniformf("lightColors[" + j +"]", lightColors[j][0],lightColors[j][1], lightColors[j][2]);
 			//System.out.println("LightPos: "+lightPositions[j][0]);
 			//System.out.println("LightCol: "+lightColors[j][0]);
 		}

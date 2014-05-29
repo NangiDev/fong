@@ -8,8 +8,6 @@ public class LightSource implements Comparable<LightSource>{
 	public static final float defaultLightZ = 2.0f;
 	private Vector3 pos;
 	private Vector3 color;
-	private Vector3 fallOff;
-	private float intensity;
 	private float distanceToSprite;
 	private ShaderManager shaderManager;
 	private float time;
@@ -33,34 +31,24 @@ public class LightSource implements Comparable<LightSource>{
 	}
 	public void setDefaultLight(){
 		color = new Vector3(1.0f, 1.0f, 1.0f);
-		fallOff = new Vector3(0f, 0f, 0f);
-		intensity = 5.0f;
 	}
 	
 	public void setRedLaserLight(){
 		//color = new Vector3(0.005f, 0.0025f, 0.0025f);
 		color = new Vector3(0.005f, 0.0f, 0.0f);
-		fallOff = new Vector3(.4f, 3f, 20f);
-		intensity = 5.0f;
 	}
 	
 	public void setGreenLaserLight(){
 		//color = new Vector3(0.0025f, 0.005f, 0.0025f);
 		color = new Vector3(0.0f, 0.005f, 0.0f);
-		fallOff = new Vector3(.4f, 3f, 20f);
-		intensity = 5.0f;
 	}
 	
 	public void setExplosionLight(){
 		color = new Vector3(0.05f, 0.025f, 0.0f);
-		fallOff = new Vector3(.4f, 3f, 20f);
-		intensity = 5.0f;
 	}
 	
 	public void setSunLight(){
-		color = new Vector3(4.0f, 4.0f, 4.0f);
-		fallOff = new Vector3(100f, 100f, 100f);
-		intensity = 100.0f;
+		color = new Vector3(5.0f, 5.0f, 5.0f);
 	}
 	
 	public Vector3 getPos(){
@@ -71,13 +59,6 @@ public class LightSource implements Comparable<LightSource>{
 		return color;
 	}
 	
-	public Vector3 getFallOff(){
-		return fallOff;
-	}
-	
-	public float getIntensity(){
-		return intensity;
-	}
 	
 	public void setPos(float x, float y, float z){
 		this.pos = new Vector3((1.0f/MyGame.screenWidth)*x, (1.0f/MyGame.screenWidth)*y, z);
@@ -85,14 +66,6 @@ public class LightSource implements Comparable<LightSource>{
 	
 	public void setColor(Vector3 color){
 		this.color = color;
-	}
-	
-	public void setFallOff(Vector3 fallOff){
-		this.fallOff = fallOff;
-	}
-	
-	public void setIntensity(float intensity){
-		this.intensity = intensity;
 	}
 
 	public void dispose(){

@@ -51,7 +51,6 @@ public class Player extends BaseShip {
 				lifeBar.setX(MyGame.screenWidth * 0.5f
 						- lifeBar.getTexture().getWidth() * MyGame.scaleX + i
 						* lifeBar.getTexture().getWidth() * MyGame.scaleX);
-				System.out.println("jek");
 				lifebar.add(lifeBar);
 				getEntityManager().addEntity(lifeBar);
 			}
@@ -173,7 +172,6 @@ public class Player extends BaseShip {
 				tempFireLevel = fireLevel - 1;
 			setFireRate(15 + 25 * (1.0f/((float)tempFireLevel * 1.2f)));
 		}
-		System.out.println("Firerate: " + getFireRate());
 	}
 
 	public void updateTexture() {

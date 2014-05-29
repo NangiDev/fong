@@ -202,7 +202,7 @@ public class BaseShip extends CollidableComponent {
 	public void disposeAnimation() {
 		disposeAnimation = new Animation(getSpriteBatch(), Assets.explosion,
 				getOrigoX(), getY(), 2.5f, 7.0f, getEntityManager(),
-				Assets.explosionSound);
+				Assets.explosionSound, true);
 		getEntityManager().addEntity(disposeAnimation);
 	}
 }
