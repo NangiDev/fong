@@ -61,7 +61,7 @@ public class ShaderManager {
 					"	vec3 La = vec3(0.2, 0.2, 0.2);\n" +
 					"	vec3 Cs = vec3(0.2, 0.2, 0.2);\n" +	
 					"	vec4 Cd = texture2D(u_texture, vTexCoord);\n" +	
-					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb * 2.0 - vec3(1.0);\n"+
+					"	vec3 NormalMap = texture2D(u_normals, vTexCoord).rgb;\n"+
 					"	vec3 N = normalize(NormalMap);\n" +
 					"	float f = 20.0;\n" +
 					"	vec3 c = Ca*La;\n" +
@@ -76,7 +76,8 @@ public class ShaderManager {
 					"   	vec3 rL = reflect(N, Vl);\n" +				
 					"   	c +=  1.0/distSq * (Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f));\n" +
 					"	}\n" +
-					"	gl_FragColor = vec4(c, Cd.a);\n" +
+					"	gl_FragColor = vec4(NormalMap, 1.0);\n" +
+					"	//gl_FragColor = vec4(c, Cd.a);\n" +
 					"}");
 	
 	private ShaderProgram defaultShader = SpriteBatch.createDefaultShader();

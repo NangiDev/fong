@@ -316,12 +316,12 @@ public class MyGame extends Game {
 
 	// Call this in each screen class that wants same background as main.
 	public void drawBackground(float delta) {
-		if (lightOn) {
+		/*if (lightOn) {
 			entityManager.shaderManager.switchToNormalShader(batch);
 
 			Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
 			Assets.backgroundBlue.bind(0);
-		}
+		}*/
 
 		for (int x = -1; x < (screenWidth
 				/ (Assets.backgroundBlue.getWidth() * scaleX) + 1); x++) {
@@ -337,9 +337,9 @@ public class MyGame extends Game {
 						Assets.backgroundBlue.getHeight() * scaleY);
 			}
 		}
-		if (lightOn) {
+		/*if (lightOn) {
 			entityManager.shaderManager.switchToDefaultShader(batch);
-		}
+		}*/
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 
