@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class OptionScreen implements Screen {
 	private MyGame game;
@@ -16,11 +19,14 @@ public class OptionScreen implements Screen {
 	private MenuButton toggleMusicButton;
 	private MenuButton toggleSoundFxButton;
 	private MenuButton toggleLightFxButton;
+	private Slider amountOfLight;
 	private Table innerTable;
 	private Label music;
 	private Label soundFx;
 	private Label lightFx;
 	private Preferences prefs;
+	private Label lightExplain;
+	private Label amountOfLightLabel;
 
 	public OptionScreen(MyGame myGame) {
 		this.game = myGame;
@@ -31,6 +37,8 @@ public class OptionScreen implements Screen {
 		lightFx = new Label("Light", game.mediumlabelStyle);
 		backButton = new MenuButton("Back", game.mediumButtonStyle,
 				GameState.MainMenu, game);
+		lightExplain = new Label("Lights/unit:", game.smalllabelStyle);
+		amountOfLightLabel = new Label("0", game.mediumlabelStyle);
 
 		System.out.println("new OptionScreen created");
 	}
@@ -72,6 +80,17 @@ public class OptionScreen implements Screen {
 				MyGame.soundOn);
 		this.toggleLightFxButton = new MenuButton("", game.mediumButtonStyle,
 				MyGame.lightOn);
+
+		this.amountOfLight = new Slider(1, 10, 1, false, game.mediumSliderStyle);
+		amountOfLight.setVisible(true);
+		amountOfLight.setValue(MyGame.lightCounter);
+		amountOfLight.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				amountOfLightLabel.setText("" + (int)amountOfLight.getValue());
+			}
+		});
+		amountOfLightLabel.setText("" + (int)amountOfLight.getValue());
 		setupMenuLayout();
 	}
 
@@ -87,11 +106,13 @@ public class OptionScreen implements Screen {
 		MyGame.musicOn = toggleMusicButton.getBoolean();
 		MyGame.soundOn = toggleSoundFxButton.getBoolean();
 		MyGame.lightOn = toggleLightFxButton.getBoolean();
+		MyGame.lightCounter = (int) amountOfLight.getValue();
 
 		prefs = Gdx.app.getPreferences("FongSaveFile");
 		prefs.putBoolean("musicOn", MyGame.musicOn);
 		prefs.putBoolean("soundOn", MyGame.soundOn);
 		prefs.putBoolean("lightOn", MyGame.lightOn);
+		prefs.putInteger("lightCount", MyGame.lightCounter);
 		prefs.flush();
 	}
 
@@ -111,23 +132,33 @@ public class OptionScreen implements Screen {
 
 		innerTable.add().row().padBottom(25.0f * MyGame.scaleY);
 		innerTable.add(music).align(Align.left)
-				.padRight(100.0f * MyGame.scaleX);
+				.padRight(80.0f * MyGame.scaleX);
 		innerTable.add(toggleMusicButton).align(Align.right).row()
 				.padBottom(25.0f * MyGame.scaleY);
 
 		innerTable.add(soundFx).align(Align.left)
-				.padRight(100.0f * MyGame.scaleX);
+				.padRight(80.0f * MyGame.scaleX);
 		innerTable.add(toggleSoundFxButton).align(Align.right).row()
 				.padBottom(25.0f * MyGame.scaleY);
 
 		innerTable.add(lightFx).align(Align.left)
-				.padRight(100.0f * MyGame.scaleX);
+				.padRight(80.0f * MyGame.scaleX);
 		innerTable.add(toggleLightFxButton).align(Align.center).row()
 				.padBottom(25.0f * MyGame.scaleY);
+
+		if (toggleLightFxButton.getBoolean()) {
+			innerTable.add(lightExplain).align(Align.left)
+			.padRight(80.0f * MyGame.scaleX).row();
+			innerTable.add(amountOfLight).align(Align.left)
+					.padRight(80.0f * MyGame.scaleX).fillX();
+			innerTable.add(amountOfLightLabel).align(Align.right).row()
+					.padBottom(25.0f * MyGame.scaleY);
+		}
 
 		game.table.add(innerTable).row();
 		game.table.add(backButton);
 
-		game.table.padTop(header.getTexture().getHeight() * 1.5f * MyGame.scaleY);
+		game.table.padTop(header.getTexture().getHeight() * 1.5f
+				* MyGame.scaleY);
 	}
 }

@@ -152,7 +152,7 @@ public class ShaderManager {
 		  lightColors[i][1] = 0.0f;
 		  lightColors[i][2] = 0.0f;
 		}
-		for(i = 0; i < lights.size() && i < 10; i++){
+		for(i = 0; i < lights.size() && i < MyGame.lightCounter; i++){
 			LightSource light = lights.get(i);
 			//light.updateLight();
 			lightPositions[i][0] = light.getPos().x;

@@ -16,6 +16,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
@@ -33,6 +35,7 @@ public class MyGame extends Game {
 	public static float scaleX;
 	public static float scaleY;
 	public static int score = 0;
+	public static int lightCounter = 1;
 	public static float difficulty = 1.0f;
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
@@ -50,6 +53,7 @@ public class MyGame extends Game {
 	public TextButtonStyle largeButtonStyle;
 	public TextButtonStyle mediumButtonStyle;
 	public TextButtonStyle smallButtonStyle;
+	public Slider.SliderStyle mediumSliderStyle;
 	public LabelStyle largelabelStyle;
 	public LabelStyle mediumlabelStyle;
 	public LabelStyle smalllabelStyle;
@@ -107,7 +111,8 @@ public class MyGame extends Game {
 		textFieldStyle = new TextFieldStyle();
 		textFieldStyle.font = skin.getFont("fontMedium");
 		textFieldStyle.fontColor = Assets.myGreen;
-		skin.add("textfieldcursor", new Texture("menu/cursor.png"));
+		skin.add("textfieldcursor", Assets.cursor);
+		skin.add("sliderBKG", Assets.sliderYellow);
 		textFieldStyle.cursor = skin.getDrawable("textfieldcursor");
 
 		largelabelStyle = new LabelStyle();
@@ -115,7 +120,11 @@ public class MyGame extends Game {
 		largelabelStyle.fontColor = Assets.myYellow;
 
 		listStyle = new ListStyle();
-
+		
+		mediumSliderStyle = new Slider.SliderStyle();
+		mediumSliderStyle.background = skin.getDrawable("sliderBKG");
+		mediumSliderStyle.knob = skin.getDrawable("textfieldcursor");
+		
 		mediumlabelStyle = new LabelStyle();
 		mediumlabelStyle.font = skin.getFont("fontMedium");
 		mediumlabelStyle.fontColor = Assets.myYellow;
@@ -193,6 +202,7 @@ public class MyGame extends Game {
 			soundOn = prefs.getBoolean("soundOn");
 			musicOn = prefs.getBoolean("musicOn");
 			lightOn = prefs.getBoolean("lightOn");
+			lightCounter = prefs.getInteger("lightCount");
 
 			for (int i = 1; i <= 5; i++) {
 				String str = prefs.getString("" + i);
@@ -214,6 +224,7 @@ public class MyGame extends Game {
 			soundOn = prefs.getBoolean("soundOn");
 			musicOn = prefs.getBoolean("musicOn");
 			lightOn = prefs.getBoolean("lightOn");
+			lightCounter = prefs.getInteger("lightCount");
 
 			for (int i = 1; i <= 5; i++) {
 				String str = prefs.getString("" + i);
