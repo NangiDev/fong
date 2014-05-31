@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -53,7 +54,7 @@ public class MyGame extends Game {
 	public LabelStyle mediumlabelStyle;
 	public LabelStyle smalllabelStyle;
 	public ListStyle listStyle;
-	
+
 	public HighscoreManager highscoreManager;
 	public EntityManager entityManager;
 	private SoundManager soundManager;
@@ -158,14 +159,15 @@ public class MyGame extends Game {
 
 	@Override
 	public void render() {
-		if(getScreen() != previousScreen && previousScreen != null){
-			Gdx.graphics.getGL20().glClearColor( 1, 0, 0, 1 );
-			Gdx.graphics.getGL20().glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+		if (getScreen() != previousScreen && previousScreen != null) {
+			Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
+			Gdx.graphics.getGL20().glClear(
+					GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 			previousScreen = getScreen();
 		}
-		
+
 		super.render();
-		if (Gdx.input.isKeyPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			System.exit(0);
 			Gdx.app.exit();
 		}
@@ -314,28 +316,33 @@ public class MyGame extends Game {
 
 	// Call this in each screen class that wants same background as main.
 	public void drawBackground(float delta) {
-		entityManager.shaderManager.switchToNormalShader(batch);
-		
-		Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
-		Assets.backgroundBlue.bind(0);
-		
-		for (int x = -1; x < (screenWidth / (Assets.backgroundBlue.getWidth() * scaleX)+1); x++) {
+		if (lightOn) {
+			entityManager.shaderManager.switchToNormalShader(batch);
+
+			Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
+			Assets.backgroundBlue.bind(0);
+		}
+
+		for (int x = -1; x < (screenWidth
+				/ (Assets.backgroundBlue.getWidth() * scaleX) + 1); x++) {
 			for (int y = 0; y < (screenHeight
 					/ (Assets.backgroundBlue.getHeight() * scaleY) + 1); y++) {
-				
+
 				batch.draw(Assets.backgroundBlue,
-						x * Assets.backgroundBlue.getWidth() * scaleX + backgroundStrafe, y
-								* Assets.backgroundBlue.getHeight() * scaleY
+						x * Assets.backgroundBlue.getWidth() * scaleX
+								+ backgroundStrafe,
+						y * Assets.backgroundBlue.getHeight() * scaleY
 								- backgroundSpeed,
 						Assets.backgroundBlue.getWidth() * scaleX,
 						Assets.backgroundBlue.getHeight() * scaleY);
 			}
 		}
-		
-		entityManager.shaderManager.switchToDefaultShader(batch);
+		if (lightOn) {
+			entityManager.shaderManager.switchToDefaultShader(batch);
+		}
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
-		
+
 		if (backgroundStrafe > Assets.backgroundBlue.getWidth() * scaleX)
 			backgroundStrafe = 0;
 
