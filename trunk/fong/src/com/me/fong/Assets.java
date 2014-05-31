@@ -35,6 +35,8 @@ public class Assets {
 			.internal("deflect.mp3"));
 	
 	// Menu headers
+	public static final Texture sliderYellow = new Texture(
+			Gdx.files.internal("menu/sliderYellow.png"));
 		public static final Texture buttonYellow = new Texture(
 				Gdx.files.internal("menu/buttonYellow.png"));
 		public static final Texture credits = new Texture(

@@ -12,6 +12,7 @@ import com.badlogic.gdx.Input.Keys;
 public class GameOverScreen implements Screen {
 	private MyGame game;
 	private Shadable header;
+	private Label signature;
 	private TextField nameField;
 	private Texture nameFieldTexture;
 	private Label textLabel;
@@ -23,9 +24,9 @@ public class GameOverScreen implements Screen {
 	public GameOverScreen(MyGame myGame) {
 		this.game = myGame;
 		nameFieldTexture = new Texture(Gdx.files.internal("menu/buttonYellow.png"));
-		nameField = new TextField("Föng", game.textFieldStyle);
-		nameField.setMaxLength(4);
-		nameField.setCursorPosition(4);
+		nameField = new TextField("Föng ", game.textFieldStyle);
+		nameField.setMaxLength(5);
+		nameField.setCursorPosition(5);
 		textLabel = new Label("Enter name:", game.smalllabelStyle);
 		scoreLabel = new Label("Score:", game.smalllabelStyle);
 		pointLabel = new Label("999999", game.mediumlabelStyle);
@@ -57,6 +58,7 @@ public class GameOverScreen implements Screen {
 	} 
 
 	public void draw(float delta) {
+		signature.draw(game.batch, 1);
 		game.batch.draw(nameFieldTexture, (MyGame.screenWidth * 0.5f) - (nameFieldTexture.getWidth() * 0.5f * MyGame.scaleX), nameField.getY(), nameFieldTexture.getWidth() * MyGame.scaleX,
 				nameFieldTexture.getHeight() * MyGame.scaleY);
 		game.table.draw(game.batch, 1);
@@ -98,6 +100,14 @@ public class GameOverScreen implements Screen {
 	}
  
 	private void setupMenuLayout() {
+		signature = new Label(
+				"Score automatically saves when you press restart or main menu",
+				game.smalllabelStyle);
+		signature.setAlignment(Align.center);
+		signature.setWidth(MyGame.screenWidth);
+		signature.setWrap(true);
+		signature.setPosition(0, signature.getHeight() * 3.0f * MyGame.scaleY);
+		
 		game.table.add().row().align(Align.left).padBottom(25.0f * MyGame.scaleY);
 		game.table.add(textLabel);
 		
