@@ -76,8 +76,7 @@ public class ShaderManager {
 					"   	vec3 rL = reflect(N, Vl);\n" +				
 					"   	c +=  1.0/distSq * (Cd.rgb * Ld * (max(0.0, dot(N, Vl))) + Cs*Ls*pow(max(0.0, dot(rL, Ve)), f));\n" +
 					"	}\n" +
-					"	gl_FragColor = vec4(NormalMap, 1.0);\n" +
-					"	//gl_FragColor = vec4(c, Cd.a);\n" +
+					"	gl_FragColor = vec4(c, Cd.a);\n" +
 					"}");
 	
 	private ShaderProgram defaultShader = SpriteBatch.createDefaultShader();
