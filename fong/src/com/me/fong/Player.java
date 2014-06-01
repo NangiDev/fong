@@ -114,9 +114,14 @@ public class Player extends BaseShip {
 				updateFireLevel();
 			} else if (powerUp == EnumPowerUp.Shield) {
 				if (healthBars < 3) {
-					
 					healthBars += 1;
 					lifeHasChanged = true;
+				}else{
+					MovingLabel points = new MovingLabel("+ 100", getSpriteBatch(), getEntityManager().game, getTexture(), getOrigoX()-MyGame.screenWidth*0.5f, getY(), getEntityManager(), true, EnumAiControllers.None);
+					points.setLabelStyle(getEntityManager().game.smalllabelStyle);
+					points.setLifeTime(500.0f);
+					getEntityManager().addEntity(points);
+					MyGame.score += 100;
 				}
 			}
 			// updatePowerUps();
