@@ -24,7 +24,7 @@ public class GameOverScreen implements Screen {
 	public GameOverScreen(MyGame myGame) {
 		this.game = myGame;
 		nameFieldTexture = new Texture(Gdx.files.internal("menu/buttonYellow.png"));
-		nameField = new TextField("Föng ", game.textFieldStyle);
+		nameField = new TextField("abcde", game.textFieldStyle);
 		nameField.setMaxLength(5);
 		nameField.setCursorPosition(5);
 		textLabel = new Label("Enter name:", game.smalllabelStyle);
@@ -70,6 +70,7 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void show() {
+		game.entityManager.shaderManager.clearLightSources();
 		game.gameScreen = null;
 		this.header = new Shadable(game.batch, Assets.gameOver, (MyGame.screenWidth * 0.5f)
 				- (Assets.gameOver.getWidth() * 0.5f * MyGame.scaleX),
@@ -115,6 +116,8 @@ public class GameOverScreen implements Screen {
 		float textWidth = game.textFieldStyle.font.getBounds(nameField.getText()).width;
 		game.table.add().row().align(Align.center).padBottom(50.0f * MyGame.scaleY).minSize(textWidth*1.1f,textHeight*2.0f).prefSize(textWidth*1.1f,textHeight*2.0f);
 		game.table.add(nameField).row().align(Align.left);
+		nameField.setText("Föng");
+		nameField.setCursorPosition(4);
 		
 		game.table.add(scoreLabel).row().align(Align.center)
 				.padBottom(50.0f * MyGame.scaleY);
