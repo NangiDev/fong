@@ -85,7 +85,7 @@ public class OptionScreen implements Screen {
 		this.toggleLightFxButton = new MenuButton("", game.mediumButtonStyle,
 				MyGame.lightOn);
 
-		this.amountOfLight = new Slider(1, 10, 1, false, game.mediumSliderStyle);
+		this.amountOfLight = new Slider(1, 4, 1, false, game.mediumSliderStyle);
 		amountOfLight.setVisible(true);
 		amountOfLight.setValue(MyGame.lightCounter);
 		amountOfLight.addListener(new ChangeListener() {

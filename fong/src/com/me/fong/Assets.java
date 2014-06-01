@@ -34,6 +34,10 @@ public class Assets {
 	public static final Sound laserDeflectSound = Gdx.audio.newSound(Gdx.files
 			.internal("deflect.mp3"));
 
+	// Backgrounds
+	public static final Texture backgroundBlue = new Texture(
+			Gdx.files.internal("Backgrounds/blue.png"));
+	
 	// Menu headers
 	public static final Texture sliderYellow = new Texture(
 			Gdx.files.internal("menu/sliderYellow.png"));
@@ -57,10 +61,6 @@ public class Assets {
 			Gdx.files.internal("menu/options.png"));
 	public static final Texture pause = new Texture(
 			Gdx.files.internal("menu/pause.png"));
-
-	// Backgrounds
-	public static final Texture backgroundBlue = new Texture(
-			Gdx.files.internal("Backgrounds/blue.png"));
 
 	// Lasers
 	public static final Texture laserGreen = new Texture(

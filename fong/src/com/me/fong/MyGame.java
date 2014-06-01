@@ -163,16 +163,16 @@ public class MyGame extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		//Dispose texture atlas
+		// Dispose texture atlas
 		batch.dispose();
 		stage.dispose();
 		skin.dispose();
-		Assets.backgroundBlue.dispose();
 	}
 
 	@Override
 	public void render() {
-		if (getScreen() != previousScreen && previousScreen != null) {
+
+		if (getScreen() != previousScreen) {
 			Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
 			Gdx.graphics.getGL20().glClear(
 					GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
@@ -329,13 +329,13 @@ public class MyGame extends Game {
 
 	// Call this in each screen class that wants same background as main.
 	public void drawBackground(float delta) {
-		/*
-		 * if (lightOn) {
-		 * entityManager.shaderManager.switchToNormalShader(batch);
-		 * 
-		 * Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
-		 * Assets.backgroundBlue.bind(0); }
-		 */
+
+		/*if (lightOn) {
+			entityManager.shaderManager.switchToNormalShader(batch);
+
+			Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
+			Assets.backgroundBlue.bind(0);
+		}*/
 
 		for (int x = -1; x < (screenWidth
 				/ (Assets.backgroundBlue.getWidth() * scaleX) + 1); x++) {
@@ -351,10 +351,11 @@ public class MyGame extends Game {
 						Assets.backgroundBlue.getHeight() * scaleY);
 			}
 		}
-		/*
-		 * if (lightOn) {
-		 * entityManager.shaderManager.switchToDefaultShader(batch); }
-		 */
+
+		/*if (lightOn) {
+			entityManager.shaderManager.switchToDefaultShader(batch);
+		}*/
+
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 
