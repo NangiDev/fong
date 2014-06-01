@@ -1,8 +1,5 @@
 package com.me.fong;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-
 public class World {
 	private MyGame game;
 	private Player player;

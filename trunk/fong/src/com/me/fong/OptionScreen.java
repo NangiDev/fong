@@ -57,6 +57,10 @@ public class OptionScreen implements Screen {
 			game.switchToScreen(GameState.MainMenu);
 		}
 		game.entityManager.tick(delta);
+		
+		if(toggleLightFxButton.getBoolean() != MyGame.lightOn  || toggleMusicButton.getBoolean() != MyGame.musicOn || toggleSoundFxButton.getBoolean() != MyGame.soundOn){
+			saveOptionState();
+		}
 	}
 
 	public void draw(float delta) {
@@ -97,7 +101,6 @@ public class OptionScreen implements Screen {
 	@Override
 	public void hide() {
 		game.entityManager.clearEntityList();
-		saveOptionState();
 		game.table.clearChildren();
 		innerTable.clearChildren();
 	}
@@ -114,6 +117,8 @@ public class OptionScreen implements Screen {
 		prefs.putBoolean("lightOn", MyGame.lightOn);
 		prefs.putInteger("lightCount", MyGame.lightCounter);
 		prefs.flush();
+		
+		setupMenuLayout();
 	}
 
 	@Override
@@ -129,28 +134,31 @@ public class OptionScreen implements Screen {
 	}
 
 	private void setupMenuLayout() {
+		game.table.clearChildren();
+		innerTable.clearChildren();
 
 		innerTable.add().row().padBottom(25.0f * MyGame.scaleY);
 		innerTable.add(music).align(Align.left)
-				.padRight(80.0f * MyGame.scaleX);
+				.padRight(60.0f * MyGame.scaleX);
 		innerTable.add(toggleMusicButton).align(Align.right).row()
 				.padBottom(25.0f * MyGame.scaleY);
 
 		innerTable.add(soundFx).align(Align.left)
-				.padRight(80.0f * MyGame.scaleX);
+				.padRight(60.0f * MyGame.scaleX);
 		innerTable.add(toggleSoundFxButton).align(Align.right).row()
 				.padBottom(25.0f * MyGame.scaleY);
 
 		innerTable.add(lightFx).align(Align.left)
-				.padRight(80.0f * MyGame.scaleX);
+				.padRight(60.0f * MyGame.scaleX);
 		innerTable.add(toggleLightFxButton).align(Align.center).row()
 				.padBottom(25.0f * MyGame.scaleY);
 
 		if (toggleLightFxButton.getBoolean()) {
 			innerTable.add(lightExplain).align(Align.left)
-			.padRight(80.0f * MyGame.scaleX).row();
+			.padRight(0.0f * MyGame.scaleX).row();
+			
 			innerTable.add(amountOfLight).align(Align.left)
-					.padRight(80.0f * MyGame.scaleX).fillX();
+					.padRight(0.0f * MyGame.scaleX).fillX();
 			innerTable.add(amountOfLightLabel).align(Align.right).row()
 					.padBottom(25.0f * MyGame.scaleY);
 		}

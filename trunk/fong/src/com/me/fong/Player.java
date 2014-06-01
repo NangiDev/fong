@@ -15,7 +15,7 @@ public class Player extends BaseShip {
 	public boolean lifeHasChanged = false;
 	private static float origoX;
 	private static float origoY;
-	private static int fireLevel = 0;
+	public static int fireLevel = 0;
 	public static int healthBars = 0;
 	private ArrayList<Shadable> lifebar = new ArrayList<Shadable>();
 
@@ -199,7 +199,6 @@ public class Player extends BaseShip {
 		MyGame.difficulty = 1.0f;
 		fireLevel = 0;
 		healthBars = 0;
-		getEntityManager().shaderManager.clearLightSources();
 		getEntityManager().game.switchToScreen(GameState.GameOver);
 	}
 

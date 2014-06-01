@@ -14,6 +14,7 @@ public class MainMenuScreen implements Screen {
 	private TextButton howToPlayButton;
 	private TextButton optionsButton;
 	private TextButton creditsButton;
+	private TextButton exitButton;
 	private Shadable header;
 	
 	public MainMenuScreen(MyGame myGame) {
@@ -49,7 +50,14 @@ public class MainMenuScreen implements Screen {
 				MyGame.screenWidth * 0.5f - Assets.logotype.getWidth() * 0.5f
 						* MyGame.scaleX, MyGame.screenHeight * 0.7f,
 				game.entityManager, false);
+		game.entityManager.shaderManager.clearLightSources();
 		game.entityManager.addEntity(header);
+		
+
+		MyGame.difficulty = 1.0f;
+		Player.fireLevel = 0;
+		Player.healthBars = 0;
+		
 		createScreen();
 		setupMenuLayout();
 	}
@@ -91,6 +99,8 @@ public class MainMenuScreen implements Screen {
 				GameState.Options, game);
 		creditsButton = new MenuButton("Credits", game.mediumButtonStyle,
 				GameState.Credits, game);
+		exitButton = new MenuButton("Exit", game.mediumButtonStyle,
+				GameState.Exit, game);
 
 		System.out.println("new MainMenuScreen created");
 	}
@@ -101,8 +111,9 @@ public class MainMenuScreen implements Screen {
 		game.table.add(highscoreButton).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(optionsButton).row().padBottom(25.0f * MyGame.scaleY);
 		game.table.add(howToPlayButton).row().padBottom(25.0f * MyGame.scaleY);
-		game.table.add(creditsButton);
-		game.table.padTop(header.getTexture().getHeight() * 1.5f
+		game.table.add(creditsButton).row().padBottom(25.0f * MyGame.scaleY);
+		game.table.add(exitButton);
+		game.table.padTop(header.getTexture().getHeight() * 1.2f
 				* MyGame.scaleY);
 	}
 }

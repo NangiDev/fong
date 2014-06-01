@@ -1,5 +1,6 @@
 package com.me.fong;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -67,7 +68,6 @@ public class MyGame extends Game {
 	public GameScreen gameScreen;
 	private PauseScreen pauseScreen;
 	private OptionScreen optionScreen;
-	private LoadingScreen loadingScreen;
 	private CreditsScreen creditsScreen;
 	private MainMenuScreen mainMenuScreen;
 	private GameOverScreen gameOverScreen;
@@ -112,6 +112,7 @@ public class MyGame extends Game {
 		textFieldStyle.font = skin.getFont("fontMedium");
 		textFieldStyle.fontColor = Assets.myGreen;
 		skin.add("textfieldcursor", Assets.cursor);
+		skin.add("slider", Assets.slider);
 		skin.add("sliderBKG", Assets.sliderYellow);
 		textFieldStyle.cursor = skin.getDrawable("textfieldcursor");
 
@@ -120,11 +121,11 @@ public class MyGame extends Game {
 		largelabelStyle.fontColor = Assets.myYellow;
 
 		listStyle = new ListStyle();
-		
+
 		mediumSliderStyle = new Slider.SliderStyle();
 		mediumSliderStyle.background = skin.getDrawable("sliderBKG");
-		mediumSliderStyle.knob = skin.getDrawable("textfieldcursor");
-		
+		mediumSliderStyle.knob = skin.getDrawable("slider");
+
 		mediumlabelStyle = new LabelStyle();
 		mediumlabelStyle.font = skin.getFont("fontMedium");
 		mediumlabelStyle.fontColor = Assets.myYellow;
@@ -161,9 +162,12 @@ public class MyGame extends Game {
 
 	@Override
 	public void dispose() {
+		super.dispose();
+		//Dispose texture atlas
 		batch.dispose();
 		stage.dispose();
 		skin.dispose();
+		Assets.backgroundBlue.dispose();
 	}
 
 	@Override
@@ -178,7 +182,6 @@ public class MyGame extends Game {
 		super.render();
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			System.exit(0);
-			Gdx.app.exit();
 		}
 		soundManager.tick();
 	}
@@ -214,6 +217,7 @@ public class MyGame extends Game {
 			prefs.putBoolean("soundOn", true);
 			prefs.putBoolean("musicOn", true);
 			prefs.putBoolean("lightOn", true);
+			prefs.putInteger("lightCount", (int) lightCounter);
 			prefs.putString("1", "Föng 0");
 			prefs.putString("2", "Föng 0");
 			prefs.putString("3", "Föng 0");
@@ -284,10 +288,8 @@ public class MyGame extends Game {
 			setScreen(optionScreen);
 			gameRunning = false;
 			break;
-		case Loading:
-			if (loadingScreen == null)
-				loadingScreen = new LoadingScreen(this);
-			setScreen(loadingScreen);
+		case Exit:
+			System.exit(0);
 			gameRunning = false;
 			break;
 		case Credits:
@@ -327,12 +329,13 @@ public class MyGame extends Game {
 
 	// Call this in each screen class that wants same background as main.
 	public void drawBackground(float delta) {
-		/*if (lightOn) {
-			entityManager.shaderManager.switchToNormalShader(batch);
-
-			Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
-			Assets.backgroundBlue.bind(0);
-		}*/
+		/*
+		 * if (lightOn) {
+		 * entityManager.shaderManager.switchToNormalShader(batch);
+		 * 
+		 * Assets.NORMALS_BY_NAME.get("defaultNormal").bind(1);
+		 * Assets.backgroundBlue.bind(0); }
+		 */
 
 		for (int x = -1; x < (screenWidth
 				/ (Assets.backgroundBlue.getWidth() * scaleX) + 1); x++) {
@@ -348,9 +351,10 @@ public class MyGame extends Game {
 						Assets.backgroundBlue.getHeight() * scaleY);
 			}
 		}
-		/*if (lightOn) {
-			entityManager.shaderManager.switchToDefaultShader(batch);
-		}*/
+		/*
+		 * if (lightOn) {
+		 * entityManager.shaderManager.switchToDefaultShader(batch); }
+		 */
 		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 
