@@ -100,6 +100,7 @@ public class OptionScreen implements Screen {
 
 	@Override
 	public void hide() {
+		saveOptionState();
 		game.entityManager.clearEntityList();
 		game.table.clearChildren();
 		innerTable.clearChildren();

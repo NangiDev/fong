@@ -32,7 +32,6 @@ public class ShaderManager {
 			// FragmentShader
 			// GL ES specific stuff
 			"#ifdef GL_ES\n" //
-					+ "#pragma optionNV (unroll none)\n"
 					+ "#define LOWP lowp\n" //
 					+ "precision highp float;\n" //
 					+ "#else\n" //
