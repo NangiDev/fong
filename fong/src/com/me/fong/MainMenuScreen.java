@@ -55,6 +55,7 @@ public class MainMenuScreen implements Screen {
 		
 
 		MyGame.difficulty = 1.0f;
+		MyGame.score = 0;
 		Player.fireLevel = 0;
 		Player.healthBars = 0;
 		
