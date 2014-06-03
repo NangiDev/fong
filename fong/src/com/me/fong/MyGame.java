@@ -1,6 +1,5 @@
 package com.me.fong;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -14,11 +13,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
@@ -354,9 +351,9 @@ public class MyGame extends Game {
 
 		/*if (lightOn) {
 			entityManager.shaderManager.switchToDefaultShader(batch);
-		}*/
+		}
 
-		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
+*/		if (backgroundSpeed > Assets.backgroundBlue.getHeight() * scaleY)
 			backgroundSpeed = 0;
 
 		if (backgroundStrafe > Assets.backgroundBlue.getWidth() * scaleX)

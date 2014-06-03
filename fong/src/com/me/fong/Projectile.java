@@ -31,6 +31,9 @@ public class Projectile extends CollidableComponent {
 			lightSource.setRedLaserLight();
 		}
 		
+		if(parentIsPlayer)
+			getEntityManager().playerProjectiles.add(this);
+		
 		entityManager.addEntity(this);
 	}
 
@@ -55,6 +58,7 @@ public class Projectile extends CollidableComponent {
 	@Override
 	public void dispose() {
 		lightSource.dispose();
+		getEntityManager().playerProjectiles.remove(this);
 		super.dispose();
 	}
 
