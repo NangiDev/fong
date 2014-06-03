@@ -45,40 +45,60 @@ public class EntityManager {
 		//shaderManager.passLights();
 
 		for (int i = 0; i < ticks.size(); i++) {
-			if (!almighty && ticks.get(i).getY() < MyGame.screenHeight && ticks.get(i).getY() > 0) {
+			Entity iTick = ticks.get(i);
+			if (!almighty && iTick.getY() < MyGame.screenHeight && iTick.getY() > 0) {
 				for (int j = i + 1; j < ticks.size(); j++) {
-					if (ticks.get(i) instanceof CollidableComponent
+					if (iTick instanceof CollidableComponent
 							&& ticks.get(j) instanceof CollidableComponent) {
-						if (((CollidableComponent) ticks.get(i))
-								.intersectsWith((CollidableComponent) ticks
-										.get(j))) {
-							CollidableComponent a = (CollidableComponent) ticks
-									.get(i);
-							CollidableComponent b = (CollidableComponent) ticks
-									.get(j);
-							a.onCollision(b);
-							b.onCollision(a);
+						if(!checkSameInstance(iTick,ticks.get(j)) && checkVincinity(iTick, ticks.get(j))){
+							if (((CollidableComponent) iTick)
+									.intersectsWith((CollidableComponent) ticks
+											.get(j))) {
+									CollidableComponent a = (CollidableComponent) iTick;
+									CollidableComponent b = (CollidableComponent) ticks
+											.get(j);
+									a.onCollision(b);
+									b.onCollision(a);
+							}
 						}
 					}
 				}
 			}
 			
-			if (ticks.get(i) instanceof Shadable && MyGame.lightOn && ticks.get(i).getY() < MyGame.screenHeight) {
+			if (iTick instanceof Shadable && MyGame.lightOn && iTick.getY() < MyGame.screenHeight) {
 				shaderManager.switchToNormalShader(game.batch);
-				shaderManager.sortLightsByDistance(new Vector2(((Shadable)ticks.get(i)).getX(),((Shadable)ticks.get(i)).getY()));
+				shaderManager.sortLightsByDistance(new Vector2(((Shadable)iTick).getX(),((Shadable)iTick).getY()));
 				shaderManager.passLights();
 				shaderManager.switchToDefaultShader(game.batch);
-				((Shadable) ticks.get(i)).bind();
+				((Shadable) iTick).bind();
 			}
 
-			if (ticks.get(i) instanceof DrawComponent && ticks.get(i).getY() < MyGame.screenHeight) {
-				((DrawComponent) ticks.get(i)).draw();				
+			if (iTick instanceof DrawComponent && iTick.getY() < MyGame.screenHeight) {
+				((DrawComponent) iTick).draw();				
 			}
 
-			ticks.get(i).tick(delta);
+			iTick.tick(delta);
 		}
 		shaderManager.switchToDefaultShader(game.batch);
 		shaderManager.updateLightRotation();
+	}
+	
+	private boolean checkVincinity(Entity a, Entity b){
+		if(a.getY() >= MyGame.screenHeight * 0.5 && b.getY() >= MyGame.screenHeight * 0.5)
+			return true;
+		else if(a.getY() <= MyGame.screenHeight * 0.5 && b.getY() <= MyGame.screenHeight * 0.5)
+			return true;
+		else
+			return false;
+	}
+	
+	private boolean checkSameInstance(Entity a, Entity b){
+		if(a instanceof Ai && b instanceof Ai)
+			return true;
+		else if(a instanceof Projectile && b instanceof Projectile)
+			return true;
+		else
+			return false;
 	}
 	
 	public void setDefaultSunPosition(){
