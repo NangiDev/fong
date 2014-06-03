@@ -146,7 +146,7 @@ public class Player extends BaseShip {
 				}
 				updateFireLevel();
 			}
-			if (o instanceof Ai || o instanceof Meteor) {
+			if (o instanceof Ai) {
 				healthBars -= 1;
 				lifeHasChanged = true;
 				invincible = true;
@@ -168,7 +168,7 @@ public class Player extends BaseShip {
 	public void updateFireLevel() {
 		if (fireLevel % 2 == 0) {
 			setSpread(fireLevel/2 + 1);
-			System.out.println("Spread: " + getSpread());
+			//System.out.println("Spread: " + getSpread());
 		} else {
 			int tempFireLevel;
 			if(fireLevel == 1)

@@ -15,7 +15,6 @@ public class WaveManager {
 	private Array<Integer> waveOrder = new Array<Integer>();
 	private MyGame game;
 	private Ai ai;
-	private Meteor ob;
 	private float waveStartTimer;
 	private float waveStartTimerDiff;
 	private int waveNumber;
