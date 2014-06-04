@@ -45,16 +45,16 @@ public class CollidableComponent extends Shadable{
 	
 	private boolean checkIntersection(CollidableComponent a, CollidableComponent b){
 		float wx = Math.abs(a.getOrigoX() - b.getOrigoX());
-		float sumwx = (a.getTexture().getWidth() / 2.0f) + (b.getTexture().getWidth() / 2.0f);
+		float sumwx = (a.getTexture().getWidth() * MyGame.scaleX / 2.0f) + (b.getTexture().getWidth() * MyGame.scaleX / 2.0f);
 
 		float wy = Math.abs(a.getOrigoY() - b.getOrigoY());
-		float sumwy = (a.getTexture().getHeight() / 4.0f) + (b.getTexture().getHeight() / 4.0f);
+		float sumwy = (a.getTexture().getHeight() * MyGame.scaleY / 4.0f) + (b.getTexture().getHeight() * MyGame.scaleY / 4.0f);
 		
 		float fx = Math.abs(a.getOrigoX() - b.getOrigoX());
-		float sumfx = (a.getTexture().getWidth() / 4.0f) + (b.getTexture().getWidth() / 4.0f);
+		float sumfx = (a.getTexture().getWidth() * MyGame.scaleX / 4.0f) + (b.getTexture().getWidth() * MyGame.scaleX / 4.0f);
 
 		float fy = Math.abs(a.getOrigoY() - b.getOrigoY());
-		float sumfy = (a.getTexture().getHeight() / 2.0f) + (b.getTexture().getHeight() / 2.0f);
+		float sumfy = (a.getTexture().getHeight() * MyGame.scaleY / 2.0f) + (b.getTexture().getHeight() * MyGame.scaleY / 2.0f);
 
 		return (wx <= sumwx && wy <= sumwy || fx <= sumfx && fy <= sumfy);
 	}
