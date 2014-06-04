@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 
 public class ShaderManager {
 
@@ -81,18 +83,14 @@ public class ShaderManager {
 
 	private ArrayList<LightSource> lights = new ArrayList<LightSource>();
 	private LightSource sun;
+	private SpriteBatch batch;
 
-	public ShaderManager() {
-
+	public ShaderManager(SpriteBatch batch) {
+		this.batch = batch;
 		shaderCompiled(normalShader);
 
-		// sun = new LightSource(MyGame.screenWidth, MyGame.screenHeight, this);
 		sun = new LightSource(0, MyGame.screenHeight, this);
-		// sun = new LightSource(1.0f,1.0f, this);
-		// LightSource sun2 = new LightSource(MyGame.screenWidth/2,
-		// MyGame.screenHeight/2, this);
 		sun.setSunLight();
-		// sun2.setBlueLaserLight();
 
 		ShaderProgram.pedantic = false;
 		normalShader.begin();
@@ -101,8 +99,6 @@ public class ShaderManager {
 		normalShader.setUniformf("Resolution", MyGame.screenWidth,
 				MyGame.screenHeight);
 		normalShader.end();
-		// normalShader.dispose();
-
 	}
 
 	public void sortLightsByDistance(Vector2 spritePos) {
@@ -155,7 +151,6 @@ public class ShaderManager {
 		}
 		for (i = 0; i < lights.size() && i < MyGame.lightCounter; i++) {
 			LightSource light = lights.get(i);
-			// light.updateLight();
 			lightPositions[i][0] = light.getPos().x;
 			lightPositions[i][1] = light.getPos().y;
 			lightPositions[i][2] = light.getPos().z;
@@ -218,4 +213,17 @@ public class ShaderManager {
 		}
 	}
 
+	public void draw(DrawComponent iTick) {
+		if(iTick instanceof Shadable && MyGame.lightOn){
+			switchToNormalShader(batch);
+			sortLightsByDistance(new Vector2(((Shadable) iTick).getX(), ((Shadable) iTick).getY()));
+			passLights();
+			((Shadable)iTick).bind();
+			((Shadable)iTick).draw();
+		} else {
+			switchToDefaultShader(batch);
+			((DrawComponent)iTick).draw();
+		}
+		switchToDefaultShader(batch);
+	}
 }
