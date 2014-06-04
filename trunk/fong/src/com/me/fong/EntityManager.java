@@ -22,14 +22,11 @@ public class EntityManager {
 
 	public EntityManager(MyGame game) {
 		this.game = game;
-		this.shaderManager = new ShaderManager();
+		this.shaderManager = new ShaderManager(game.batch);
 	}
 
 	public void tick(float delta) {
-		// System.out.println("Entities size: " + entities.size());
 		ticks = new ArrayList<Entity>(entities);
-		if (MyGame.lightOn)
-			shaderManager.switchToNormalShader(game.batch);
 
 		if (Gdx.input.isKeyPressed(Keys.J) && slutanuro) {
 			almighty = !almighty;
@@ -44,41 +41,14 @@ public class EntityManager {
 			slutanuro = true;
 		}
 
-		// shaderManager.passLights();
-
 		for (int i = 0; i < ticks.size(); i++) {
 			Entity iTick = ticks.get(i);
-			/*
-			 * if (!almighty && iTick.getY() < MyGame.screenHeight &&
-			 * iTick.getY() > 0) { for (int j = i + 1; j < ticks.size(); j++) {
-			 * if (iTick instanceof CollidableComponent && ticks.get(j)
-			 * instanceof CollidableComponent) {
-			 * if(!checkSameInstance(iTick,ticks.get(j)) &&
-			 * checkVincinity(iTick, ticks.get(j))){ if (((CollidableComponent)
-			 * iTick) .intersectsWith((CollidableComponent) ticks .get(j))) {
-			 * CollidableComponent a = (CollidableComponent) iTick;
-			 * CollidableComponent b = (CollidableComponent) ticks .get(j);
-			 * a.onCollision(b); b.onCollision(a); } } } } }
-			 */
-
-			if (iTick instanceof Shadable && MyGame.lightOn
-					&& iTick.getY() < MyGame.screenHeight) {
-				shaderManager.switchToNormalShader(game.batch);
-				shaderManager.sortLightsByDistance(new Vector2(
-						((Shadable) iTick).getX(), ((Shadable) iTick).getY()));
-				shaderManager.passLights();
-				shaderManager.switchToDefaultShader(game.batch);
-				((Shadable) iTick).bind();
-			}
 
 			if (iTick instanceof DrawComponent
-					&& iTick.getY() < MyGame.screenHeight) {
-				((DrawComponent) iTick).draw();
-			}
-
+					&& iTick.getY() < MyGame.screenHeight)
+				shaderManager.draw((DrawComponent) iTick);
 			iTick.tick(delta);
 		}
-		shaderManager.switchToDefaultShader(game.batch);
 		shaderManager.updateLightRotation();
 	}
 
