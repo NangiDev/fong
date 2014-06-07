@@ -6,6 +6,7 @@ public class SoundManager {
 		Assets.music.setVolume(0.0f);
 		Assets.music.play();
 		Assets.music.setLooping(true);
+		tick();
 	}
 	
 	public void tick(){

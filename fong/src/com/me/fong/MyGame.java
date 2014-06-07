@@ -58,7 +58,7 @@ public class MyGame extends Game {
 
 	public HighscoreManager highscoreManager;
 	public EntityManager entityManager;
-	private SoundManager soundManager;
+	public SoundManager soundManager;
 
 	public Screen previousScreen;
 	public GameScreen gameScreen;
@@ -179,7 +179,6 @@ public class MyGame extends Game {
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			System.exit(0);
 		}
-		soundManager.tick();
 	}
 
 	@Override

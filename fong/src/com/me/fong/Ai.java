@@ -53,11 +53,6 @@ public class Ai extends BaseShip {
 			
 			if (getHealth() <= 0) {
 				int rand = MathUtils.random(0, 9);
-				//if (rand == 0) {
-					//PowerUpPickup p = new PowerUpPickup(getSpriteBatch(),
-						//	Assets.pill_green, getOrigoX(), getOrigoY(),
-							//getEntityManager(), false, getPowerUp());
-				//}
 				MovingLabel points = new MovingLabel("200", getSpriteBatch(), getEntityManager().game, getTexture(), getOrigoX()-MyGame.screenWidth*0.5f, getY(), getEntityManager(), true, EnumAiControllers.None);
 				points.setLabelStyle(getEntityManager().game.smalllabelStyle);
 				points.setLifeTime(500.0f);
@@ -80,8 +75,6 @@ public class Ai extends BaseShip {
 
 	public void randomizePowerUps() {
 		int powerUpId = MathUtils.random(1, 3);
-		//powerUpId = 3;
-		// System.out.println("Level: " + level);
 		switch (powerUpId) {
 		case 1:
 			powerUp = EnumPowerUp.FastFire;
@@ -97,9 +90,6 @@ public class Ai extends BaseShip {
 			if (level == 3) {
 				setTexture(Assets.enemyBlack3);
 			}
-			/*
-			 * if (level == 4) { randomizeColor(powerUp); }
-			 */
 			break;
 		case 2:
 			powerUp = EnumPowerUp.FastMovement;
@@ -115,9 +105,6 @@ public class Ai extends BaseShip {
 			if (level == 3) {
 				setTexture(Assets.enemyBlack2);
 			}
-			/*
-			 * if (level == 4) { randomizeColor(powerUp); }
-			 */
 			break;
 		case 3:
 			powerUp = EnumPowerUp.Shield;
@@ -133,9 +120,6 @@ public class Ai extends BaseShip {
 			if (level == 3) {
 				setTexture(Assets.enemyBlack4);
 			}
-			/*
-			 * if (level == 4) { randomizeColor(powerUp); }
-			 */
 			break;
 			
 		}
@@ -144,7 +128,6 @@ public class Ai extends BaseShip {
 
 	public void randomizeColor(EnumPowerUp powerup) {
 		int colorInt = MathUtils.random(0, 3);
-		// System.out.println("Randomize color");
 		switch (powerup) {
 		case FastFire:
 			if (colorInt == 0) {
@@ -189,7 +172,6 @@ public class Ai extends BaseShip {
 			}
 			break;
 		}
-
 	}
 
 	@Override
