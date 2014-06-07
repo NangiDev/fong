@@ -60,6 +60,7 @@ public class OptionScreen implements Screen {
 		
 		if(toggleLightFxButton.getBoolean() != MyGame.lightOn  || toggleMusicButton.getBoolean() != MyGame.musicOn || toggleSoundFxButton.getBoolean() != MyGame.soundOn){
 			saveOptionState();
+			game.soundManager.tick();
 		}
 	}
 

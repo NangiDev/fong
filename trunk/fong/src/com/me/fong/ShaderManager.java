@@ -84,6 +84,8 @@ public class ShaderManager {
 	private ArrayList<LightSource> lights = new ArrayList<LightSource>();
 	private LightSource sun;
 	private SpriteBatch batch;
+	private float[][] lightPositions = new float[10][3];
+	private float[][] lightColors = new float[10][3];
 
 	public ShaderManager(SpriteBatch batch) {
 		this.batch = batch;
@@ -141,8 +143,6 @@ public class ShaderManager {
 	}
 
 	public void passLights() {
-		float[][] lightPositions = new float[10][3];
-		float[][] lightColors = new float[10][3];
 		int i;
 		for (i = 0; i < 10; i++) {
 			lightColors[i][0] = 0.0f;
@@ -220,10 +220,11 @@ public class ShaderManager {
 			passLights();
 			((Shadable)iTick).bind();
 			((Shadable)iTick).draw();
-		} else {
-			switchToDefaultShader(batch);
-			((DrawComponent)iTick).draw();
-		}
+		} //else {
+			//switchToDefaultShader(batch);
+			//((DrawComponent)iTick).draw();
+		//}
+		((DrawComponent)iTick).draw();
 		switchToDefaultShader(batch);
 	}
 }
