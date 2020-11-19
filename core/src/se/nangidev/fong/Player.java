@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -95,11 +96,11 @@ public class Player extends BaseShip {
                 * FongMain.scaleX)
             setX(FongMain.screenWidth - getTexture().getWidth() * FongMain.scaleX);
 
-        if (((System.nanoTime() - invincibleTime) / 1000000) > 1000.0f) {
+        if (((TimeUtils.nanoTime() - invincibleTime) / 1000000) > 1000.0f) {
             invincible = false;
         }
 
-        if (invincible && ((System.nanoTime() / 1000000) % 2) == 0) {
+        if (invincible && ((TimeUtils.nanoTime() / 1000000) % 2) == 0) {
             ignoreDraw = !ignoreDraw;
         } else {
             ignoreDraw = false;
@@ -139,7 +140,7 @@ public class Player extends BaseShip {
                 healthBars -= 1;
                 lifeHasChanged = true;
                 invincible = true;
-                invincibleTime = System.nanoTime();
+                invincibleTime = TimeUtils.nanoTime();
                 if (healthBars < 0) {
                     disposeAnimation();
                     dispose();
@@ -155,7 +156,7 @@ public class Player extends BaseShip {
                 healthBars -= 1;
                 lifeHasChanged = true;
                 invincible = true;
-                invincibleTime = System.nanoTime();
+                invincibleTime = TimeUtils.nanoTime();
                 if (healthBars < 0) {
                     disposeAnimation();
                     dispose();

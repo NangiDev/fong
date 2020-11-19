@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.width = 600/2;
 		config.height = 960/2;
 		config.resizable = false;
+		config.forceExit = false;
 		config.addIcon("icon128.png", FileType.Internal);
 		config.addIcon("icon32.png", FileType.Internal);
 		config.addIcon("icon16.png", FileType.Internal);

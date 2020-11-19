@@ -1,5 +1,6 @@
 package se.nangidev.fong;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -100,8 +101,15 @@ public class MainMenuScreen implements Screen {
 				GameState.Options, game);
 		creditsButton = new MenuButton("Credits", game.mediumButtonStyle,
 				GameState.Credits, game);
-		exitButton = new MenuButton("Exit", game.mediumButtonStyle,
-				GameState.Exit, game);
+
+		switch (Gdx.app.getType()) {
+			case WebGL:
+				break;
+			default:
+				exitButton = new MenuButton("Exit", game.mediumButtonStyle,
+						GameState.Exit, game);
+				break;
+		}
 
 		System.out.println("new MainMenuScreen created");
 	}

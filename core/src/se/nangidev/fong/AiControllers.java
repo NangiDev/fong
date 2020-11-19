@@ -1,6 +1,7 @@
 package se.nangidev.fong;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class AiControllers {
 	private Ai ai;
@@ -104,12 +105,12 @@ public class AiControllers {
 
 			if (!startCircle) {
 				ai.setY(ai.getY() - ai.getSpeed() * delta * FongMain.scaleY);
-				oldTime = System.nanoTime();
+				oldTime = TimeUtils.nanoTime();
 			}
 
 			if (!endCircle && ai.getOrigoY() <= FongMain.screenHeight * 0.7f) {
 				startCircle = true;
-				if (((System.nanoTime() - oldTime) / 1000000) > 500.0f) {
+				if (((TimeUtils.nanoTime() - oldTime) / 1000000) > 500.0f) {
 					midPoint = new Vector2(se.nangidev.fong.Player.getPlayerPos().x, Player.getPlayerPos().y);
 					currentPos = new Vector2(ai.getOrigoX(), ai.getOrigoY());
 					dir = new Vector2(midPoint.x - currentPos.x, midPoint.y
